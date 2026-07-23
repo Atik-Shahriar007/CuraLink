@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 
 interface Doctor {
   id: string;
@@ -18,9 +19,15 @@ interface Doctor {
 
 export default function DoctorProfilePage() {
   const { id } = useParams<{ id: string }>();
+  const { account } = useAuth();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [booking, setBooking] = useState(false);
+  const [bookingError, setBookingError] = useState("");
 
   useEffect(() => {
     fetch(`/api/doctors/${id}`)
@@ -32,6 +39,54 @@ export default function DoctorProfilePage() {
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
   }, [id]);
+
+  async function handleBook() {
+    setBookingError("");
+
+    if (!account) {
+      setBookingError("Please log in as a patient to book a consultation.");
+      return;
+    }
+    if (account.role !== "PATIENT") {
+      setBookingError("Only patients can book consultations.");
+      return;
+    }
+    if (!selectedDate || !selectedTime) {
+      setBookingError("Please choose a date and time.");
+      return;
+    }
+
+    const combinedDate = new Date(`${selectedDate}T${selectedTime}`);
+    if (combinedDate.getTime() <= Date.now()) {
+      setBookingError("Please choose a future date and time.");
+      return;
+    }
+
+    setBooking(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          doctorId: id,
+          date: combinedDate.toISOString(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setBookingError(data.error || "Could not start checkout");
+        setBooking(false);
+        return;
+      }
+
+      window.location.href = data.url; // redirect to Stripe Checkout
+    } catch {
+      setBookingError("Something went wrong. Please try again.");
+      setBooking(false);
+    }
+  }
 
   if (loading) return <p className="max-w-3xl mx-auto px-4 py-8">Loading...</p>;
   if (notFound || !doctor)
@@ -80,9 +135,37 @@ export default function DoctorProfilePage() {
         </div>
       )}
 
-      <button className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">
-        Book Consultation
-      </button>
+      <div className="mt-8 border rounded-xl p-6 bg-gray-50">
+        <h2 className="font-semibold text-lg mb-4">Book a Consultation</h2>
+
+        <div className="flex flex-wrap gap-3 mb-4">
+          <input
+            type="date"
+            value={selectedDate}
+            min={new Date().toISOString().split("T")[0]}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
+          <input
+            type="time"
+            value={selectedTime}
+            onChange={(e) => setSelectedTime(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
+        </div>
+
+        {bookingError && (
+          <p className="text-red-600 text-sm mb-3">{bookingError}</p>
+        )}
+
+        <button
+          onClick={handleBook}
+          disabled={booking}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+        >
+          {booking ? "Redirecting to payment..." : "Book Consultation"}
+        </button>
+      </div>
     </div>
   );
 }
