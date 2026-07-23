@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/lib/auth";
+import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "curalink_token";
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 
 const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT"> = {
   "/admin": "ADMIN",
@@ -9,7 +10,7 @@ const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT"> = {
   "/patient": "PATIENT",
 };
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const matchedPrefix = Object.keys(roleProtectedPrefixes).find((prefix) =>
@@ -23,14 +24,16 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  const payload = verifyToken(token);
-  if (!payload) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const role = payload.role as string;
 
-  const requiredRole = roleProtectedPrefixes[matchedPrefix];
-  if (payload.role !== requiredRole) {
-    return NextResponse.redirect(new URL("/", req.url));
+    const requiredRole = roleProtectedPrefixes[matchedPrefix];
+    if (role !== requiredRole) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+  } catch {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();
