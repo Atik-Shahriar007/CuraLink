@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@daily-co/daily-js": "^0.91.0",
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
@@ -16,6 +17,8 @@
     "jsonwebtoken": "^9.0.3",
     "next": "16.2.11",
     "prisma": "^6.19.3",
+    "pusher": "^5.3.4",
+    "pusher-js": "^8.6.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "stripe": "^22.3.2",
