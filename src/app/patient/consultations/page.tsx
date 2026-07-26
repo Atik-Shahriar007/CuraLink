@@ -84,11 +84,21 @@ export default function PatientConsultationsPage() {
                   </p>
                 </div>
               </div>
-              <span
-                className={`text-xs font-medium px-3 py-1 rounded-full ${statusStyles[c.status]}`}
-              >
-                {c.status.replace("_", " ")}
-              </span>
+              <div className="flex items-center gap-3">
+                <span
+                  className={`text-xs font-medium px-3 py-1 rounded-full ${statusStyles[c.status]}`}
+                >
+                  {c.status.replace("_", " ")}
+                </span>
+                {c.status === "IN_PROGRESS" && (
+                  <Link
+                    href={`/consultation/${c.id}`}
+                    className="bg-green-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-green-700"
+                  >
+                    Join
+                  </Link>
+                )}
+              </div>
             </div>
           ))}
         </div>
