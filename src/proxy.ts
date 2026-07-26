@@ -10,7 +10,7 @@ const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT"> = {
   "/patient": "PATIENT",
 };
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const matchedPrefix = Object.keys(roleProtectedPrefixes).find((prefix) =>
