@@ -12,6 +12,7 @@ export default function ConsultationRoomPage() {
 
   const callFrameRef = useRef<DailyCall | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hasStartedRef = useRef(false); // guards against Strict Mode double-invoke
 
   const [status, setStatus] = useState<"loading" | "joining" | "in-call" | "error">(
     "loading"
@@ -25,28 +26,34 @@ export default function ConsultationRoomPage() {
       return;
     }
 
-    let cancelled = false;
-    const accountRole = account.role; // captured now, safe to use in later callbacks
+    if (hasStartedRef.current) return; // already started once, skip the duplicate effect run
+    hasStartedRef.current = true;
+
+    const accountRole = account.role;
 
     async function join() {
       setStatus("joining");
+      console.log("[room] fetching token...");
 
       try {
         const res = await fetch(`/api/consultations/${id}/room-token`, {
           method: "POST",
         });
         const data = await res.json();
+        console.log("[room] token response:", res.status, data.roomName);
 
         if (!res.ok) {
-          if (!cancelled) {
-            setErrorMsg(data.error || "Could not join consultation");
-            setStatus("error");
-          }
+          setErrorMsg(data.error || "Could not join consultation");
+          setStatus("error");
           return;
         }
 
-        if (cancelled || !containerRef.current) return;
+        if (!containerRef.current) {
+          console.log("[room] container not ready");
+          return;
+        }
 
+        console.log("[room] creating call frame...");
         const callFrame = DailyIframe.createFrame(containerRef.current, {
           iframeStyle: {
             width: "100%",
@@ -66,28 +73,38 @@ export default function ConsultationRoomPage() {
           );
         });
 
+        callFrame.on("error", (e) => {
+          console.error("[room] daily error event:", e);
+        });
+
+        console.log("[room] calling join()...");
         await callFrame.join({
           url: `https://${data.dailyDomain}.daily.co/${data.roomName}`,
           token: data.token,
         });
+        console.log("[room] join() resolved successfully");
 
-        if (!cancelled) setStatus("in-call");
-      } catch (err) {
-        console.error("Join error:", err);
-        if (!cancelled) {
-          setErrorMsg("Something went wrong joining the call");
-          setStatus("error");
-        }
+        setStatus("in-call");
+      } catch (err: any) {
+        console.error(
+          "[room] Join error:",
+          err?.errorMsg || err?.message || JSON.stringify(err) || err
+        );
+        setErrorMsg("Something went wrong joining the call");
+        setStatus("error");
       }
     }
 
     join();
-
-    return () => {
-      cancelled = true;
-      callFrameRef.current?.destroy();
-    };
   }, [id, account, authLoading, router]);
+
+  // Separate cleanup on actual unmount only
+  useEffect(() => {
+    return () => {
+      callFrameRef.current?.destroy();
+      callFrameRef.current = null;
+    };
+  }, []);
 
   if (status === "error") {
     return (
@@ -104,16 +121,14 @@ export default function ConsultationRoomPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="relative flex flex-col h-screen">
+      <div ref={containerRef} className="flex-1" />
+
       {(status === "loading" || status === "joining") && (
-        <div className="flex-1 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center bg-white">
           <p className="text-gray-500">Joining consultation...</p>
         </div>
       )}
-      <div
-        ref={containerRef}
-        className={status === "in-call" ? "flex-1" : "hidden"}
-      />
     </div>
   );
 }
