@@ -48,7 +48,12 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <a href="/admin/patients" className="text-blue-600 hover:underline text-sm">
+          View Patients →
+        </a>
+      </div>
 
       <h2 className="text-lg font-semibold mb-3">
         Pending Approval ({pending.length})
