@@ -167,7 +167,7 @@ export default function ConsultationRoomPage() {
         )}
       </div>
 
-      <div className="w-80 border-l flex flex-col bg-white">
+      <div className="w-80 border-l flex flex-col bg-white text-gray-900">
         <div className="px-4 py-3 border-b font-semibold">Chat</div>
 
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
@@ -179,7 +179,7 @@ export default function ConsultationRoomPage() {
               <p className="text-xs text-gray-500">
                 {m.senderName} · {new Date(m.timestamp).toLocaleTimeString()}
               </p>
-              <p className="text-sm bg-gray-100 rounded-lg px-3 py-2 mt-1 inline-block">
+              <p className="text-sm bg-gray-100 text-gray-900 rounded-lg px-3 py-2 mt-1 inline-block">
                 {m.text}
               </p>
             </div>
