@@ -1,65 +1,145 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const steps = [
+  {
+    n: "01",
+    title: "Browse & choose",
+    body: "Search doctors by specialty, hospital, or price, and read real profiles before you book.",
+  },
+  {
+    n: "02",
+    title: "Book & pay",
+    body: "Pick a time that works for you and confirm instantly with secure checkout.",
+  },
+  {
+    n: "03",
+    title: "Consult live",
+    body: "Join a private video call the moment your appointment starts — no waiting room.",
+  },
+];
+
+const specialties = [
+  "Cardiology",
+  "Dermatology",
+  "Pediatrics",
+  "Psychiatry",
+  "General Medicine",
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex-1">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-teal-950 text-stone-50">
+        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="uppercase tracking-widest text-xs text-copper-light font-medium mb-6">
+              Telemedicine, done simply
+            </p>
+            <h1 className="font-display text-4xl md:text-5xl leading-[1.1] font-medium mb-6">
+              Talk to a real doctor in minutes, not weeks.
+            </h1>
+            <p className="text-stone-300 text-lg mb-10 max-w-md">
+              Browse verified doctors, book a slot that works for you, and see
+              them face-to-face from home.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/doctors"
+                className="bg-[var(--color-copper)] hover:bg-[var(--color-copper-light)] transition-colors text-white px-7 py-3.5 rounded-full font-medium"
+              >
+                Find a Doctor
+              </Link>
+              <Link
+                href="/register"
+                className="border border-stone-600 hover:border-stone-400 transition-colors px-7 py-3.5 rounded-full font-medium"
+              >
+                I&apos;m a Doctor
+              </Link>
+            </div>
+          </div>
+
+          {/* Signature element: a floating mockup of the product's own doctor card + a live-call indicator */}
+          <div className="relative hidden md:block">
+            <div className="absolute -inset-8 bg-[var(--color-copper)]/10 rounded-[2rem] blur-2xl" />
+            <div className="relative bg-white text-stone-900 rounded-2xl shadow-2xl p-6 max-w-sm ml-auto">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-teal-100 flex items-center justify-center text-teal-800 font-display text-lg">
+                  AS
+                </div>
+                <div>
+                  <p className="font-semibold">Dr. Atik Shahriar</p>
+                  <p className="text-sm text-stone-500">Cardiology</p>
+                </div>
+              </div>
+              <div className="mt-5 pt-5 border-t border-stone-100 flex items-center justify-between">
+                <span className="inline-flex items-center gap-2 text-sm text-emerald-700">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  In consultation
+                </span>
+                <span className="text-sm text-stone-400">6:10 PM</span>
+              </div>
+            </div>
+            <div className="relative bg-teal-900 text-stone-100 rounded-2xl shadow-xl p-4 max-w-[220px] mt-[-2rem] mr-12">
+              <p className="text-xs text-stone-400 mb-1">Chat</p>
+              <p className="text-sm bg-teal-800/60 rounded-lg px-3 py-2">
+                See you at your appointment time!
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* How it works */}
+      <section className="max-w-6xl mx-auto px-6 py-24">
+        <h2 className="font-display text-3xl mb-14 text-center">
+          Three steps to your consultation
+        </h2>
+        <div className="grid md:grid-cols-3 gap-10">
+          {steps.map((s) => (
+            <div key={s.n}>
+              <p className="font-display text-3xl text-[var(--color-copper)] mb-3">
+                {s.n}
+              </p>
+              <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
+              <p className="text-stone-600">{s.body}</p>
+            </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* Specialties */}
+      <section className="bg-stone-100 py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="font-display text-2xl mb-8 text-center">
+            Consult across specialties
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {specialties.map((s) => (
+              <Link
+                key={s}
+                href={`/doctors?specialty=${encodeURIComponent(s)}`}
+                className="bg-white border border-stone-200 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium"
+              >
+                {s}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="max-w-4xl mx-auto px-6 py-24 text-center">
+        <h2 className="font-display text-3xl mb-6">
+          Your health, on your schedule.
+        </h2>
+        <Link
+          href="/doctors"
+          className="inline-block bg-teal-950 hover:bg-teal-900 transition-colors text-white px-8 py-4 rounded-full font-medium"
+        >
+          Find a Doctor
+        </Link>
+      </section>
     </div>
   );
 }
