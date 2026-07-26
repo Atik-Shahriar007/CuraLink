@@ -28,6 +28,7 @@ export async function getOrCreateRoom(consultationId: string): Promise<string> {
       privacy: "private", // only accessible via a signed meeting token
       properties: {
         enable_chat: false, // we're using Pusher for chat, not Daily's built-in
+        enable_prejoin_ui: false, // skip the lobby/device-check screen, join directly
         eject_at_room_exp: true,
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 3, // room expires 3 hours from creation
       },
