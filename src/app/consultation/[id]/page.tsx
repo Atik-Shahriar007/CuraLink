@@ -30,6 +30,8 @@ export default function ConsultationRoomPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [isDoctorView, setIsDoctorView] = useState(false);
+  const [ending, setEnding] = useState(false);
 
   // Video join logic
   useEffect(() => {
@@ -71,6 +73,10 @@ export default function ConsultationRoomPage() {
         });
 
         callFrameRef.current = callFrame;
+
+        if (accountRole === "DOCTOR") {
+          setIsDoctorView(true);
+        }
 
         callFrame.on("left-meeting", () => {
           router.push(
@@ -124,6 +130,28 @@ export default function ConsultationRoomPage() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  async function handleEndConsultation() {
+    if (!confirm("Mark this consultation as completed? This cannot be undone.")) {
+      return;
+    }
+    setEnding(true);
+    try {
+      const res = await fetch(`/api/consultations/${id}/complete`, {
+        method: "PATCH",
+      });
+      if (res.ok) {
+        router.push("/doctor/consultations");
+      } else {
+        const data = await res.json();
+        alert(data.error || "Could not end consultation");
+      }
+    } catch {
+      alert("Something went wrong ending the consultation");
+    } finally {
+      setEnding(false);
+    }
+  }
+
   async function handleSendMessage(e: React.FormEvent) {
     e.preventDefault();
     if (!chatInput.trim() || sending) return;
@@ -168,7 +196,18 @@ export default function ConsultationRoomPage() {
       </div>
 
       <div className="w-80 border-l flex flex-col bg-white text-gray-900">
-        <div className="px-4 py-3 border-b font-semibold">Chat</div>
+        <div className="px-4 py-3 border-b flex items-center justify-between">
+          <span className="font-semibold">Chat</span>
+          {isDoctorView && status === "in-call" && (
+            <button
+              onClick={handleEndConsultation}
+              disabled={ending}
+              className="bg-red-600 hover:bg-red-700 text-white text-xs font-medium px-3 py-1.5 rounded-lg disabled:opacity-50"
+            >
+              {ending ? "Ending..." : "End Consultation"}
+            </button>
+          )}
+        </div>
 
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
           {messages.length === 0 && (
