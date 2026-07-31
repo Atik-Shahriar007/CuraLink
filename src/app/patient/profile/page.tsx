@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Tabs from "@/app/components/Tabs";
+import ChangePasswordForm from "@/app/components/ChangePasswordForm";
+import DeactivateAccountSection from "@/app/components/DeactivateAccountSection";
 
 export default function PatientProfilePage() {
+  const [activeTab, setActiveTab] = useState("personal");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -51,8 +55,7 @@ export default function PatientProfilePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSubmit() {
     setSaving(true);
     setMessage("");
 
@@ -105,144 +108,191 @@ export default function PatientProfilePage() {
 
   if (loading) return <p className="max-w-2xl mx-auto px-4 py-8">Loading...</p>;
 
+  const saveButton = (
+    <div className="mt-2">
+      <button
+        type="button"
+        onClick={handleSubmit}
+        disabled={saving}
+        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+      >
+        {saving ? "Saving..." : "Save Profile"}
+      </button>
+      {message && <p className="text-sm text-gray-600 mt-2">{message}</p>}
+    </div>
+  );
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">My Profile & Health Info</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <h2 className="font-semibold text-lg pt-2">Personal Information</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            placeholder="First name"
-            value={form.firstName}
-            onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            placeholder="Last name"
-            value={form.lastName}
-            onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            placeholder="Phone"
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            type="number"
-            placeholder="Age"
-            value={form.age}
-            onChange={(e) => setForm({ ...form, age: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
-        <input
-          placeholder="Address"
-          value={form.address}
-          onChange={(e) => setForm({ ...form, address: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            placeholder="City"
-            value={form.city}
-            onChange={(e) => setForm({ ...form, city: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            placeholder="Zip code"
-            value={form.zipCode}
-            onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
+      <Tabs
+        active={activeTab}
+        onChange={setActiveTab}
+        tabs={[
+          {
+            key: "personal",
+            label: "Personal",
+            content: (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    placeholder="First name"
+                    value={form.firstName}
+                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                  <input
+                    placeholder="Last name"
+                    value={form.lastName}
+                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    placeholder="Phone"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Age"
+                    value={form.age}
+                    onChange={(e) => setForm({ ...form, age: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                </div>
+                <input
+                  placeholder="Address"
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
+                  className="border rounded-lg px-4 py-2 w-full"
+                />
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    placeholder="City"
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                  <input
+                    placeholder="Zip code"
+                    value={form.zipCode}
+                    onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                </div>
 
-        <h2 className="font-semibold text-lg pt-4">Health Information</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            type="number"
-            placeholder="Weight (kg)"
-            value={form.weight}
-            onChange={(e) => setForm({ ...form, weight: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            type="number"
-            placeholder="Height (cm)"
-            value={form.height}
-            onChange={(e) => setForm({ ...form, height: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <select
-            value={form.gender}
-            onChange={(e) => setForm({ ...form, gender: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          >
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-            <option value="OTHER">Other</option>
-          </select>
-          <select
-            value={form.bloodType}
-            onChange={(e) => setForm({ ...form, bloodType: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          >
-            {["A_POS","A_NEG","B_POS","B_NEG","AB_POS","AB_NEG","O_POS","O_NEG"].map((bt) => (
-              <option key={bt} value={bt}>{bt.replace("_", " ")}</option>
-            ))}
-          </select>
-        </div>
-        <input
-          placeholder="Allergies (comma separated)"
-          value={form.allergies}
-          onChange={(e) => setForm({ ...form, allergies: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-        <input
-          placeholder="Chronic conditions (comma separated)"
-          value={form.chronicConditions}
-          onChange={(e) => setForm({ ...form, chronicConditions: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-        <input
-          placeholder="Current medications (comma separated)"
-          value={form.currentMedications}
-          onChange={(e) => setForm({ ...form, currentMedications: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
+                {saveButton}
+              </div>
+            ),
+          },
+          {
+            key: "health",
+            label: "Health Info",
+            content: (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="number"
+                    placeholder="Weight (kg)"
+                    value={form.weight}
+                    onChange={(e) => setForm({ ...form, weight: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Height (cm)"
+                    value={form.height}
+                    onChange={(e) => setForm({ ...form, height: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <select
+                    value={form.gender}
+                    onChange={(e) => setForm({ ...form, gender: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  >
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                  <select
+                    value={form.bloodType}
+                    onChange={(e) => setForm({ ...form, bloodType: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  >
+                    {["A_POS", "A_NEG", "B_POS", "B_NEG", "AB_POS", "AB_NEG", "O_POS", "O_NEG"].map(
+                      (bt) => (
+                        <option key={bt} value={bt}>
+                          {bt.replace("_", " ")}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+                <input
+                  placeholder="Allergies (comma separated)"
+                  value={form.allergies}
+                  onChange={(e) => setForm({ ...form, allergies: e.target.value })}
+                  className="border rounded-lg px-4 py-2 w-full"
+                />
+                <input
+                  placeholder="Chronic conditions (comma separated)"
+                  value={form.chronicConditions}
+                  onChange={(e) => setForm({ ...form, chronicConditions: e.target.value })}
+                  className="border rounded-lg px-4 py-2 w-full"
+                />
+                <input
+                  placeholder="Current medications (comma separated)"
+                  value={form.currentMedications}
+                  onChange={(e) => setForm({ ...form, currentMedications: e.target.value })}
+                  className="border rounded-lg px-4 py-2 w-full"
+                />
 
-        <h2 className="font-semibold text-lg pt-4">Emergency Contact</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            placeholder="Contact name"
-            value={form.emergencyContactName}
-            onChange={(e) => setForm({ ...form, emergencyContactName: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            placeholder="Contact phone"
-            value={form.emergencyContactPhone}
-            onChange={(e) => setForm({ ...form, emergencyContactPhone: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
+                {saveButton}
+              </div>
+            ),
+          },
+          {
+            key: "emergency",
+            label: "Emergency Contact",
+            content: (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    placeholder="Contact name"
+                    value={form.emergencyContactName}
+                    onChange={(e) => setForm({ ...form, emergencyContactName: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                  <input
+                    placeholder="Contact phone"
+                    value={form.emergencyContactPhone}
+                    onChange={(e) => setForm({ ...form, emergencyContactPhone: e.target.value })}
+                    className="border rounded-lg px-4 py-2"
+                  />
+                </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
-        >
-          {saving ? "Saving..." : "Save Profile"}
-        </button>
-
-        {message && <p className="text-sm text-gray-600">{message}</p>}
-      </form>
+                {saveButton}
+              </div>
+            ),
+          },
+          {
+            key: "security",
+            label: "Security",
+            content: (
+              <div className="space-y-8">
+                <ChangePasswordForm />
+                <DeactivateAccountSection />
+              </div>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }

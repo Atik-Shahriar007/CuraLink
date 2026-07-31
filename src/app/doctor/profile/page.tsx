@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Tabs from "@/app/components/Tabs";
+import ScheduleEditor from "@/app/components/ScheduleEditor";
+import ChangePasswordForm from "@/app/components/ChangePasswordForm";
+import DeactivateAccountSection from "@/app/components/DeactivateAccountSection";
 
 interface DoctorData {
   photoUrl: string | null;
@@ -11,9 +15,11 @@ interface DoctorData {
   degrees: string[];
   certifications: string[];
   experienceLevel: string | null;
+  schedule: unknown;
 }
 
 export default function DoctorProfileEditPage() {
+  const [activeTab, setActiveTab] = useState("personal");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +32,7 @@ export default function DoctorProfileEditPage() {
     certifications: "",
     experienceLevel: "LESS_THAN_ONE",
   });
+  const [schedule, setSchedule] = useState<unknown>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,6 +56,7 @@ export default function DoctorProfileEditPage() {
           experienceLevel: doctor.experienceLevel || "LESS_THAN_ONE",
         });
         setPhotoPreview(doctor.photoUrl);
+        setSchedule(doctor.schedule ?? null);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -69,8 +77,7 @@ export default function DoctorProfileEditPage() {
     });
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSubmit() {
     setSaving(true);
     setMessage("");
 
@@ -121,106 +128,150 @@ export default function DoctorProfileEditPage() {
 
   if (loading) return <p className="max-w-2xl mx-auto px-4 py-8">Loading...</p>;
 
+  const saveButton = (
+    <div className="mt-2">
+      <button
+        type="button"
+        onClick={handleSubmit}
+        disabled={saving}
+        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+      >
+        {saving ? "Saving..." : "Save Profile"}
+      </button>
+      {message && <p className="text-sm text-gray-600 mt-2">{message}</p>}
+    </div>
+  );
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Edit Your Profile</h1>
+      <h1 className="text-2xl font-bold mb-6">My Profile</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex items-center gap-4">
-          <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
-            {photoPreview && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
-            )}
-          </div>
-          <input type="file" accept="image/*" onChange={handlePhotoChange} />
-        </div>
+      <div>
+        <Tabs
+          active={activeTab}
+          onChange={setActiveTab}
+          tabs={[
+            {
+              key: "personal",
+              label: "Personal",
+              content: (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
+                      {photoPreview && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
+                      )}
+                    </div>
+                    <input type="file" accept="image/*" onChange={handlePhotoChange} />
+                  </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            placeholder="First name"
-            value={form.firstName}
-            onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            placeholder="Last name"
-            value={form.lastName}
-            onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      placeholder="First name"
+                      value={form.firstName}
+                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                      className="border rounded-lg px-4 py-2"
+                    />
+                    <input
+                      placeholder="Last name"
+                      value={form.lastName}
+                      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                      className="border rounded-lg px-4 py-2"
+                    />
+                  </div>
 
-        <input
-          placeholder="Phone"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
+                  <input
+                    placeholder="Phone"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  {saveButton}
+                </div>
+              ),
+            },
+            {
+              key: "professional",
+              label: "Professional",
+              content: (
+                <div className="space-y-4">
+                  <input
+                    placeholder="Specialty (e.g. Cardiology)"
+                    value={form.specialty}
+                    onChange={(e) => setForm({ ...form, specialty: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  <input
+                    placeholder="Hospital"
+                    value={form.hospital}
+                    onChange={(e) => setForm({ ...form, hospital: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  <input
+                    type="number"
+                    placeholder="Price per consultation ($)"
+                    value={form.price}
+                    onChange={(e) => setForm({ ...form, price: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  <select
+                    value={form.experienceLevel}
+                    onChange={(e) => setForm({ ...form, experienceLevel: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  >
+                    <option value="LESS_THAN_ONE">Less than 1 year</option>
+                    <option value="ONE_TO_FIVE">1–5 years</option>
+                    <option value="FIVE_PLUS">5+ years</option>
+                  </select>
+
+                  <textarea
+                    placeholder="Description / bio"
+                    value={form.description}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full h-24"
+                  />
+
+                  <input
+                    placeholder="Degrees (comma separated, e.g. MBBS, MD)"
+                    value={form.degrees}
+                    onChange={(e) => setForm({ ...form, degrees: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  <input
+                    placeholder="Certifications (comma separated)"
+                    value={form.certifications}
+                    onChange={(e) => setForm({ ...form, certifications: e.target.value })}
+                    className="border rounded-lg px-4 py-2 w-full"
+                  />
+
+                  {saveButton}
+                </div>
+              ),
+            },
+            {
+              key: "availability",
+              label: "Availability",
+              content: <ScheduleEditor initialSchedule={schedule} />,
+            },
+            {
+              key: "security",
+              label: "Security",
+              content: (
+                <div className="space-y-8">
+                  <ChangePasswordForm />
+                  <DeactivateAccountSection />
+                </div>
+              ),
+            },
+          ]}
         />
-
-        <input
-          placeholder="Specialty (e.g. Cardiology)"
-          value={form.specialty}
-          onChange={(e) => setForm({ ...form, specialty: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-
-        <input
-          placeholder="Hospital"
-          value={form.hospital}
-          onChange={(e) => setForm({ ...form, hospital: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-
-        <input
-          type="number"
-          placeholder="Price per consultation ($)"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-
-        <select
-          value={form.experienceLevel}
-          onChange={(e) => setForm({ ...form, experienceLevel: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        >
-          <option value="LESS_THAN_ONE">Less than 1 year</option>
-          <option value="ONE_TO_FIVE">1–5 years</option>
-          <option value="FIVE_PLUS">5+ years</option>
-        </select>
-
-        <textarea
-          placeholder="Description / bio"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full h-24"
-        />
-
-        <input
-          placeholder="Degrees (comma separated, e.g. MBBS, MD)"
-          value={form.degrees}
-          onChange={(e) => setForm({ ...form, degrees: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-
-        <input
-          placeholder="Certifications (comma separated)"
-          value={form.certifications}
-          onChange={(e) => setForm({ ...form, certifications: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-
-        <button
-          type="submit"
-          disabled={saving}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
-        >
-          {saving ? "Saving..." : "Save Profile"}
-        </button>
-
-        {message && <p className="text-sm text-gray-600">{message}</p>}
-      </form>
+      </div>
     </div>
   );
 }
