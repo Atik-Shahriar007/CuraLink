@@ -113,6 +113,9 @@ export default function Navbar() {
               <Link href="/admin/medicines" className={linkClass("/admin/medicines")}>
                 Medicines
               </Link>
+              <Link href="/admin/blog" className={linkClass("/admin/blog")}>
+                Articles
+              </Link>
               <button
                 onClick={handleLogout}
                 className="text-sm font-medium text-stone-500 hover:text-stone-900"
