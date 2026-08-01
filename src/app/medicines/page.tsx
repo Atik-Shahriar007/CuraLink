@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 interface Medicine {
@@ -18,10 +19,11 @@ interface Medicine {
 }
 
 export default function MedicinesPage() {
+  const searchParams = useSearchParams();
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [search, setSearch] = useState("");
   const [form, setForm] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [loading, setLoading] = useState(true);

@@ -128,6 +128,35 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Medicines */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="font-display text-3xl mb-2">Medicine Directory</h2>
+            <p className="text-stone-600">
+              Look up dosage, price, and side effects for common medications.
+            </p>
+          </div>
+          <Link
+            href="/medicines"
+            className="hidden sm:inline-block border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium"
+          >
+            Browse All
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {["Analgesic & Antipyretic", "Antibiotic", "Antidiabetic", "Antihypertensive"].map((cat) => (
+            <Link
+              key={cat}
+              href={`/medicines?category=${encodeURIComponent(cat)}`}
+              className="bg-stone-100 hover:bg-stone-200 transition-colors rounded-xl px-5 py-6 text-center font-medium text-sm"
+            >
+              {cat}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Closing CTA */}
       <section className="max-w-4xl mx-auto px-6 py-24 text-center">
         <h2 className="font-display text-3xl mb-6">
