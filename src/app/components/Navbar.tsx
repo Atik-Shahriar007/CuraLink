@@ -80,6 +80,10 @@ export default function Navbar() {
               <Link href="/medicines" className={linkClass("/medicines")}>
                 Medicines
               </Link>
+
+              <Link href="/doctor/blog" className={linkClass("/doctor/blog")}>
+                My Articles
+              </Link>
               <Link
                 href="/doctor/consultations"
                 className={linkClass("/doctor/consultations")}
