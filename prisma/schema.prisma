@@ -161,3 +161,23 @@ model Payment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Medicine {
+  id                    String   @id @default(cuid())
+  brandName             String
+  genericName           String
+  form                  String
+  therapeuticCategory   String
+  manufacturer          String
+  strength              String
+  unit                  String
+  price                 Float
+  prescriptionRequired  Boolean  @default(false)
+  description           String
+  dosage                String
+  sideEffects           String
+  imageUrl              String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
