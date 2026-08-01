@@ -125,6 +125,7 @@ model Consultation {
   id        String              @id @default(cuid())
   date      DateTime
   status    ConsultationStatus  @default(PENDING)
+  notes     String?
 
   doctorId  String
   doctor    Doctor              @relation(fields: [doctorId], references: [id])
