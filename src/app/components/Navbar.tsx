@@ -34,6 +34,9 @@ export default function Navbar() {
               <Link href="/doctors" className={linkClass("/doctors")}>
                 Find a Doctor
               </Link>
+              <Link href="/medicines" className={linkClass("/medicines")}>
+                Medicines
+              </Link>
               <Link href="/login" className={linkClass("/login")}>
                 Log in
               </Link>
@@ -50,6 +53,9 @@ export default function Navbar() {
             <>
               <Link href="/doctors" className={linkClass("/doctors")}>
                 Find a Doctor
+              </Link>
+              <Link href="/medicines" className={linkClass("/medicines")}>
+                Medicines
               </Link>
               <Link
                 href="/patient/consultations"
@@ -71,6 +77,9 @@ export default function Navbar() {
 
           {!loading && account?.role === "DOCTOR" && (
             <>
+              <Link href="/medicines" className={linkClass("/medicines")}>
+                Medicines
+              </Link>
               <Link
                 href="/doctor/consultations"
                 className={linkClass("/doctor/consultations")}
@@ -96,6 +105,9 @@ export default function Navbar() {
               </Link>
               <Link href="/admin/patients" className={linkClass("/admin/patients")}>
                 Patients
+              </Link>
+              <Link href="/admin/medicines" className={linkClass("/admin/medicines")}>
+                Medicines
               </Link>
               <button
                 onClick={handleLogout}
