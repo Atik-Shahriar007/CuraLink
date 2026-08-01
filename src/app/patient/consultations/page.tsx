@@ -98,6 +98,14 @@ export default function PatientConsultationsPage() {
                     Join
                   </Link>
                 )}
+                {c.status === "COMPLETED" && (
+                  <Link
+                    href={`/consultation/${c.id}/notes`}
+                    className="bg-teal-950 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-900"
+                  >
+                    View Notes
+                  </Link>
+                )}
               </div>
             </div>
           ))}
