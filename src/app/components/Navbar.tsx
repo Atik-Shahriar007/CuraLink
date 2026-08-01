@@ -57,6 +57,9 @@ export default function Navbar() {
               <Link href="/medicines" className={linkClass("/medicines")}>
                 Medicines
               </Link>
+              <Link href="/blog" className={linkClass("/blog")}>
+                Blog
+              </Link>
               <Link
                 href="/patient/consultations"
                 className={linkClass("/patient/consultations")}
@@ -79,6 +82,10 @@ export default function Navbar() {
             <>
               <Link href="/medicines" className={linkClass("/medicines")}>
                 Medicines
+              </Link>
+
+              <Link href="/blog" className={linkClass("/blog")}>
+                Blog
               </Link>
 
               <Link href="/doctor/blog" className={linkClass("/doctor/blog")}>

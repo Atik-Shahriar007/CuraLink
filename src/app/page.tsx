@@ -157,6 +157,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Blog */}
+      <section className="bg-stone-100 py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-display text-3xl">Health Articles</h2>
+            <Link
+              href="/blog"
+              className="hidden sm:inline-block border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium bg-white"
+            >
+              Read All
+            </Link>
+          </div>
+          <p className="text-stone-600 mb-2">
+            Written by our doctors, reviewed for accuracy before publishing.
+          </p>
+        </div>
+      </section>
+
       {/* Closing CTA */}
       <section className="max-w-4xl mx-auto px-6 py-24 text-center">
         <h2 className="font-display text-3xl mb-6">
