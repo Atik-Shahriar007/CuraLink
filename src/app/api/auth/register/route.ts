@@ -7,7 +7,7 @@ import { COOKIE_NAME } from "@/lib/session";
 const registerSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  role: z.enum(["PATIENT", "DOCTOR"]), // admins are never self-registered
+  role: z.enum(["PATIENT", "DOCTOR", "AMBULANCE_PROVIDER"]), // admins are never self-registered
   firstName: z.string().optional(),
   lastName: z.string().optional(),
 });
@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
         lastName,
         ...(role === "DOCTOR" ? { doctor: { create: {} } } : {}),
         ...(role === "PATIENT" ? { patient: { create: {} } } : {}),
+        ...(role === "AMBULANCE_PROVIDER" ? { ambulanceProvider: { create: {} } } : {}),
       },
       include: { doctor: true, patient: true },
     });

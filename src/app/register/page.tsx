@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    role: "PATIENT" as "PATIENT" | "DOCTOR",
+    role: "PATIENT" as "PATIENT" | "DOCTOR" | "AMBULANCE_PROVIDER",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,8 @@ export default function RegisterPage() {
 
       if (data.role === "DOCTOR") {
         router.push("/doctor/profile");
+      } else if (data.role === "AMBULANCE_PROVIDER") {
+        router.push("/provider/profile");
       } else {
         router.push("/doctors");
       }
@@ -71,7 +73,7 @@ export default function RegisterPage() {
           className="border rounded-lg px-4 py-2 w-full"
         />
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <label className="flex items-center gap-2">
             <input
               type="radio"
@@ -87,6 +89,14 @@ export default function RegisterPage() {
               onChange={() => setForm({ ...form, role: "DOCTOR" })}
             />
             I'm a Doctor
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              checked={form.role === "AMBULANCE_PROVIDER"}
+              onChange={() => setForm({ ...form, role: "AMBULANCE_PROVIDER" })}
+            />
+            I'm an Ambulance Provider
           </label>
         </div>
 

@@ -17,7 +17,7 @@ export async function verifyPassword(
 
 export interface JwtPayload {
   accountId: string;
-  role: "ADMIN" | "DOCTOR" | "PATIENT";
+  role: "ADMIN" | "DOCTOR" | "PATIENT" | "AMBULANCE_PROVIDER";
 }
 
 export function signToken(payload: JwtPayload): string {

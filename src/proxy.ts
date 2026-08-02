@@ -4,10 +4,11 @@ import { jwtVerify } from "jose";
 const COOKIE_NAME = "curalink_token";
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT"> = {
+const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT" | "AMBULANCE_PROVIDER"> = {
   "/admin": "ADMIN",
   "/doctor": "DOCTOR",
   "/patient": "PATIENT",
+  "/provider": "AMBULANCE_PROVIDER",
 };
 
 export async function proxy(req: NextRequest) {
