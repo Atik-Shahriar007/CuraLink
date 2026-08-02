@@ -90,6 +90,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Emergency Banner */}
+      <section className="bg-red-50 border-y border-red-200">
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h2 className="font-display text-2xl text-red-900">Need an Ambulance Urgently?</h2>
+            <p className="text-red-700 mt-1">
+              Request one of CuraLink's registered ambulance partners in a few taps.
+            </p>
+          </div>
+          <Link
+            href="/ambulance/request"
+            className="bg-red-600 hover:bg-red-700 transition-colors text-white px-7 py-3.5 rounded-full font-medium whitespace-nowrap"
+          >
+            Request Ambulance
+          </Link>
+        </div>
+      </section>
+
       {/* How it works */}
       <section className="max-w-6xl mx-auto px-6 py-24">
         <h2 className="font-display text-3xl mb-14 text-center">

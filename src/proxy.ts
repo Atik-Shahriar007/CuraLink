@@ -9,6 +9,7 @@ const roleProtectedPrefixes: Record<string, "ADMIN" | "DOCTOR" | "PATIENT" | "AM
   "/doctor": "DOCTOR",
   "/patient": "PATIENT",
   "/provider": "AMBULANCE_PROVIDER",
+  "/ambulance": "PATIENT",
 };
 
 export async function proxy(req: NextRequest) {
