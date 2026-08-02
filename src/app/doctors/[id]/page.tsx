@@ -37,8 +37,23 @@ export default function DoctorProfilePage() {
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
   const [booking, setBooking] = useState(false);
   const [bookingError, setBookingError] = useState("");
+
+  useEffect(() => {
+    if (!selectedDate) {
+      setAvailableSlots([]);
+      return;
+    }
+    setSlotsLoading(true);
+    setSelectedTime("");
+    fetch(`/api/doctors/${id}/slots?date=${selectedDate}`)
+      .then((res) => res.json())
+      .then((data) => setAvailableSlots(data.slots || []))
+      .finally(() => setSlotsLoading(false));
+  }, [selectedDate, id]);
 
   useEffect(() => {
     fetch(`/api/doctors/${id}`)
@@ -176,21 +191,42 @@ export default function DoctorProfilePage() {
       <div className="mt-8 border rounded-xl p-6 bg-gray-50">
         <h2 className="font-semibold text-lg mb-4">Book a Consultation</h2>
 
-        <div className="flex flex-wrap gap-3 mb-4">
-          <input
-            type="date"
-            value={selectedDate}
-            min={new Date().toISOString().split("T")[0]}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="border rounded-lg px-4 py-2"
-          />
-          <input
-            type="time"
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
-            className="border rounded-lg px-4 py-2"
-          />
-        </div>
+        <input
+          type="date"
+          value={selectedDate}
+          min={new Date().toISOString().split("T")[0]}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className="border rounded-lg px-4 py-2 mb-4"
+        />
+
+        {selectedDate && (
+          <div className="mb-4">
+            {slotsLoading ? (
+              <p className="text-sm text-gray-500">Loading available times...</p>
+            ) : availableSlots.length === 0 ? (
+              <p className="text-sm text-gray-500">
+                No available slots on this date. Try another day.
+              </p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {availableSlots.map((slot) => (
+                  <button
+                    key={slot}
+                    type="button"
+                    onClick={() => setSelectedTime(slot)}
+                    className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                      selectedTime === slot
+                        ? "bg-teal-950 text-white border-teal-950"
+                        : "border-gray-300 hover:border-teal-700"
+                    }`}
+                  >
+                    {slot}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {bookingError && (
           <p className="text-red-600 text-sm mb-3">{bookingError}</p>

@@ -45,6 +45,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Re-verify the slot is still free, server-side
+    const dayStart = new Date(consultationDate);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(consultationDate);
+    dayEnd.setHours(23, 59, 59, 999);
+
+    const conflicting = await prisma.consultation.findFirst({
+      where: {
+        doctorId,
+        date: { gte: dayStart, lte: dayEnd },
+        status: { not: "CANCELED" },
+      },
+    });
+
+    if (
+      conflicting &&
+      conflicting.date.getHours() === consultationDate.getHours() &&
+      conflicting.date.getMinutes() === consultationDate.getMinutes()
+    ) {
+      return NextResponse.json(
+        { error: "This time slot has just been booked by someone else. Please choose another." },
+        { status: 409 }
+      );
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
