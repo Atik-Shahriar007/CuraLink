@@ -123,6 +123,10 @@ export default function Navbar() {
               <Link href="/admin/blog" className={linkClass("/admin/blog")}>
                 Articles
               </Link>
+              <Link href="/admin/providers" className={linkClass("/admin/providers")}>
+                Providers
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="text-sm font-medium text-stone-500 hover:text-stone-900"
@@ -131,6 +135,20 @@ export default function Navbar() {
               </button>
             </>
           )}
+          {!loading && account?.role === "AMBULANCE_PROVIDER" && (
+            <>
+              <Link href="/provider/profile" className={linkClass("/provider/profile")}>
+                My Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+              >
+                Log out
+              </button>
+            </>
+          )}
+
         </div>
       </div>
     </nav>

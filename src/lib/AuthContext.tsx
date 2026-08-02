@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 interface Account {
   id: string;
   email: string;
-  role: "ADMIN" | "DOCTOR" | "PATIENT";
+  role: "ADMIN" | "DOCTOR" | "PATIENT" | "AMBULANCE_PROVIDER";
   isProfileCompleted: boolean;
   firstName: string | null;
   lastName: string | null;
