@@ -101,6 +101,9 @@ export default function Navbar() {
               >
                 My Consultations
               </Link>
+              <Link href="/doctor/schedule" className={linkClass("/doctor/schedule")}>
+                Schedule
+              </Link>
               <Link href="/doctor/profile" className={linkClass("/doctor/profile")}>
                 My Profile
               </Link>
