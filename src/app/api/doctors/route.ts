@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get("search") || "";
     const specialty = searchParams.get("specialty") || "";
     const maxPrice = searchParams.get("maxPrice");
+    const sortBy = searchParams.get("sortBy") || "newest";
 
     const doctors = await prisma.doctor.findMany({
       where: {
@@ -48,6 +49,27 @@ export async function GET(req: NextRequest) {
           ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
           : null;
       return { ...rest, avgRating, reviewCount: reviews.length };
+    });
+
+    const experienceOrder: Record<string, number> = {
+      FIVE_PLUS: 3,
+      ONE_TO_FIVE: 2,
+      LESS_THAN_ONE: 1,
+    };
+
+    withRatings.sort((a, b) => {
+      switch (sortBy) {
+        case "rating":
+          return (b.avgRating ?? -1) - (a.avgRating ?? -1);
+        case "experience":
+          return (experienceOrder[b.experienceLevel || ""] || 0) - (experienceOrder[a.experienceLevel || ""] || 0);
+        case "priceLow":
+          return (a.price ?? Infinity) - (b.price ?? Infinity);
+        case "priceHigh":
+          return (b.price ?? -Infinity) - (a.price ?? -Infinity);
+        default:
+          return 0; // "newest" — already ordered by createdAt desc from the query
+      }
     });
 
     return NextResponse.json(withRatings);

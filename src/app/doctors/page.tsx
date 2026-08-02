@@ -20,6 +20,7 @@ export default function DoctorsPage() {
   const [search, setSearch] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
   const [loading, setLoading] = useState(true);
 
   const fetchDoctors = useCallback(async () => {
@@ -28,12 +29,13 @@ export default function DoctorsPage() {
     if (search) params.set("search", search);
     if (specialty) params.set("specialty", specialty);
     if (maxPrice) params.set("maxPrice", maxPrice);
+    params.set("sortBy", sortBy);
 
     const res = await fetch(`/api/doctors?${params.toString()}`);
     const data = await res.json();
     setDoctors(data);
     setLoading(false);
-  }, [search, specialty, maxPrice]);
+  }, [search, specialty, maxPrice, sortBy]);
 
   useEffect(() => {
     const timeout = setTimeout(fetchDoctors, 300); // debounce
@@ -71,6 +73,17 @@ export default function DoctorsPage() {
           onChange={(e) => setMaxPrice(e.target.value)}
           className="w-32 border rounded-lg px-4 py-2"
         />
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="border rounded-lg px-4 py-2"
+        >
+          <option value="newest">Newest</option>
+          <option value="rating">Highest Rated</option>
+          <option value="experience">Most Experienced</option>
+          <option value="priceLow">Price: Low to High</option>
+          <option value="priceHigh">Price: High to Low</option>
+        </select>
       </div>
 
       {loading ? (
