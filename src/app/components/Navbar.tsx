@@ -66,6 +66,10 @@ export default function Navbar() {
               >
                 My Consultations
               </Link>
+              <Link href="/ambulance/status" className={linkClass("/ambulance/status")}>
+                Ambulance
+               </Link>
+
               <Link href="/patient/profile" className={linkClass("/patient/profile")}>
                 My Profile
               </Link>
@@ -137,6 +141,10 @@ export default function Navbar() {
           )}
           {!loading && account?.role === "AMBULANCE_PROVIDER" && (
             <>
+              <Link href="/provider/requests" className={linkClass("/provider/requests")}>
+                Requests
+              </Link>
+
               <Link href="/provider/profile" className={linkClass("/provider/profile")}>
                 My Profile
               </Link>

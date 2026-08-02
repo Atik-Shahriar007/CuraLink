@@ -14,7 +14,7 @@ export async function getCurrentAccount() {
 
   const account = await prisma.account.findUnique({
     where: { id: payload.accountId },
-    include: { doctor: true, patient: true },
+    include: { doctor: true, patient: true, ambulanceProvider: true },
   });
 
   return account;
