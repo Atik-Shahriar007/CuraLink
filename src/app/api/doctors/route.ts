@@ -34,11 +34,23 @@ export async function GET(req: NextRequest) {
         account: {
           select: { firstName: true, lastName: true },
         },
+        reviews: {
+          select: { rating: true },
+        },
       },
       orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json(doctors);
+    const withRatings = doctors.map((doc) => {
+      const { reviews, ...rest } = doc;
+      const avgRating =
+        reviews.length > 0
+          ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+          : null;
+      return { ...rest, avgRating, reviewCount: reviews.length };
+    });
+
+    return NextResponse.json(withRatings);
   } catch (err) {
     console.error("List doctors error:", err);
     return NextResponse.json(

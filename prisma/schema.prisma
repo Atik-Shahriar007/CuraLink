@@ -113,6 +113,7 @@ model Doctor {
   consultations   Consultation[]
   payments        Payment[]
   blogPosts       BlogPost[]
+  reviews         Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -136,6 +137,7 @@ model Patient {
   consultations Consultation[]
   payments      Payment[]
   ambulanceRequests  AmbulanceRequest[]
+  reviews            Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -154,6 +156,7 @@ model Consultation {
   patient   Patient             @relation(fields: [patientId], references: [id])
 
   payment   Payment?
+  review    Review?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -177,6 +180,24 @@ model Payment {
   consultation   Consultation? @relation(fields: [consultationId], references: [id])
 
   metadata  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id             String   @id @default(cuid())
+  rating         Int
+  comment        String?
+
+  consultationId String   @unique
+  consultation   Consultation @relation(fields: [consultationId], references: [id])
+
+  doctorId       String
+  doctor         Doctor   @relation(fields: [doctorId], references: [id])
+
+  patientId      String
+  patient        Patient  @relation(fields: [patientId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

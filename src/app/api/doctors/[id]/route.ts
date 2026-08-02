@@ -14,6 +14,12 @@ export async function GET(
         account: {
           select: { firstName: true, lastName: true },
         },
+        reviews: {
+          include: {
+            patient: { include: { account: { select: { firstName: true, lastName: true } } } },
+          },
+          orderBy: { createdAt: "desc" },
+        },
       },
     });
 
@@ -21,7 +27,12 @@ export async function GET(
       return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
     }
 
-    return NextResponse.json(doctor);
+    const avgRating =
+      doctor.reviews.length > 0
+        ? doctor.reviews.reduce((sum, r) => sum + r.rating, 0) / doctor.reviews.length
+        : null;
+
+    return NextResponse.json({ ...doctor, avgRating, reviewCount: doctor.reviews.length });
   } catch (err) {
     console.error("Get doctor error:", err);
     return NextResponse.json(

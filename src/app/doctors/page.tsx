@@ -10,6 +10,8 @@ interface Doctor {
   price: number | null;
   photoUrl: string | null;
   experienceLevel: string | null;
+  avgRating: number | null;
+  reviewCount: number;
   account: { firstName: string | null; lastName: string | null };
 }
 
@@ -98,6 +100,11 @@ export default function DoctorsPage() {
               </h2>
               <p className="text-gray-600">{doc.specialty || "General Practice"}</p>
               <p className="text-gray-500 text-sm">{doc.hospital}</p>
+              {doc.avgRating !== null && (
+                <p className="text-sm text-amber-500 mt-1">
+                  ★ {doc.avgRating.toFixed(1)} <span className="text-gray-400">({doc.reviewCount})</span>
+                </p>
+              )}
               <p className="text-blue-600 font-semibold mt-2">
                 {doc.price ? `$${doc.price} / consultation` : "Price not set"}
               </p>

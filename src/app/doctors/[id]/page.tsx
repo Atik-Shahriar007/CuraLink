@@ -4,6 +4,14 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 
+interface Review {
+  id: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+  patient: { account: { firstName: string | null; lastName: string | null } };
+}
+
 interface Doctor {
   id: string;
   specialty: string | null;
@@ -14,6 +22,9 @@ interface Doctor {
   experienceLevel: string | null;
   degrees: string[];
   certifications: string[];
+  avgRating: number | null;
+  reviewCount: number;
+  reviews: Review[];
   account: { firstName: string | null; lastName: string | null };
 }
 
@@ -111,6 +122,11 @@ export default function DoctorProfilePage() {
           </h1>
           <p className="text-gray-600">{doctor.specialty}</p>
           <p className="text-gray-500">{doctor.hospital}</p>
+          {doctor.avgRating !== null && (
+            <p className="text-amber-500 mt-1">
+              ★ {doctor.avgRating.toFixed(1)} <span className="text-gray-400 text-sm">({doctor.reviewCount} reviews)</span>
+            </p>
+          )}
           <p className="text-blue-600 font-semibold mt-2">
             {doctor.price ? `$${doctor.price} / consultation` : ""}
           </p>
@@ -132,6 +148,28 @@ export default function DoctorProfilePage() {
               <li key={i}>{d}</li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {doctor.reviews.length > 0 && (
+        <div className="mt-6">
+          <h2 className="font-semibold text-lg mb-3">Patient Reviews</h2>
+          <div className="space-y-3">
+            {doctor.reviews.map((r) => (
+              <div key={r.id} className="border rounded-lg p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-amber-500">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
+                  <span className="text-xs text-gray-400">
+                    {new Date(r.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  {r.patient.account.firstName} {r.patient.account.lastName}
+                </p>
+                {r.comment && <p className="text-sm text-gray-700 mt-1">{r.comment}</p>}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
