@@ -157,6 +157,9 @@ export default function Navbar() {
               <Link href="/admin/providers" className={linkClass("/admin/providers")}>
                 Providers
               </Link>
+              <Link href="/admin/analytics" className={linkClass("/admin/analytics")}>
+                Analytics
+              </Link>
 
               <button
                 onClick={handleLogout}
