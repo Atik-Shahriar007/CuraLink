@@ -131,6 +131,10 @@ export default function Navbar() {
               <Link href="/doctor/profile" className={linkClass("/doctor/profile")}>
                 My Profile
               </Link>
+              <Link href="/doctor/analytics" className={linkClass("/doctor/analytics")}>
+                Analytics
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="text-sm font-medium text-stone-500 hover:text-stone-900"
