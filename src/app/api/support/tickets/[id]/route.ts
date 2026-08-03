@@ -49,6 +49,14 @@ export async function GET(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
+  // If the creator is viewing their own ticket, mark it as seen
+  if (account.id === ticket.createdById) {
+    await prisma.supportTicket.update({
+      where: { id },
+      data: { lastViewedByCreatorAt: new Date() },
+    });
+  }
+
   return NextResponse.json(ticket);
 }
 

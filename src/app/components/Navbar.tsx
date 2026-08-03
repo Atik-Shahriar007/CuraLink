@@ -1,13 +1,31 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import { useState as useStateReact, useEffect as useEffectReact } from "react";
 
 export default function Navbar() {
   const { account, loading, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (!account) return;
+
+    function fetchCount() {
+      fetch("/api/support/unread-count")
+        .then((res) => res.json())
+        .then((data) => setUnreadCount(data.count || 0))
+        .catch(() => {});
+    }
+
+    fetchCount();
+    const interval = setInterval(fetchCount, 15000); // poll every 15s
+    return () => clearInterval(interval);
+  }, [account]);
 
   async function handleLogout() {
     await logout();
@@ -61,7 +79,7 @@ export default function Navbar() {
                 Blog
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support
+                Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/patient/consultations"
@@ -99,7 +117,7 @@ export default function Navbar() {
                 My Articles
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support
+                Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/doctor/consultations"
@@ -154,7 +172,7 @@ export default function Navbar() {
                 Requests
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support
+                Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
 
               <Link href="/provider/profile" className={linkClass("/provider/profile")}>
@@ -172,7 +190,7 @@ export default function Navbar() {
            {!loading && account?.role === "SUPPORT_AGENT" && (
             <>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support Queue
+                Support Queue{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <button
                 onClick={handleLogout}
