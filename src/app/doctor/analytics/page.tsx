@@ -47,7 +47,7 @@ export default function DoctorAnalyticsPage() {
       <h1 className="text-2xl font-bold mb-6">My Analytics</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Total Earnings" value={`৳${data.totals.totalEarnings.toFixed(2)}`} />
+        <StatCard label="Total Earnings" value={`$${data.totals.totalEarnings.toFixed(2)}`} />
         <StatCard label="Total Consultations" value={data.totals.totalConsultations} />
         <StatCard label="Completed" value={data.totals.completedConsultations} />
         <StatCard

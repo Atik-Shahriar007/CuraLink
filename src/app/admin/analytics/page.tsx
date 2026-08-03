@@ -51,7 +51,7 @@ export default function AdminAnalyticsPage() {
       <h1 className="text-2xl font-bold mb-6">Platform Analytics</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Total Revenue" value={`৳${data.totals.totalRevenue.toFixed(2)}`} />
+        <StatCard label="Total Revenue" value={`$${data.totals.totalRevenue.toFixed(2)}`} />
         <StatCard label="Total Consultations" value={data.totals.totalConsultations} />
         <StatCard label="Total Patients" value={data.totals.totalPatients} />
         <StatCard label="Total Doctors" value={data.totals.totalDoctors} />
