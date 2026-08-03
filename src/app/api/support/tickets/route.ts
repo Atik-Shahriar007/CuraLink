@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
 import { pusherServer } from "@/lib/pusher";
+import { uploadImage } from "@/lib/cloudinary";
 
 const CATEGORIES = [
   "BILLING_AND_PAYMENTS", "TECHNICAL_ISSUE", "APPOINTMENT_PROBLEM",
@@ -14,6 +15,7 @@ const createSchema = z.object({
   subject: z.string().min(3).max(150),
   category: z.enum(CATEGORIES as [string, ...string[]]),
   message: z.string().min(5),
+  attachmentBase64: z.string().optional(),
 });
 
 export async function GET() {
@@ -50,13 +52,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
 
+  let attachmentUrl: string | undefined;
+  if (parsed.data.attachmentBase64) {
+    attachmentUrl = await uploadImage(parsed.data.attachmentBase64);
+  }
+
   const ticket = await prisma.supportTicket.create({
     data: {
       subject: parsed.data.subject,
       category: parsed.data.category as any,
       createdById: account.id,
       messages: {
-        create: { body: parsed.data.message, senderId: account.id },
+        create: { body: parsed.data.message, senderId: account.id, attachmentUrl },
       },
     },
     include: { messages: true },

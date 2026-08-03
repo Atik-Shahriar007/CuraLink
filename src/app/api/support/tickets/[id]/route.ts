@@ -3,9 +3,11 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
 import { pusherServer } from "@/lib/pusher";
+import { uploadImage } from "@/lib/cloudinary";
 
 const replySchema = z.object({
   message: z.string().min(1),
+  attachmentBase64: z.string().optional(),
 });
 
 const statusSchema = z.object({
@@ -78,8 +80,13 @@ export async function POST(
 
   const isStaff = account.role === "SUPPORT_AGENT" || account.role === "ADMIN";
 
+  let attachmentUrl: string | undefined;
+  if (parsed.data.attachmentBase64) {
+    attachmentUrl = await uploadImage(parsed.data.attachmentBase64);
+  }
+
   const message = await prisma.supportMessage.create({
-    data: { ticketId: id, senderId: account.id, body: parsed.data.message },
+    data: { ticketId: id, senderId: account.id, body: parsed.data.message, attachmentUrl },
     include: { sender: { select: { firstName: true, lastName: true, role: true } } },
   });
 

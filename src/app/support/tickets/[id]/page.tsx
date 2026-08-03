@@ -8,6 +8,7 @@ import { getPusherClient } from "@/lib/pusherClient";
 interface Message {
   id: string;
   body: string;
+  attachmentUrl: string | null;
   createdAt: string;
   sender: { firstName: string | null; lastName: string | null; role: string };
 }
@@ -35,8 +36,18 @@ export default function TicketDetailPage() {
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [loading, setLoading] = useState(true);
   const [reply, setReply] = useState("");
+  const [replyAttachment, setReplyAttachment] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 
   const isStaff = account?.role === "SUPPORT_AGENT" || account?.role === "ADMIN";
 
@@ -71,12 +82,18 @@ export default function TicketDetailPage() {
     if (!reply.trim()) return;
     setSending(true);
     try {
+      const payload: any = { message: reply };
+      if (replyAttachment) {
+        payload.attachmentBase64 = await fileToBase64(replyAttachment);
+      }
+
       await fetch(`/api/support/tickets/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: reply }),
+        body: JSON.stringify(payload),
       });
       setReply("");
+      setReplyAttachment(null);
       fetchTicket();
     } finally {
       setSending(false);
@@ -132,6 +149,14 @@ export default function TicketDetailPage() {
                   {m.sender.firstName} {m.sender.lastName} {isFromStaff && "(Support)"}
                 </p>
                 <p className="text-sm whitespace-pre-wrap">{m.body}</p>
+                {m.attachmentUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={m.attachmentUrl}
+                    alt="Attachment"
+                    className="mt-2 rounded-lg max-w-full max-h-48 object-contain border border-white/20"
+                  />
+                )}
               </div>
             </div>
           );
@@ -140,20 +165,28 @@ export default function TicketDetailPage() {
       </div>
 
       {ticket.status !== "CLOSED" && (
-        <form onSubmit={handleReply} className="flex gap-2">
+        <form onSubmit={handleReply} className="space-y-2">
+          <div className="flex gap-2">
+            <input
+              value={reply}
+              onChange={(e) => setReply(e.target.value)}
+              placeholder="Type a reply..."
+              className="flex-1 border rounded-lg px-4 py-2 text-sm"
+            />
+            <button
+              type="submit"
+              disabled={sending}
+              className="bg-teal-950 text-white px-5 py-2 rounded-lg text-sm hover:bg-teal-900 disabled:opacity-50"
+            >
+              Send
+            </button>
+          </div>
           <input
-            value={reply}
-            onChange={(e) => setReply(e.target.value)}
-            placeholder="Type a reply..."
-            className="flex-1 border rounded-lg px-4 py-2 text-sm"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setReplyAttachment(e.target.files?.[0] || null)}
+            className="text-xs"
           />
-          <button
-            type="submit"
-            disabled={sending}
-            className="bg-teal-950 text-white px-5 py-2 rounded-lg text-sm hover:bg-teal-900 disabled:opacity-50"
-          >
-            Send
-          </button>
         </form>
       )}
     </div>

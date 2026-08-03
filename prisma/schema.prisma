@@ -323,6 +323,7 @@ model SupportTicket {
 model SupportMessage {
   id             String   @id @default(cuid())
   body           String
+  attachmentUrl  String?
 
   ticketId       String
   ticket         SupportTicket @relation(fields: [ticketId], references: [id])

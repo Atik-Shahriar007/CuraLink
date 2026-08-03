@@ -19,8 +19,18 @@ export default function NewTicketPage() {
   const [subject, setSubject] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0].value);
   const [message, setMessage] = useState("");
+  const [attachment, setAttachment] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -28,10 +38,15 @@ export default function NewTicketPage() {
     setError("");
 
     try {
+      const payload: any = { subject, category, message };
+      if (attachment) {
+        payload.attachmentBase64 = await fileToBase64(attachment);
+      }
+
       const res = await fetch("/api/support/tickets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject, category, message }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -76,6 +91,17 @@ export default function NewTicketPage() {
           onChange={(e) => setMessage(e.target.value)}
           className="border rounded-lg px-4 py-3 w-full h-40"
         />
+
+        <div>
+          <label className="text-sm text-gray-600 block mb-1">
+            Attach a screenshot or file (optional)
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setAttachment(e.target.files?.[0] || null)}
+          />
+        </div>
 
         {error && <p className="text-red-600 text-sm">{error}</p>}
 
