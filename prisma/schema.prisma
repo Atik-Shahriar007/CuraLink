@@ -19,6 +19,7 @@ enum Role {
   DOCTOR
   PATIENT
   AMBULANCE_PROVIDER
+  SUPPORT_AGENT
 }
 
 enum ApprovalStatus {
@@ -73,6 +74,24 @@ enum AmbulanceRequestStatus {
   CANCELED
 }
 
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketCategory {
+  BILLING_AND_PAYMENTS
+  TECHNICAL_ISSUE
+  APPOINTMENT_PROBLEM
+  AMBULANCE_ISSUE
+  ACCOUNT_VERIFICATION
+  PRESCRIPTION_ISSUE
+  GENERAL_INQUIRY
+  OTHER
+}
+
 model Account {
   id                String   @id @default(cuid())
   email             String   @unique
@@ -92,6 +111,10 @@ model Account {
   doctor  Doctor?
   patient Patient?
   ambulanceProvider AmbulanceProvider?
+
+  ticketsCreated    SupportTicket[]  @relation("TicketsCreated")
+  ticketsAssigned   SupportTicket[]  @relation("TicketsAssigned")
+  supportMessages   SupportMessage[]
 }
 
 model Doctor {
@@ -276,4 +299,36 @@ model AmbulanceRequest {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model SupportTicket {
+  id             String         @id @default(cuid())
+  ticketNumber   Int            @default(autoincrement())
+  subject        String
+  category       TicketCategory
+  status         TicketStatus   @default(OPEN)
+
+  createdById    String
+  createdBy      Account        @relation("TicketsCreated", fields: [createdById], references: [id])
+
+  assignedAgentId String?
+  assignedAgent   Account?      @relation("TicketsAssigned", fields: [assignedAgentId], references: [id])
+
+  messages       SupportMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SupportMessage {
+  id             String   @id @default(cuid())
+  body           String
+
+  ticketId       String
+  ticket         SupportTicket @relation(fields: [ticketId], references: [id])
+
+  senderId       String
+  sender         Account  @relation(fields: [senderId], references: [id])
+
+  createdAt DateTime @default(now())
 }
