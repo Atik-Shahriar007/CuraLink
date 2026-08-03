@@ -14,6 +14,9 @@ const statusSchema = z.object({
   status: z.enum(["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"]),
 });
 
+const ratingSchema = z.object({
+  satisfactionRating: z.number().int().min(1).max(5),
+});
 async function canAccess(ticketCreatedById: string, account: any) {
   const isStaff = account.role === "SUPPORT_AGENT" || account.role === "ADMIN";
   return isStaff || account.id === ticketCreatedById;
@@ -134,6 +137,51 @@ export async function PATCH(
   });
 
   await pusherServer.trigger(`support-ticket-${id}`, "status-update", updated);
+
+  return NextResponse.json(updated);
+}
+
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const account = await getCurrentAccount();
+  if (!account) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+  const ticket = await prisma.supportTicket.findUnique({ where: { id } });
+
+  if (!ticket) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  if (ticket.createdById !== account.id) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  if (ticket.status !== "RESOLVED" && ticket.status !== "CLOSED") {
+    return NextResponse.json(
+      { error: "You can only rate a resolved or closed ticket" },
+      { status: 400 }
+    );
+  }
+
+  if (ticket.satisfactionRating) {
+    return NextResponse.json({ error: "Already rated" }, { status: 409 });
+  }
+
+  const body = await req.json();
+  const parsed = ratingSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid rating" }, { status: 400 });
+  }
+
+  const updated = await prisma.supportTicket.update({
+    where: { id },
+    data: { satisfactionRating: parsed.data.satisfactionRating },
+  });
 
   return NextResponse.json(updated);
 }

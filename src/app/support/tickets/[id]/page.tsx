@@ -19,6 +19,7 @@ interface Ticket {
   subject: string;
   category: string;
   status: string;
+  satisfactionRating: number | null;
   createdBy: { firstName: string | null; lastName: string | null; role: string };
   messages: Message[];
 }
@@ -35,9 +36,11 @@ export default function TicketDetailPage() {
   const { account } = useAuth();
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [loading, setLoading] = useState(true);
-  const [reply, setReply] = useState("");
+const [reply, setReply] = useState("");
   const [replyAttachment, setReplyAttachment] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
+  const [ratingHover, setRatingHover] = useState(0);
+  const [submittingRating, setSubmittingRating] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   function fileToBase64(file: File): Promise<string> {
@@ -109,6 +112,20 @@ export default function TicketDetailPage() {
     fetchTicket();
   }
 
+  async function handleRate(stars: number) {
+    setSubmittingRating(true);
+    try {
+      await fetch(`/api/support/tickets/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ satisfactionRating: stars }),
+      });
+      fetchTicket();
+    } finally {
+      setSubmittingRating(false);
+    }
+  }
+
   if (loading) return <p className="max-w-2xl mx-auto px-4 py-8">Loading...</p>;
   if (!ticket) return <p className="max-w-2xl mx-auto px-4 py-8">Ticket not found.</p>;
 
@@ -163,6 +180,37 @@ export default function TicketDetailPage() {
         })}
         <div ref={bottomRef} />
       </div>
+
+      {!isStaff &&
+        (ticket.status === "RESOLVED" || ticket.status === "CLOSED") &&
+        !ticket.satisfactionRating && (
+          <div className="border rounded-xl p-4 bg-amber-50 mb-6 text-center">
+            <p className="text-sm font-medium mb-2">Was your issue resolved?</p>
+            <div className="flex justify-center gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  disabled={submittingRating}
+                  onMouseEnter={() => setRatingHover(star)}
+                  onMouseLeave={() => setRatingHover(0)}
+                  onClick={() => handleRate(star)}
+                  className="text-3xl"
+                >
+                  <span className={ratingHover >= star ? "text-amber-400" : "text-gray-200"}>★</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+      {!isStaff && ticket.satisfactionRating && (
+        <div className="border rounded-xl p-4 bg-gray-50 mb-6 text-center text-sm text-gray-600">
+          You rated this ticket {"★".repeat(ticket.satisfactionRating)}
+          {"☆".repeat(5 - ticket.satisfactionRating)}
+        </div>
+      )}
+
 
       {ticket.status !== "CLOSED" && (
         <form onSubmit={handleReply} className="space-y-2">

@@ -308,6 +308,7 @@ model SupportTicket {
   category       TicketCategory
   status         TicketStatus   @default(OPEN)
   lastViewedByCreatorAt DateTime?
+  satisfactionRating Int?
 
   createdById    String
   createdBy      Account        @relation("TicketsCreated", fields: [createdById], references: [id])
