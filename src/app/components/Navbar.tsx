@@ -60,6 +60,9 @@ export default function Navbar() {
               <Link href="/blog" className={linkClass("/blog")}>
                 Blog
               </Link>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                Support
+              </Link>
               <Link
                 href="/patient/consultations"
                 className={linkClass("/patient/consultations")}
@@ -94,6 +97,9 @@ export default function Navbar() {
 
               <Link href="/doctor/blog" className={linkClass("/doctor/blog")}>
                 My Articles
+              </Link>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                Support
               </Link>
               <Link
                 href="/doctor/consultations"
@@ -147,6 +153,9 @@ export default function Navbar() {
               <Link href="/provider/requests" className={linkClass("/provider/requests")}>
                 Requests
               </Link>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                Support
+              </Link>
 
               <Link href="/provider/profile" className={linkClass("/provider/profile")}>
                 My Profile
@@ -160,8 +169,24 @@ export default function Navbar() {
             </>
           )}
 
+           {!loading && account?.role === "SUPPORT_AGENT" && (
+            <>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                Support Queue
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+              >
+                Log out
+              </button>
+            </>
+          )}
+
         </div>
       </div>
     </nav>
+    
+
   );
 }
