@@ -39,7 +39,7 @@ export default function Navbar() {
         : "text-stone-500 hover:text-stone-900"
     }`;
 
-  if (pathname.startsWith("/patient") || pathname.startsWith("/doctor")) return null;
+  if (pathname.startsWith("/patient") || pathname.startsWith("/doctor") || pathname.startsWith("/admin")) return null;
 
   return (
     <nav className="border-b border-stone-200 bg-white">

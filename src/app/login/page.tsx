@@ -35,7 +35,7 @@ export default function LoginPage() {
       if (data.role === "DOCTOR") {
         router.push("/doctor/dashboard");
       } else if (data.role === "ADMIN") {
-        router.push("/admin");
+        router.push("/admin/dashboard");
       } else if (data.role === "AMBULANCE_PROVIDER") {
         router.push("/provider/profile");
       } else {
