@@ -33,7 +33,7 @@ export default function LoginPage() {
       await refresh();
 
       if (data.role === "DOCTOR") {
-        router.push("/doctor/profile");
+        router.push("/doctor/dashboard");
       } else if (data.role === "ADMIN") {
         router.push("/admin");
       } else if (data.role === "AMBULANCE_PROVIDER") {

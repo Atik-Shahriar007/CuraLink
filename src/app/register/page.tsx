@@ -37,7 +37,7 @@ export default function RegisterPage() {
       await refresh();
 
       if (data.role === "DOCTOR") {
-        router.push("/doctor/profile");
+        router.push("/doctor/dashboard");
       } else if (data.role === "AMBULANCE_PROVIDER") {
         router.push("/provider/profile");
       } else {
