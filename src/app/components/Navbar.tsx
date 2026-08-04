@@ -39,6 +39,8 @@ export default function Navbar() {
         : "text-stone-500 hover:text-stone-900"
     }`;
 
+  if (pathname.startsWith("/patient")) return null;
+
   return (
     <nav className="border-b border-stone-200 bg-white">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">

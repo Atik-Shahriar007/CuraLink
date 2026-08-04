@@ -41,7 +41,7 @@ export default function RegisterPage() {
       } else if (data.role === "AMBULANCE_PROVIDER") {
         router.push("/provider/profile");
       } else {
-        router.push("/doctors");
+        router.push("/patient/dashboard");
       }
     } catch {
       setError("Something went wrong");
