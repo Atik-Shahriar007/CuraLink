@@ -49,44 +49,55 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="text-2xl font-bold mb-6">Log in</h1>
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-stone-50 px-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="font-display text-2xl text-teal-950">CuraLink</h1>
+          <p className="text-stone-500 text-sm mt-1">Welcome back</p>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          className="border rounded-lg px-4 py-2 w-full"
-        />
+        <div className="bg-white border border-stone-200 rounded-2xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="text-xs text-stone-400 uppercase tracking-wide mb-1 block">Email</label>
+              <input
+                type="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="border border-stone-200 rounded-lg px-4 py-2.5 w-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-900/10"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-stone-400 uppercase tracking-wide mb-1 block">Password</label>
+              <input
+                type="password"
+                required
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="border border-stone-200 rounded-lg px-4 py-2.5 w-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-900/10"
+              />
+            </div>
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+            {error && <p className="text-red-600 text-sm">{error}</p>}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium w-full hover:bg-blue-700 disabled:opacity-50"
-        >
-          {loading ? "Logging in..." : "Log in"}
-        </button>
-      </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-teal-950 hover:bg-teal-900 text-white px-6 py-3 rounded-lg font-medium w-full transition-colors disabled:opacity-50"
+            >
+              {loading ? "Logging in..." : "Log in"}
+            </button>
+          </form>
+        </div>
 
-      <p className="text-sm text-gray-600 mt-4">
-        Don't have an account?{" "}
-        <a href="/register" className="text-blue-600 hover:underline">
-          Register
-        </a>
-      </p>
+        <p className="text-sm text-stone-500 mt-6 text-center">
+          Don't have an account?{" "}
+          <a href="/register" className="text-teal-900 font-medium hover:underline">
+            Register
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

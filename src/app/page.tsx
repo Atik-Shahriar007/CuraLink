@@ -167,7 +167,7 @@ export default function HomePage() {
             <Link
               key={cat}
               href={`/medicines?category=${encodeURIComponent(cat)}`}
-              className="bg-stone-100 hover:bg-stone-200 transition-colors rounded-xl px-5 py-6 text-center font-medium text-sm"
+              className="bg-white border border-stone-200 hover:border-teal-800/30 hover:shadow-md transition-all rounded-2xl px-5 py-6 text-center font-medium text-sm"
             >
               {cat}
             </Link>
