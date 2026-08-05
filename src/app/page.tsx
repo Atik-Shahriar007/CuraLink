@@ -165,9 +165,13 @@ export default function HomePage() {
       {/* Emergency Banner */}
       <section className="bg-red-50 border-y border-red-200">
         <Reveal className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center gap-6">
-          <div className="relative w-48 h-28 flex-shrink-0">
-            <div className="absolute inset-0 bg-red-200 rounded-full blur-2xl opacity-50" />
-            <AmbulanceIllustration className="relative w-full h-full" />
+          <div className="relative w-56 h-32 flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/ambulance-hero.png"
+              alt="Ambulance"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           <div className="flex-1 text-center sm:text-left">
