@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import HeroParticles from "./components/HeroParticles";
 const steps = [
   {
     n: "01",
@@ -31,7 +31,8 @@ export default function HomePage() {
     <div className="flex-1">
       {/* Hero */}
       <section className="relative overflow-hidden bg-teal-950 text-stone-50">
-        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
+        <HeroParticles />
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="uppercase tracking-widest text-xs text-copper-light font-medium mb-6">
               Telemedicine, done simply
