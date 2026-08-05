@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroParticles from "./components/HeroParticles";
+import Reveal from "./components/Reveal";
 const steps = [
   {
     n: "01",
@@ -93,7 +94,7 @@ export default function HomePage() {
 
       {/* Emergency Banner */}
       <section className="bg-red-50 border-y border-red-200">
-        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <Reveal className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h2 className="font-display text-2xl text-red-900">Need an Ambulance Urgently?</h2>
             <p className="text-red-700 mt-1">
@@ -106,30 +107,32 @@ export default function HomePage() {
           >
             Request Ambulance
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       {/* How it works */}
       <section className="max-w-6xl mx-auto px-6 py-24">
-        <h2 className="font-display text-3xl mb-14 text-center">
-          Three steps to your consultation
-        </h2>
+        <Reveal>
+          <h2 className="font-display text-3xl mb-14 text-center">
+            Three steps to your consultation
+          </h2>
+        </Reveal>
         <div className="grid md:grid-cols-3 gap-10">
-          {steps.map((s) => (
-            <div key={s.n}>
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.12}>
               <p className="font-display text-3xl text-[var(--color-copper)] mb-3">
                 {s.n}
               </p>
               <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
               <p className="text-stone-600">{s.body}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* Specialties */}
       <section className="bg-stone-100 py-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <Reveal className="max-w-6xl mx-auto px-6">
           <h2 className="font-display text-2xl mb-8 text-center">
             Consult across specialties
           </h2>
@@ -144,12 +147,15 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* Medicines */}
+
+      {/* Medicines */}
+      {/* Medicines */}
       <section className="max-w-6xl mx-auto px-6 py-20">
-        <div className="flex items-center justify-between mb-8">
+        <Reveal className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display text-3xl mb-2">Medicine Directory</h2>
             <p className="text-stone-600">
@@ -162,7 +168,7 @@ export default function HomePage() {
           >
             Browse All
           </Link>
-        </div>
+        </Reveal>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {["Analgesic & Antipyretic", "Antibiotic", "Antidiabetic", "Antihypertensive"].map((cat) => (
             <Link
@@ -177,8 +183,9 @@ export default function HomePage() {
       </section>
 
       {/* Blog */}
+      {/* Blog */}
       <section className="bg-stone-100 py-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <Reveal className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-3xl">Health Articles</h2>
             <Link
@@ -191,20 +198,23 @@ export default function HomePage() {
           <p className="text-stone-600 mb-2">
             Written by our doctors, reviewed for accuracy before publishing.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       {/* Closing CTA */}
-      <section className="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h2 className="font-display text-3xl mb-6">
-          Your health, on your schedule.
-        </h2>
-        <Link
-          href="/doctors"
-          className="inline-block bg-teal-950 hover:bg-teal-900 transition-colors text-white px-8 py-4 rounded-full font-medium"
-        >
-          Find a Doctor
-        </Link>
+      <section className="relative overflow-hidden bg-teal-950 py-28 text-center text-stone-50">
+        <HeroParticles />
+        <Reveal className="relative z-10 max-w-2xl mx-auto px-6">
+          <h2 className="font-display text-3xl md:text-4xl mb-6">
+            Your health, on your schedule.
+          </h2>
+          <Link
+            href="/doctors"
+            className="inline-block bg-[var(--color-copper)] hover:bg-[var(--color-copper-light)] transition-colors text-white px-8 py-4 rounded-full font-medium"
+          >
+            Find a Doctor
+          </Link>
+        </Reveal>
       </section>
     </div>
   );
