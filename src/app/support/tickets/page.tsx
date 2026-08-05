@@ -37,7 +37,7 @@ export default function TicketListPage() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">{isStaff ? "Support Queue" : "My Support Tickets"}</h1>
         {!isStaff && (

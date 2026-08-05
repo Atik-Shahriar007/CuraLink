@@ -71,7 +71,7 @@ export default function ProviderRequestsPage() {
   if (loading) return <p className="max-w-4xl mx-auto px-4 py-8">Loading...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-4xl">
       <h1 className="text-2xl font-bold mb-6">Ambulance Requests</h1>
 
       <h2 className="text-lg font-semibold mb-3">New Requests ({unclaimed.length})</h2>

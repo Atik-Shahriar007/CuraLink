@@ -37,7 +37,7 @@ export default function LoginPage() {
       } else if (data.role === "ADMIN") {
         router.push("/admin/dashboard");
       } else if (data.role === "AMBULANCE_PROVIDER") {
-        router.push("/provider/profile");
+        router.push("/provider/requests");
       } else {
         router.push("/patient/dashboard");
       }

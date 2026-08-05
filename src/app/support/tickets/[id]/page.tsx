@@ -130,7 +130,7 @@ const [reply, setReply] = useState("");
   if (!ticket) return <p className="max-w-2xl mx-auto px-4 py-8">Ticket not found.</p>;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-2xl">
       <p className="text-xs text-gray-400 font-mono mb-1">TKT-{1000 + ticket.ticketNumber}</p>
       <div className="flex items-center justify-between mb-1">
         <h1 className="text-2xl font-bold">{ticket.subject}</h1>

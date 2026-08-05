@@ -64,7 +64,7 @@ export default function NewTicketPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-8">
+    <div className="max-w-xl">
       <h1 className="text-2xl font-bold mb-6">New Support Ticket</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">

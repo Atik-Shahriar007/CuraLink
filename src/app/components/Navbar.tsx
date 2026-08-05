@@ -39,7 +39,17 @@ export default function Navbar() {
         : "text-stone-500 hover:text-stone-900"
     }`;
 
-  if (pathname.startsWith("/patient") || pathname.startsWith("/doctor") || pathname.startsWith("/admin")) return null;
+const isStaffOnSupport =
+    pathname.startsWith("/support") && (account?.role === "SUPPORT_AGENT" || account?.role === "ADMIN");
+
+  if (
+    pathname.startsWith("/patient") ||
+    pathname.startsWith("/doctor") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/provider") ||
+    isStaffOnSupport
+  )
+    return null;
 
   return (
     <nav className="border-b border-stone-200 bg-white">
