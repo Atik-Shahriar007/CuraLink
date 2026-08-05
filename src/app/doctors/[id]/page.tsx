@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import { MapPin, Star, GraduationCap, Clock } from "lucide-react";
 
 interface Review {
   id: string;
@@ -43,6 +44,17 @@ export default function DoctorProfilePage() {
   const [bookingError, setBookingError] = useState("");
 
   useEffect(() => {
+    fetch(`/api/doctors/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
+      })
+      .then(setDoctor)
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  useEffect(() => {
     if (!selectedDate) {
       setAvailableSlots([]);
       return;
@@ -54,17 +66,6 @@ export default function DoctorProfilePage() {
       .then((data) => setAvailableSlots(data.slots || []))
       .finally(() => setSlotsLoading(false));
   }, [selectedDate, id]);
-
-  useEffect(() => {
-    fetch(`/api/doctors/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Not found");
-        return res.json();
-      })
-      .then(setDoctor)
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
-  }, [id]);
 
   async function handleBook() {
     setBookingError("");
@@ -93,10 +94,7 @@ export default function DoctorProfilePage() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          doctorId: id,
-          date: combinedDate.toISOString(),
-        }),
+        body: JSON.stringify({ doctorId: id, date: combinedDate.toISOString() }),
       });
 
       const data = await res.json();
@@ -107,138 +105,153 @@ export default function DoctorProfilePage() {
         return;
       }
 
-      window.location.href = data.url; // redirect to Stripe Checkout
+      window.location.href = data.url;
     } catch {
       setBookingError("Something went wrong. Please try again.");
       setBooking(false);
     }
   }
 
-  if (loading) return <p className="max-w-3xl mx-auto px-4 py-8">Loading...</p>;
+  if (loading) return <p className="max-w-4xl mx-auto px-6 py-12 text-stone-400">Loading...</p>;
   if (notFound || !doctor)
-    return <p className="max-w-3xl mx-auto px-4 py-8">Doctor not found.</p>;
+    return <p className="max-w-4xl mx-auto px-6 py-12 text-stone-400">Doctor not found.</p>;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="flex gap-6 items-start">
-        <div className="w-28 h-28 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+    <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="flex flex-col sm:flex-row gap-8 mb-8">
+        <div className="w-28 h-28 rounded-2xl bg-stone-100 overflow-hidden flex-shrink-0">
           {doctor.photoUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={doctor.photoUrl}
-              alt="Doctor"
-              className="w-full h-full object-cover"
-            />
+            <img src={doctor.photoUrl} alt="Doctor" className="w-full h-full object-cover" />
           )}
         </div>
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl font-display">
             Dr. {doctor.account.firstName} {doctor.account.lastName}
           </h1>
-          <p className="text-gray-600">{doctor.specialty}</p>
-          <p className="text-gray-500">{doctor.hospital}</p>
+          <p className="text-teal-800 font-medium">{doctor.specialty}</p>
+          <div className="flex items-center gap-1.5 text-stone-400 text-sm mt-1">
+            <MapPin size={14} /> {doctor.hospital}
+          </div>
           {doctor.avgRating !== null && (
-            <p className="text-amber-500 mt-1">
-              ★ {doctor.avgRating.toFixed(1)} <span className="text-gray-400 text-sm">({doctor.reviewCount} reviews)</span>
-            </p>
+            <div className="flex items-center gap-1 text-amber-500 text-sm mt-2">
+              <Star size={14} fill="currentColor" />
+              {doctor.avgRating.toFixed(1)}
+              <span className="text-stone-400">({doctor.reviewCount} reviews)</span>
+            </div>
           )}
-          <p className="text-blue-600 font-semibold mt-2">
-            {doctor.price ? `$${doctor.price} / consultation` : ""}
+          <p className="text-[var(--color-copper)] font-semibold text-lg mt-2">
+            {doctor.price ? `$${doctor.price}` : ""} <span className="text-sm text-stone-400 font-normal">/ consultation</span>
           </p>
         </div>
       </div>
 
-      {doctor.description && (
-        <div className="mt-6">
-          <h2 className="font-semibold text-lg mb-2">About</h2>
-          <p className="text-gray-700">{doctor.description}</p>
-        </div>
-      )}
+      <div className="grid md:grid-cols-3 gap-8">
+        <div className="md:col-span-2 space-y-8">
+          {doctor.description && (
+            <section>
+              <h2 className="font-semibold mb-2">About</h2>
+              <p className="text-stone-600 text-sm leading-relaxed">{doctor.description}</p>
+            </section>
+          )}
 
-      {doctor.degrees.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-semibold text-lg mb-2">Education</h2>
-          <ul className="list-disc list-inside text-gray-700">
-            {doctor.degrees.map((d, i) => (
-              <li key={i}>{d}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+          {doctor.degrees.length > 0 && (
+            <section>
+              <h2 className="flex items-center gap-2 font-semibold mb-3">
+                <GraduationCap size={17} className="text-teal-800" /> Education
+              </h2>
+              <ul className="space-y-1">
+                {doctor.degrees.map((d, i) => (
+                  <li key={i} className="text-stone-600 text-sm">{d}</li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-      {doctor.reviews.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-semibold text-lg mb-3">Patient Reviews</h2>
-          <div className="space-y-3">
-            {doctor.reviews.map((r) => (
-              <div key={r.id} className="border rounded-lg p-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-amber-500">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
-                  <span className="text-xs text-gray-400">
-                    {new Date(r.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500 mt-1">
-                  {r.patient.account.firstName} {r.patient.account.lastName}
-                </p>
-                {r.comment && <p className="text-sm text-gray-700 mt-1">{r.comment}</p>}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+          {doctor.experienceLevel && (
+            <section>
+              <h2 className="flex items-center gap-2 font-semibold mb-2">
+                <Clock size={17} className="text-teal-800" /> Experience
+              </h2>
+              <p className="text-stone-600 text-sm">{doctor.experienceLevel.replace(/_/g, " ")}</p>
+            </section>
+          )}
 
-      <div className="mt-8 border rounded-xl p-6 bg-gray-50">
-        <h2 className="font-semibold text-lg mb-4">Book a Consultation</h2>
-
-        <input
-          type="date"
-          value={selectedDate}
-          min={new Date().toISOString().split("T")[0]}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="border rounded-lg px-4 py-2 mb-4"
-        />
-
-        {selectedDate && (
-          <div className="mb-4">
-            {slotsLoading ? (
-              <p className="text-sm text-gray-500">Loading available times...</p>
-            ) : availableSlots.length === 0 ? (
-              <p className="text-sm text-gray-500">
-                No available slots on this date. Try another day.
-              </p>
-            ) : (
-              <div className="flex flex-wrap gap-2">
-                {availableSlots.map((slot) => (
-                  <button
-                    key={slot}
-                    type="button"
-                    onClick={() => setSelectedTime(slot)}
-                    className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
-                      selectedTime === slot
-                        ? "bg-teal-950 text-white border-teal-950"
-                        : "border-gray-300 hover:border-teal-700"
-                    }`}
-                  >
-                    {slot}
-                  </button>
+          {doctor.reviews.length > 0 && (
+            <section>
+              <h2 className="font-semibold mb-3">Patient Reviews</h2>
+              <div className="space-y-3">
+                {doctor.reviews.map((r) => (
+                  <div key={r.id} className="border border-stone-200 rounded-xl p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-amber-500 text-sm">
+                        {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+                      </span>
+                      <span className="text-xs text-stone-400">
+                        {new Date(r.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-sm text-stone-500 mt-1">
+                      {r.patient.account.firstName} {r.patient.account.lastName}
+                    </p>
+                    {r.comment && <p className="text-sm text-stone-700 mt-1.5">{r.comment}</p>}
+                  </div>
                 ))}
               </div>
+            </section>
+          )}
+        </div>
+
+        <div className="md:col-span-1">
+          <div className="border border-stone-200 rounded-2xl p-5 bg-white sticky top-8">
+            <h2 className="font-semibold mb-4">Book a Consultation</h2>
+
+            <input
+              type="date"
+              value={selectedDate}
+              min={new Date().toISOString().split("T")[0]}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="border border-stone-200 rounded-lg px-3 py-2.5 text-sm mb-4 w-full"
+            />
+
+            {selectedDate && (
+              <div className="mb-4">
+                {slotsLoading ? (
+                  <p className="text-sm text-stone-400">Loading available times...</p>
+                ) : availableSlots.length === 0 ? (
+                  <p className="text-sm text-stone-400">No available slots. Try another day.</p>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {availableSlots.map((slot) => (
+                      <button
+                        key={slot}
+                        type="button"
+                        onClick={() => setSelectedTime(slot)}
+                        className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
+                          selectedTime === slot
+                            ? "bg-teal-950 text-white border-teal-950"
+                            : "border-stone-200 hover:border-teal-700"
+                        }`}
+                      >
+                        {slot}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
+
+            {bookingError && <p className="text-red-600 text-xs mb-3">{bookingError}</p>}
+
+            <button
+              onClick={handleBook}
+              disabled={booking}
+              className="w-full bg-[var(--color-copper)] hover:bg-[var(--color-copper-light)] text-white py-2.5 rounded-lg font-medium text-sm transition-colors disabled:opacity-50"
+            >
+              {booking ? "Redirecting..." : "Book Consultation"}
+            </button>
           </div>
-        )}
-
-        {bookingError && (
-          <p className="text-red-600 text-sm mb-3">{bookingError}</p>
-        )}
-
-        <button
-          onClick={handleBook}
-          disabled={booking}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
-        >
-          {booking ? "Redirecting to payment..." : "Book Consultation"}
-        </button>
+        </div>
       </div>
     </div>
   );
