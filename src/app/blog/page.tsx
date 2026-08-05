@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { Clock } from "lucide-react";
 
 interface Post {
   id: string;
@@ -41,11 +42,11 @@ export default function BlogListPage() {
   }, [fetchPosts]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-2 font-display">Health Articles</h1>
-      <p className="text-gray-500 mb-6">Written by CuraLink doctors.</p>
+    <div className="max-w-6xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-display mb-2">Health Articles</h1>
+      <p className="text-stone-500 mb-8">Written by CuraLink doctors, reviewed before publishing.</p>
 
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex flex-wrap gap-2 mb-10">
         {CATEGORIES.map((c) => (
           <button
             key={c}
@@ -53,7 +54,7 @@ export default function BlogListPage() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               category === c
                 ? "bg-teal-950 text-white"
-                : "bg-stone-100 hover:bg-stone-200 text-gray-700"
+                : "bg-white border border-stone-200 hover:border-teal-800/30 text-stone-600"
             }`}
           >
             {c}
@@ -62,38 +63,38 @@ export default function BlogListPage() {
       </div>
 
       {loading ? (
-        <p className="text-gray-500">Loading articles...</p>
+        <p className="text-stone-400">Loading articles...</p>
       ) : posts.length === 0 ? (
-        <p className="text-gray-500">No articles in this category yet.</p>
+        <p className="text-stone-400">No articles in this category yet.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <Link
               key={post.id}
               href={`/blog/${post.id}`}
-              className="border rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white"
+              className="group border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-800/30 transition-all bg-white"
             >
-              <div className="w-full h-44 bg-gray-100">
+              <div className="w-full h-44 bg-stone-100">
                 {post.coverImageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={post.coverImageUrl}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={post.coverImageUrl} alt={post.title} className="w-full h-full object-cover" />
                 )}
               </div>
-              <div className="p-4">
+              <div className="p-5">
                 <span className="text-xs text-[var(--color-copper)] font-medium">{post.category}</span>
-                <h2 className="font-semibold text-lg mt-1 leading-snug">{post.title}</h2>
+                <h2 className="font-semibold text-lg mt-1.5 leading-snug group-hover:text-teal-900 transition-colors">
+                  {post.title}
+                </h2>
                 {post.excerpt && (
-                  <p className="text-gray-500 text-sm mt-2 line-clamp-2">{post.excerpt}</p>
+                  <p className="text-stone-500 text-sm mt-2 line-clamp-2">{post.excerpt}</p>
                 )}
-                <div className="flex items-center justify-between mt-4 text-xs text-gray-400">
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-stone-100 text-xs text-stone-400">
                   <span>
                     Dr. {post.doctor.account.firstName} {post.doctor.account.lastName}
                   </span>
-                  <span>{post.readTimeMinutes} min read</span>
+                  <span className="flex items-center gap-1">
+                    <Clock size={12} /> {post.readTimeMinutes} min read
+                  </span>
                 </div>
               </div>
             </Link>
