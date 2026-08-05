@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeroParticles from "./components/HeroParticles";
 import Reveal from "./components/Reveal";
 import HeartbeatLine from "./components/HeartbeatLine";
+import AmbulanceIllustration from "./components/AmbulanceIllustration";
 import {
   ShieldCheck, Lock, Clock, Users, CalendarCheck, Search, ArrowRight,
   Mic, Video, PhoneOff, FileText, CalendarCheck2, ClipboardCheck, Star,
@@ -164,16 +165,9 @@ export default function HomePage() {
       {/* Emergency Banner */}
       <section className="bg-red-50 border-y border-red-200">
         <Reveal className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center gap-6">
-          <div className="relative w-20 h-20 flex-shrink-0">
-            <div className="absolute inset-0 bg-red-200 rounded-full blur-xl opacity-60" />
-            <svg viewBox="0 0 64 64" className="relative w-20 h-20 text-red-600">
-              <rect x="6" y="26" width="40" height="18" rx="3" fill="currentColor" opacity="0.12" />
-              <rect x="6" y="26" width="40" height="18" rx="3" fill="none" stroke="currentColor" strokeWidth="2" />
-              <path d="M46 32h8l4 6v6h-12z" fill="currentColor" opacity="0.12" stroke="currentColor" strokeWidth="2" />
-              <circle cx="16" cy="46" r="4" fill="white" stroke="currentColor" strokeWidth="2" />
-              <circle cx="46" cy="46" r="4" fill="white" stroke="currentColor" strokeWidth="2" />
-              <path d="M22 30v10M17 35h10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
+          <div className="relative w-48 h-28 flex-shrink-0">
+            <div className="absolute inset-0 bg-red-200 rounded-full blur-2xl opacity-50" />
+            <AmbulanceIllustration className="relative w-full h-full" />
           </div>
 
           <div className="flex-1 text-center sm:text-left">
