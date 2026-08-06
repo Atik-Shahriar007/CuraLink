@@ -6,7 +6,7 @@ import AmbulanceIllustration from "./components/AmbulanceIllustration";
 import {
   ShieldCheck, Lock, Clock, Users, CalendarCheck, Search, ArrowRight,
   Mic, Video, PhoneOff, FileText, CalendarCheck2, ClipboardCheck, Star, Stethoscope,
-  Heart, Baby, Brain, Briefcase,
+  Heart, Baby, Brain, Briefcase, Pill, Newspaper,
 } from "lucide-react";
 const steps = [
   {
@@ -34,7 +34,19 @@ const specialties = [
   { name: "General Medicine", icon: Briefcase, color: "text-emerald-700", bg: "bg-emerald-50" },
 ];
 
-export default function HomePage() {
+async function getLatestPosts() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/blog`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const posts = await res.json();
+    return posts.slice(0, 3);
+  } catch {
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const latestPosts = await getLatestPosts();
   return (
     <div className="flex-1">
       {/* Hero */}
@@ -293,49 +305,126 @@ export default function HomePage() {
 
 
       {/* Medicines */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <Reveal className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="font-display text-3xl mb-2">Medicine Directory</h2>
-            <p className="text-stone-600">
-              Look up dosage, price, and side effects for common medications.
-            </p>
+      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-[#F4F9F8] via-white to-[#FBF6F0]">
+        <div
+          className="absolute inset-0 opacity-[0.5]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='%230F3D3E' fill-opacity='0.06'%3E%3Cpath d='M18 8h4v10h10v4H22v10h-4V22H8v-4h10z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-teal-200/25 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[var(--color-copper)]/10 rounded-full blur-3xl" />
+
+        <div className="max-w-6xl mx-auto px-6 relative">
+        <Reveal className="flex items-start justify-between mb-8 flex-wrap gap-4">
+          <div className="flex items-start gap-4">
+            <span className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center flex-shrink-0">
+              <Pill size={22} className="text-teal-800" />
+            </span>
+            <div>
+              <h2 className="font-display text-2xl mb-1">Medicine Directory</h2>
+              <p className="text-stone-500 text-sm">
+                Look up dosage, price, and side effects for common medications.
+              </p>
+            </div>
           </div>
           <Link
             href="/medicines"
-            className="hidden sm:inline-block border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium"
+            className="inline-flex items-center gap-1.5 border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap"
           >
-            Browse All
+            Browse All <ArrowRight size={14} />
           </Link>
         </Reveal>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {["Analgesic & Antipyretic", "Antibiotic", "Antidiabetic", "Antihypertensive"].map((cat) => (
-            <Link
-              key={cat}
-              href={`/medicines?category=${encodeURIComponent(cat)}`}
-              className="bg-white border border-stone-200 hover:border-teal-800/30 hover:shadow-md transition-all rounded-2xl px-5 py-6 text-center font-medium text-sm"
-            >
-              {cat}
-            </Link>
+          {[
+            { name: "Analgesic & Antipyretic", sub: "Pain relief and fever reduction", icon: Pill, color: "text-teal-800", bg: "bg-teal-50" },
+            { name: "Antibiotic", sub: "Treat bacterial infections", icon: ShieldCheck, color: "text-blue-600", bg: "bg-blue-50" },
+            { name: "Antidiabetic", sub: "Manage blood sugar levels", icon: Heart, color: "text-purple-600", bg: "bg-purple-50" },
+            { name: "Antihypertensive", sub: "Control high blood pressure", icon: Heart, color: "text-red-600", bg: "bg-red-50" },
+          ].map((cat, i) => (
+            <Reveal key={cat.name} delay={i * 0.06}>
+              <Link
+                href={`/medicines?category=${encodeURIComponent(cat.name)}`}
+                className="group flex items-start gap-3 bg-white border border-stone-200 hover:border-teal-800/30 hover:shadow-md transition-all rounded-2xl px-4 py-4 h-full"
+              >
+                <span className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${cat.bg}`}>
+                  <cat.icon size={17} className={cat.color} />
+                </span>
+                <span className="min-w-0">
+                  <span className="flex items-center justify-between gap-1">
+                    <span className="font-medium text-sm truncate">{cat.name}</span>
+                    <ArrowRight size={13} className="text-stone-300 group-hover:text-teal-800 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                  </span>
+                  <span className="text-xs text-stone-400 block mt-0.5">{cat.sub}</span>
+                </span>
+              </Link>
+            </Reveal>
           ))}
+        </div>
         </div>
       </section>
 
       {/* Blog */}
-      <section className="bg-stone-100 py-20">
+      <section className="relative overflow-hidden py-20 bg-gradient-to-b from-[#FBF8F3] to-[#F3EEE6]">
+        <div
+          className="absolute inset-0 opacity-[0.6]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23B5541B' fill-opacity='0.05'%3E%3Cpath d='M12 2h2v10h10v2H14v10h-2V14H2v-2h10z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <div className="absolute top-10 right-10 w-72 h-72 bg-[var(--color-copper)]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-72 h-72 bg-teal-200/20 rounded-full blur-3xl" />
         <Reveal className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display text-3xl">Health Articles</h2>
+          <div className="flex items-start justify-between mb-10 flex-wrap gap-4">
+            <div className="flex items-start gap-4">
+              <span className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center flex-shrink-0">
+                <Newspaper size={22} className="text-teal-800" />
+              </span>
+              <div>
+                <h2 className="font-display text-2xl mb-1">Health Articles</h2>
+                <p className="text-stone-500 text-sm">
+                  Written by our doctors, reviewed for accuracy before publishing.
+                </p>
+              </div>
+            </div>
             <Link
               href="/blog"
-              className="hidden sm:inline-block border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium bg-white"
+              className="inline-flex items-center gap-1.5 border border-stone-300 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium bg-white whitespace-nowrap"
             >
-              Read All
+              Read All Articles <ArrowRight size={14} />
             </Link>
           </div>
-          <p className="text-stone-600 mb-2">
-            Written by our doctors, reviewed for accuracy before publishing.
-          </p>
+
+          {latestPosts.length === 0 ? (
+            <p className="text-stone-400 text-sm">Articles will appear here once published.</p>
+          ) : (
+            <div className="grid sm:grid-cols-3 gap-6">
+              {latestPosts.map((post: any) => (
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.id}`}
+                  className="group border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all bg-white"
+                >
+                  <div className="w-full h-40 bg-stone-100">
+                    {post.coverImageUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={post.coverImageUrl} alt={post.title} className="w-full h-full object-cover" />
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <span className="text-xs text-[var(--color-copper)] font-medium">{post.category}</span>
+                    <h3 className="font-semibold mt-1 leading-snug group-hover:text-teal-900 transition-colors">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p className="text-stone-500 text-sm mt-1.5 line-clamp-2">{post.excerpt}</p>
+                    )}
+                    <p className="text-xs text-stone-400 mt-3">{post.readTimeMinutes} min read</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </Reveal>
       </section>
 
