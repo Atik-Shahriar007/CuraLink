@@ -5,13 +5,13 @@ import HeartbeatLine from "./components/HeartbeatLine";
 import AmbulanceIllustration from "./components/AmbulanceIllustration";
 import {
   ShieldCheck, Lock, Clock, Users, CalendarCheck, Search, ArrowRight,
-  Mic, Video, PhoneOff, FileText, CalendarCheck2, ClipboardCheck, Star,
+  Mic, Video, PhoneOff, FileText, CalendarCheck2, ClipboardCheck, Star, Stethoscope,
 } from "lucide-react";
 const steps = [
   {
     n: "01",
     title: "Browse & choose",
-    body: "Search doctors by specialty, hospital, or price, and read real profiles before you book.",
+    body: "Search doctors by specialty, hospital, or price, and read real reviews before you book.",
   },
   {
     n: "02",
@@ -21,7 +21,7 @@ const steps = [
   {
     n: "03",
     title: "Consult live",
-    body: "Join a private video call the moment your appointment starts — no waiting room.",
+    body: "Join a private video call at the time of your appointment — no waiting room.",
   },
 ];
 
@@ -200,48 +200,86 @@ export default function HomePage() {
       </section>
 
       {/* How it works */}
-      <section className="max-w-6xl mx-auto px-6 py-24">
-        <Reveal>
-          <h2 className="font-display text-3xl mb-14 text-center">
-            Three steps to your consultation
-          </h2>
+      <section className="bg-white py-24 relative">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, #0F3D3E20 1.5px, transparent 1.5px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div className="max-w-6xl mx-auto px-6 relative">
+        <Reveal className="text-center mb-14">
+          <span className="inline-flex items-center gap-2 bg-teal-50 text-teal-800 text-xs font-medium px-4 py-1.5 rounded-full mb-4">
+            <Stethoscope size={13} /> How It Works
+          </span>
+          <h2 className="font-display text-3xl mb-3">Three steps to your consultation</h2>
+          <p className="text-stone-500">
+            Get quality healthcare from the comfort of your home — simple, fast and secure.
+          </p>
         </Reveal>
-        <div className="grid md:grid-cols-3 gap-10">
-          {steps.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.12}>
-              <p className="font-display text-3xl text-[var(--color-copper)] mb-3">
-                {s.n}
-              </p>
-              <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
-              <p className="text-stone-600">{s.body}</p>
+
+        <div className="grid md:grid-cols-3 gap-6 relative">
+          {[
+            { icon: Search, badge: "01", badgeColor: "bg-teal-100 text-teal-800", iconColor: "text-teal-800", iconBg: "bg-teal-50" },
+            { icon: ShieldCheck, badge: "02", badgeColor: "bg-blue-100 text-blue-800", iconColor: "text-blue-700", iconBg: "bg-blue-50" },
+            { icon: Video, badge: "03", badgeColor: "bg-purple-100 text-purple-800", iconColor: "text-purple-700", iconBg: "bg-purple-50" },
+          ].map((visual, i) => (
+            <Reveal key={steps[i].n} delay={i * 0.12} className="relative">
+              <div className="border border-stone-200 rounded-2xl p-6 bg-white h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${visual.iconBg}`}>
+                    <visual.icon size={20} className={visual.iconColor} />
+                  </div>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${visual.badgeColor}`}>
+                    {visual.badge}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-lg mb-2">{steps[i].title}</h3>
+                <p className="text-stone-500 text-sm">{steps[i].body}</p>
+              </div>
+              {i < 2 && (
+                <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-teal-50 border-2 border-teal-200 shadow-md items-center justify-center">
+                  <ArrowRight size={18} className="text-teal-800" strokeWidth={2.75} />
+                </div>
+              )}
+            </Reveal>
+          ))}
+        </div>
+        </div>
+      </section>
+
+      {/* Specialties */}
+      <section className="bg-[#EEF5F4] py-20 relative overflow-hidden">
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-teal-200/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-copper)]/10 rounded-full blur-3xl" />
+        <Reveal className="max-w-6xl mx-auto px-6 text-center mb-10">
+          <span className="inline-flex items-center gap-2 bg-teal-50 text-teal-800 text-xs font-medium px-4 py-1.5 rounded-full mb-4">
+            <Stethoscope size={13} /> Consult Across Specialties
+          </span>
+          <h2 className="font-display text-2xl mb-2">Quality care for every need</h2>
+          <p className="text-stone-500">Connect with verified doctors across all major specialties</p>
+        </Reveal>
+
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {specialties.map((s, i) => (
+            <Reveal key={s} delay={i * 0.05}>
+              <Link
+                href={`/doctors?specialty=${encodeURIComponent(s)}`}
+                className="group flex items-center justify-between gap-2 bg-white border border-stone-200 hover:border-teal-700 hover:shadow-md transition-all px-5 py-4 rounded-xl text-sm font-medium"
+              >
+                <span className="flex items-center gap-2.5">
+                  <Stethoscope size={16} className="text-teal-800 flex-shrink-0" />
+                  {s}
+                </span>
+                <ArrowRight size={14} className="text-stone-300 group-hover:text-teal-800 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+              </Link>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Specialties */}
-      <section className="bg-stone-100 py-20">
-        <Reveal className="max-w-6xl mx-auto px-6">
-          <h2 className="font-display text-2xl mb-8 text-center">
-            Consult across specialties
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {specialties.map((s) => (
-              <Link
-                key={s}
-                href={`/doctors?specialty=${encodeURIComponent(s)}`}
-                className="bg-white border border-stone-200 hover:border-teal-700 transition-colors px-5 py-2.5 rounded-full text-sm font-medium"
-              >
-                {s}
-              </Link>
-            ))}
-          </div>
-        </Reveal>
-      </section>
 
-      {/* Medicines */}
-
-      {/* Medicines */}
       {/* Medicines */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <Reveal className="flex items-center justify-between mb-8">
@@ -271,7 +309,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Blog */}
       {/* Blog */}
       <section className="bg-stone-100 py-20">
         <Reveal className="max-w-6xl mx-auto px-6">
