@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search, ShieldAlert } from "lucide-react";
@@ -19,7 +19,7 @@ interface Medicine {
   imageUrl: string | null;
 }
 
-export default function MedicinesPage() {
+function MedicinesContent() {
   const searchParams = useSearchParams();
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [search, setSearch] = useState("");
@@ -126,5 +126,13 @@ export default function MedicinesPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function MedicinesPage() {
+  return (
+    <Suspense fallback={<div className="max-w-6xl mx-auto px-6 py-12 text-stone-400">Loading...</div>}>
+      <MedicinesContent />
+    </Suspense>
   );
 }
