@@ -7,15 +7,15 @@ export default function HeartbeatLine({ className = "" }: { className?: string }
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M0 30 H130 L145 10 L160 50 L175 20 L190 40 L205 30 H400"
+        d="M0 30 H90 L100 5 L112 55 L124 12 L136 45 L148 30 H170 L180 8 L192 52 L204 18 L216 42 L228 30 H400"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         pathLength="1"
         strokeDasharray="1"
         strokeDashoffset="1"
-        style={{ animation: "heartbeat-draw 3s ease-in-out infinite" }}
+        style={{ animation: "heartbeat-draw 3.5s ease-in-out infinite" }}
       />
       <style>{`
         @keyframes heartbeat-draw {

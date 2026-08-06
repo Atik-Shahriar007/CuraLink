@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import { Home, Stethoscope, Pill, LogIn, UserPlus } from "lucide-react";
+import Logo from "./Logo";
 import { useState as useStateReact, useEffect as useEffectReact } from "react";
 
 export default function Navbar() {
@@ -33,10 +35,10 @@ export default function Navbar() {
   }
 
   const linkClass = (href: string) =>
-    `text-sm font-medium transition-colors ${
+    `flex items-center gap-1.5 text-[15px] font-semibold transition-colors ${
       pathname === href
         ? "text-teal-950"
-        : "text-stone-500 hover:text-stone-900"
+        : "text-stone-600 hover:text-stone-900"
     }`;
 
 const isStaffOnSupport =
@@ -54,27 +56,30 @@ const isStaffOnSupport =
   return (
     <nav className="border-b border-stone-200 bg-white">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display text-xl text-teal-950">
-          CuraLink
+        <Link href="/">
+          <Logo />
         </Link>
 
         <div className="flex items-center gap-6">
           {!loading && !account && (
             <>
+              <Link href="/" className={linkClass("/")}>
+                <Home size={16} /> Home
+              </Link>
               <Link href="/doctors" className={linkClass("/doctors")}>
-                Find a Doctor
+                <Stethoscope size={16} /> Find a Doctor
               </Link>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
               <Link href="/login" className={linkClass("/login")}>
-                Log in
+                <LogIn size={16} /> Log in
               </Link>
               <Link
                 href="/register"
-                className="bg-teal-950 hover:bg-teal-900 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors"
+                className="flex items-center gap-1.5 bg-teal-950 hover:bg-teal-900 text-white text-[15px] font-semibold px-5 py-2.5 rounded-full transition-colors"
               >
-                Sign up
+                <UserPlus size={16} /> Sign up
               </Link>
             </>
           )}

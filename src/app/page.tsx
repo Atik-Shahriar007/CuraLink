@@ -60,7 +60,7 @@ export default async function HomePage() {
             backgroundSize: "22px 22px",
           }}
         />
-        <HeartbeatLine className="hidden md:block absolute top-1/2 left-[38%] w-72 h-16 text-teal-400/40 -translate-y-1/2 pointer-events-none" />
+        <HeartbeatLine className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 w-[560px] h-24 text-teal-400/50 -translate-y-1/2 pointer-events-none" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28 grid lg:grid-cols-[1fr_1.1fr] gap-16 items-center">
           <div>
@@ -431,6 +431,7 @@ export default async function HomePage() {
       {/* Closing CTA */}
       <section className="relative overflow-hidden bg-teal-950 py-28 text-center text-stone-50">
         <HeroParticles />
+        <HeartbeatLine className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 w-[560px] h-24 text-[var(--color-copper-light)]/40 -translate-y-1/2 pointer-events-none" />
         <Reveal className="relative z-10 max-w-2xl mx-auto px-6">
           <h2 className="font-display text-3xl md:text-4xl mb-6">
             Your health, on your schedule.
