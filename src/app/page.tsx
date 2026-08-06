@@ -6,6 +6,7 @@ import AmbulanceIllustration from "./components/AmbulanceIllustration";
 import {
   ShieldCheck, Lock, Clock, Users, CalendarCheck, Search, ArrowRight,
   Mic, Video, PhoneOff, FileText, CalendarCheck2, ClipboardCheck, Star, Stethoscope,
+  Heart, Baby, Brain, Briefcase,
 } from "lucide-react";
 const steps = [
   {
@@ -26,11 +27,11 @@ const steps = [
 ];
 
 const specialties = [
-  "Cardiology",
-  "Dermatology",
-  "Pediatrics",
-  "Psychiatry",
-  "General Medicine",
+  { name: "Cardiology", icon: Heart, color: "text-teal-800", bg: "bg-teal-50" },
+  { name: "Dermatology", icon: Stethoscope, color: "text-red-600", bg: "bg-red-50" },
+  { name: "Pediatrics", icon: Baby, color: "text-blue-600", bg: "bg-blue-50" },
+  { name: "Psychiatry", icon: Brain, color: "text-purple-600", bg: "bg-purple-50" },
+  { name: "General Medicine", icon: Briefcase, color: "text-emerald-700", bg: "bg-emerald-50" },
 ];
 
 export default function HomePage() {
@@ -204,7 +205,7 @@ export default function HomePage() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, #0F3D3E20 1.5px, transparent 1.5px)",
+            backgroundImage: "radial-gradient(circle, #0F3D3E20 1.6px, transparent 1.6px)",
             backgroundSize: "24px 24px",
           }}
         />
@@ -263,20 +264,31 @@ export default function HomePage() {
 
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {specialties.map((s, i) => (
-            <Reveal key={s} delay={i * 0.05}>
+            <Reveal key={s.name} delay={i * 0.05}>
               <Link
-                href={`/doctors?specialty=${encodeURIComponent(s)}`}
-                className="group flex items-center justify-between gap-2 bg-white border border-stone-200 hover:border-teal-700 hover:shadow-md transition-all px-5 py-4 rounded-xl text-sm font-medium"
+                href={`/doctors?specialty=${encodeURIComponent(s.name)}`}
+                className="group flex items-center justify-between gap-2 bg-white border border-stone-200 hover:border-teal-700 hover:shadow-md transition-all px-4 py-4 rounded-xl text-sm font-medium"
               >
-                <span className="flex items-center gap-2.5">
-                  <Stethoscope size={16} className="text-teal-800 flex-shrink-0" />
-                  {s}
+                <span className="flex items-center gap-3">
+                  <span className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${s.bg}`}>
+                    <s.icon size={17} className={s.color} />
+                  </span>
+                  {s.name}
                 </span>
                 <ArrowRight size={14} className="text-stone-300 group-hover:text-teal-800 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
               </Link>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.3} className="text-center mt-8">
+          <Link
+            href="/doctors"
+            className="inline-flex items-center gap-1.5 text-teal-800 font-medium text-sm hover:underline underline-offset-4"
+          >
+            View all specialties <ArrowRight size={14} />
+          </Link>
+        </Reveal>
       </section>
 
 
