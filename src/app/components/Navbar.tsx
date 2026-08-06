@@ -4,7 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
-import { Home, Stethoscope, Pill, LogIn, UserPlus } from "lucide-react";
+import {
+  Home, Stethoscope, Pill, LogIn, UserPlus, Newspaper, ClipboardList,
+  User, LifeBuoy, Siren, LogOut, CalendarClock, BarChart3,
+} from "lucide-react";
 import Logo from "./Logo";
 import { useState as useStateReact, useEffect as useEffectReact } from "react";
 
@@ -87,35 +90,34 @@ const isStaffOnSupport =
           {!loading && account?.role === "PATIENT" && (
             <>
               <Link href="/doctors" className={linkClass("/doctors")}>
-                Find a Doctor
+                <Stethoscope size={16} /> Find a Doctor
               </Link>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
               <Link href="/blog" className={linkClass("/blog")}>
-                Blog
+                <Newspaper size={16} /> Blog
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support{unreadCount > 0 && ` (${unreadCount})`}
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/patient/consultations"
                 className={linkClass("/patient/consultations")}
               >
-                My Consultations
+                <ClipboardList size={16} /> My Consultations
               </Link>
               <Link href="/ambulance/status" className={linkClass("/ambulance/status")}>
-                Ambulance
-               </Link>
-
+                <Siren size={16} /> Ambulance
+              </Link>
               <Link href="/patient/profile" className={linkClass("/patient/profile")}>
-                My Profile
+                <User size={16} /> My Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
               >
-                Log out
+                <LogOut size={16} /> Log out
               </button>
             </>
           )}
@@ -123,40 +125,37 @@ const isStaffOnSupport =
           {!loading && account?.role === "DOCTOR" && (
             <>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
-
               <Link href="/blog" className={linkClass("/blog")}>
-                Blog
+                <Newspaper size={16} /> Blog
               </Link>
-
               <Link href="/doctor/blog" className={linkClass("/doctor/blog")}>
-                My Articles
+                <Newspaper size={16} /> My Articles
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support{unreadCount > 0 && ` (${unreadCount})`}
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/doctor/consultations"
                 className={linkClass("/doctor/consultations")}
               >
-                My Consultations
+                <ClipboardList size={16} /> My Consultations
               </Link>
               <Link href="/doctor/schedule" className={linkClass("/doctor/schedule")}>
-                Schedule
-              </Link>
-              <Link href="/doctor/profile" className={linkClass("/doctor/profile")}>
-                My Profile
+                <CalendarClock size={16} /> Schedule
               </Link>
               <Link href="/doctor/analytics" className={linkClass("/doctor/analytics")}>
-                Analytics
+                <BarChart3 size={16} /> Analytics
               </Link>
-
+              <Link href="/doctor/profile" className={linkClass("/doctor/profile")}>
+                <User size={16} /> My Profile
+              </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
               >
-                Log out
+                <LogOut size={16} /> Log out
               </button>
             </>
           )}
@@ -193,20 +192,19 @@ const isStaffOnSupport =
           {!loading && account?.role === "AMBULANCE_PROVIDER" && (
             <>
               <Link href="/provider/requests" className={linkClass("/provider/requests")}>
-                Requests
+                <Siren size={16} /> Requests
               </Link>
               <Link href="/support/tickets" className={linkClass("/support/tickets")}>
-                Support{unreadCount > 0 && ` (${unreadCount})`}
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
-
               <Link href="/provider/profile" className={linkClass("/provider/profile")}>
-                My Profile
+                <User size={16} /> My Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
               >
-                Log out
+                <LogOut size={16} /> Log out
               </button>
             </>
           )}
