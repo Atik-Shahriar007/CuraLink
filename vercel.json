@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/jobs/start-consultations",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/jobs/cleanup-consultations",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}

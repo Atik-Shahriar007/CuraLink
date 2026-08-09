@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ const statusStyles: Record<string, string> = {
   CANCELED: "bg-red-100 text-red-700",
 };
 
-export default function PatientConsultationsPage() {
+function PatientConsultationsContent() {
   const searchParams = useSearchParams();
   const justPaid = searchParams.get("success") === "true";
 
@@ -120,5 +120,13 @@ export default function PatientConsultationsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PatientConsultationsPage() {
+  return (
+    <Suspense fallback={<div className="text-stone-400">Loading...</div>}>
+      <PatientConsultationsContent />
+    </Suspense>
   );
 }

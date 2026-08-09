@@ -1,13 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import {
+  Home, Stethoscope, Pill, LogIn, UserPlus, Newspaper, ClipboardList,
+  User, LifeBuoy, Siren, LogOut, CalendarClock, BarChart3,
+} from "lucide-react";
+import Logo from "./Logo";
+import { useState as useStateReact, useEffect as useEffectReact } from "react";
 
 export default function Navbar() {
   const { account, loading, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (!account) return;
+
+    function fetchCount() {
+      fetch("/api/support/unread-count")
+        .then((res) => res.json())
+        .then((data) => setUnreadCount(data.count || 0))
+        .catch(() => {});
+    }
+
+    fetchCount();
+    const interval = setInterval(fetchCount, 15000); // poll every 15s
+    return () => clearInterval(interval);
+  }, [account]);
 
   async function handleLogout() {
     await logout();
@@ -15,36 +38,51 @@ export default function Navbar() {
   }
 
   const linkClass = (href: string) =>
-    `text-sm font-medium transition-colors ${
+    `flex items-center gap-1.5 text-[15px] font-semibold transition-colors ${
       pathname === href
         ? "text-teal-950"
-        : "text-stone-500 hover:text-stone-900"
+        : "text-stone-600 hover:text-stone-900"
     }`;
+
+const isStaffOnSupport =
+    pathname.startsWith("/support") && (account?.role === "SUPPORT_AGENT" || account?.role === "ADMIN");
+
+  if (
+    pathname.startsWith("/patient") ||
+    pathname.startsWith("/doctor") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/provider") ||
+    isStaffOnSupport
+  )
+    return null;
 
   return (
     <nav className="border-b border-stone-200 bg-white">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display text-xl text-teal-950">
-          CuraLink
+        <Link href="/">
+          <Logo />
         </Link>
 
         <div className="flex items-center gap-6">
           {!loading && !account && (
             <>
+              <Link href="/" className={linkClass("/")}>
+                <Home size={16} /> Home
+              </Link>
               <Link href="/doctors" className={linkClass("/doctors")}>
-                Find a Doctor
+                <Stethoscope size={16} /> Find a Doctor
               </Link>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
               <Link href="/login" className={linkClass("/login")}>
-                Log in
+                <LogIn size={16} /> Log in
               </Link>
               <Link
                 href="/register"
-                className="bg-teal-950 hover:bg-teal-900 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors"
+                className="flex items-center gap-1.5 bg-teal-950 hover:bg-teal-900 text-white text-[15px] font-semibold px-5 py-2.5 rounded-full transition-colors"
               >
-                Sign up
+                <UserPlus size={16} /> Sign up
               </Link>
             </>
           )}
@@ -52,32 +90,34 @@ export default function Navbar() {
           {!loading && account?.role === "PATIENT" && (
             <>
               <Link href="/doctors" className={linkClass("/doctors")}>
-                Find a Doctor
+                <Stethoscope size={16} /> Find a Doctor
               </Link>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
               <Link href="/blog" className={linkClass("/blog")}>
-                Blog
+                <Newspaper size={16} /> Blog
+              </Link>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/patient/consultations"
                 className={linkClass("/patient/consultations")}
               >
-                My Consultations
+                <ClipboardList size={16} /> My Consultations
               </Link>
               <Link href="/ambulance/status" className={linkClass("/ambulance/status")}>
-                Ambulance
-               </Link>
-
+                <Siren size={16} /> Ambulance
+              </Link>
               <Link href="/patient/profile" className={linkClass("/patient/profile")}>
-                My Profile
+                <User size={16} /> My Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
               >
-                Log out
+                <LogOut size={16} /> Log out
               </button>
             </>
           )}
@@ -85,33 +125,37 @@ export default function Navbar() {
           {!loading && account?.role === "DOCTOR" && (
             <>
               <Link href="/medicines" className={linkClass("/medicines")}>
-                Medicines
+                <Pill size={16} /> Medicines
               </Link>
-
               <Link href="/blog" className={linkClass("/blog")}>
-                Blog
+                <Newspaper size={16} /> Blog
               </Link>
-
               <Link href="/doctor/blog" className={linkClass("/doctor/blog")}>
-                My Articles
+                <Newspaper size={16} /> My Articles
+              </Link>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <Link
                 href="/doctor/consultations"
                 className={linkClass("/doctor/consultations")}
               >
-                My Consultations
+                <ClipboardList size={16} /> My Consultations
               </Link>
               <Link href="/doctor/schedule" className={linkClass("/doctor/schedule")}>
-                Schedule
+                <CalendarClock size={16} /> Schedule
+              </Link>
+              <Link href="/doctor/analytics" className={linkClass("/doctor/analytics")}>
+                <BarChart3 size={16} /> Analytics
               </Link>
               <Link href="/doctor/profile" className={linkClass("/doctor/profile")}>
-                My Profile
+                <User size={16} /> My Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-stone-500 hover:text-stone-900"
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
               >
-                Log out
+                <LogOut size={16} /> Log out
               </button>
             </>
           )}
@@ -133,6 +177,9 @@ export default function Navbar() {
               <Link href="/admin/providers" className={linkClass("/admin/providers")}>
                 Providers
               </Link>
+              <Link href="/admin/analytics" className={linkClass("/admin/analytics")}>
+                Analytics
+              </Link>
 
               <button
                 onClick={handleLogout}
@@ -145,11 +192,27 @@ export default function Navbar() {
           {!loading && account?.role === "AMBULANCE_PROVIDER" && (
             <>
               <Link href="/provider/requests" className={linkClass("/provider/requests")}>
-                Requests
+                <Siren size={16} /> Requests
               </Link>
-
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                <LifeBuoy size={16} /> Support{unreadCount > 0 && ` (${unreadCount})`}
+              </Link>
               <Link href="/provider/profile" className={linkClass("/provider/profile")}>
-                My Profile
+                <User size={16} /> My Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 text-[15px] font-semibold text-red-600 hover:text-red-700"
+              >
+                <LogOut size={16} /> Log out
+              </button>
+            </>
+          )}
+
+           {!loading && account?.role === "SUPPORT_AGENT" && (
+            <>
+              <Link href="/support/tickets" className={linkClass("/support/tickets")}>
+                Support Queue{unreadCount > 0 && ` (${unreadCount})`}
               </Link>
               <button
                 onClick={handleLogout}
@@ -163,5 +226,7 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    
+
   );
 }
