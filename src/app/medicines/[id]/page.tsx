@@ -9,14 +9,14 @@ interface Medicine {
   genericName: string;
   form: string;
   therapeuticCategory: string;
-  manufacturer: string;
+  manufacturer: string | null;
   strength: string;
   unit: string;
   price: number;
   prescriptionRequired: boolean;
-  description: string;
-  dosage: string;
-  sideEffects: string;
+  description: string | null;
+  dosage: string | null;
+  sideEffects: string | null;
   imageUrl: string | null;
 }
 
@@ -57,7 +57,9 @@ export default function MedicineDetailPage() {
         <div>
           <h1 className="text-2xl font-bold font-display">{medicine.brandName}</h1>
           <p className="text-gray-500">{medicine.genericName} · {medicine.strength}</p>
-          <p className="text-gray-400 text-sm mt-1">{medicine.manufacturer}</p>
+          {medicine.manufacturer && (
+            <p className="text-gray-400 text-sm mt-1">{medicine.manufacturer}</p>
+          )}
           <p className="text-gray-400 text-sm">{medicine.form} · {medicine.therapeuticCategory}</p>
           <div className="flex items-center gap-3 mt-3">
             <span className="text-[var(--color-copper)] font-semibold text-lg">
@@ -79,15 +81,23 @@ export default function MedicineDetailPage() {
       <div className="mt-8 space-y-6">
         <div>
           <h2 className="font-semibold text-lg mb-2">Description</h2>
-          <p className="text-gray-700">{medicine.description}</p>
+          <p className={medicine.description ? "text-gray-700" : "text-gray-400"}>
+            {medicine.description || "Not specified for this medicine."}
+          </p>
         </div>
         <div>
           <h2 className="font-semibold text-lg mb-2">Dosage</h2>
-          <p className="text-gray-700">{medicine.dosage}</p>
+          <p className={medicine.dosage ? "text-gray-700" : "text-gray-400"}>
+            {medicine.dosage ||
+              "Not specified — follow the dosage on your prescription or ask your doctor."}
+          </p>
         </div>
         <div>
           <h2 className="font-semibold text-lg mb-2">Side Effects</h2>
-          <p className="text-gray-700">{medicine.sideEffects}</p>
+          <p className={medicine.sideEffects ? "text-gray-700" : "text-gray-400"}>
+            {medicine.sideEffects ||
+              "Not specified — ask your doctor or pharmacist."}
+          </p>
         </div>
       </div>
 

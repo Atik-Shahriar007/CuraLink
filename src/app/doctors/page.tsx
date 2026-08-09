@@ -23,19 +23,36 @@ export default function DoctorsPage() {
   const [maxPrice, setMaxPrice] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const fetchDoctors = useCallback(async () => {
     setLoading(true);
+    setError("");
     const params = new URLSearchParams();
     if (search) params.set("search", search);
     if (specialty) params.set("specialty", specialty);
     if (maxPrice) params.set("maxPrice", maxPrice);
     params.set("sortBy", sortBy);
 
-    const res = await fetch(`/api/doctors?${params.toString()}`);
-    const data = await res.json();
-    setDoctors(data);
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/doctors?${params.toString()}`);
+      const data = await res.json();
+
+      // A failed request returns { error }, not an array — guard so the page
+      // shows a message instead of crashing on .map().
+      if (!res.ok || !Array.isArray(data)) {
+        setDoctors([]);
+        setError(data?.error || "Could not load doctors.");
+        return;
+      }
+
+      setDoctors(data);
+    } catch {
+      setDoctors([]);
+      setError("Could not load doctors.");
+    } finally {
+      setLoading(false);
+    }
   }, [search, specialty, maxPrice, sortBy]);
 
   useEffect(() => {
@@ -93,6 +110,8 @@ export default function DoctorsPage() {
 
       {loading ? (
         <p className="text-stone-400">Loading doctors...</p>
+      ) : error ? (
+        <p className="text-red-600">{error}</p>
       ) : doctors.length === 0 ? (
         <p className="text-stone-400">No doctors found matching your criteria.</p>
       ) : (

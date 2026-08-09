@@ -8,14 +8,14 @@ interface Medicine {
   genericName: string;
   form: string;
   therapeuticCategory: string;
-  manufacturer: string;
+  manufacturer: string | null;
   strength: string;
   unit: string;
   price: number;
   prescriptionRequired: boolean;
-  description: string;
-  dosage: string;
-  sideEffects: string;
+  description: string | null;
+  dosage: string | null;
+  sideEffects: string | null;
   imageUrl: string | null;
 }
 
@@ -38,7 +38,7 @@ export default function AdminMedicinesPage() {
     setLoading(true);
     fetch("/api/admin/medicines")
       .then((res) => res.json())
-      .then(setMedicines)
+      .then((d) => setMedicines(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
   }
 
@@ -58,14 +58,16 @@ export default function AdminMedicinesPage() {
       genericName: med.genericName,
       form: med.form,
       therapeuticCategory: med.therapeuticCategory,
-      manufacturer: med.manufacturer,
+      // Catalog-imported rows leave these NULL; the inputs are controlled, so
+      // fall back to "" rather than handing React a null value.
+      manufacturer: med.manufacturer ?? "",
       strength: med.strength,
       unit: med.unit,
       price: med.price.toString(),
       prescriptionRequired: med.prescriptionRequired,
-      description: med.description,
-      dosage: med.dosage,
-      sideEffects: med.sideEffects,
+      description: med.description ?? "",
+      dosage: med.dosage ?? "",
+      sideEffects: med.sideEffects ?? "",
     });
     setPhotoFile(null);
     setShowForm(true);

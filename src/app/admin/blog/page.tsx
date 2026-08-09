@@ -22,7 +22,7 @@ export default function AdminBlogPage() {
     setLoading(true);
     fetch("/api/admin/blog")
       .then((res) => res.json())
-      .then(setPosts)
+      .then((d) => setPosts(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
   }
 
