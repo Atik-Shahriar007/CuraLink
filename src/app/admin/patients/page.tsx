@@ -20,7 +20,7 @@ export default function AdminPatientsPage() {
   useEffect(() => {
     fetch("/api/admin/patients")
       .then((res) => res.json())
-      .then(setPatients)
+      .then((d) => setPatients(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
   }, []);
 

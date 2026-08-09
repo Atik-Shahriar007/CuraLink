@@ -27,7 +27,7 @@ export default function DoctorConsultationsPage() {
   useEffect(() => {
     fetch("/api/doctor/consultations")
       .then((res) => res.json())
-      .then(setConsultations)
+      .then((d) => setConsultations(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
   }, []);
 

@@ -5,6 +5,7 @@
 //
 // Run with: node prisma/seed-medicines.js
 
+const fs = require("fs");
 const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 const { v2: cloudinary } = require("cloudinary");
@@ -53,8 +54,50 @@ const medicines = [
   { brandName: "B50 Forte", genericName: "Vitamin B Complex", form: "Tablet", therapeuticCategory: "Vitamin Supplement", manufacturer: "Renata Ltd.", strength: "Standard", unit: "Per Tablet", price: 3.00, prescriptionRequired: false, description: "Helps maintain nerve and metabolic health.", dosage: "1 tablet daily.", sideEffects: "Nausea, mild stomach discomfort.", file: "b50-forte.jpg" },
 ];
 
+// Cloudinary is only a host for these images — the actual files already live in
+// seed-data/medicine-images. Without credentials we copy them into public/ and
+// serve them from there, so the directory still gets real product photos.
+const HAS_CLOUDINARY = Boolean(
+  process.env.CLOUDINARY_CLOUD_NAME &&
+    process.env.CLOUDINARY_API_KEY &&
+    process.env.CLOUDINARY_API_SECRET
+);
+
+const PUBLIC_IMAGE_DIR = path.join(
+  __dirname,
+  "..",
+  "public",
+  "medicine-images",
+  "curated"
+);
+const PUBLIC_IMAGE_URL = "/medicine-images/curated";
+
+/** Uploads to Cloudinary when configured, otherwise copies into public/. */
+async function resolveImageUrl(filePath, file) {
+  if (HAS_CLOUDINARY) {
+    const upload = await cloudinary.uploader.upload(filePath, {
+      folder: "curalink/medicines",
+      transformation: [{ width: 500, height: 500, crop: "fill" }],
+    });
+    return upload.secure_url;
+  }
+
+  if (!fs.existsSync(filePath)) return null;
+
+  fs.mkdirSync(PUBLIC_IMAGE_DIR, { recursive: true });
+  fs.copyFileSync(filePath, path.join(PUBLIC_IMAGE_DIR, file));
+  return `${PUBLIC_IMAGE_URL}/${file}`;
+}
+
 async function main() {
   console.log(`Seeding ${medicines.length} medicines...`);
+  if (!HAS_CLOUDINARY) {
+    console.log("No Cloudinary credentials found — seeding without images.");
+  }
+
+  let created = 0;
+  let updated = 0;
+  let skipped = 0;
 
   for (const [i, med] of medicines.entries()) {
     const { file, ...data } = med;
@@ -63,22 +106,40 @@ async function main() {
     process.stdout.write(`[${i + 1}/${medicines.length}] ${med.brandName}... `);
 
     try {
-      const upload = await cloudinary.uploader.upload(filePath, {
-        folder: "curalink/medicines",
-        transformation: [{ width: 500, height: 500, crop: "fill" }],
+      // Safe to re-run: match on the brand/strength pair rather than duplicating.
+      const existing = await prisma.medicine.findFirst({
+        where: { brandName: data.brandName, strength: data.strength },
+        select: { id: true, imageUrl: true },
       });
 
-      await prisma.medicine.create({
-        data: { ...data, imageUrl: upload.secure_url },
-      });
+      if (existing && existing.imageUrl) {
+        console.log("already seeded, skipping");
+        skipped++;
+        continue;
+      }
 
-      console.log("done");
+      const imageUrl = await resolveImageUrl(filePath, file);
+
+      if (existing) {
+        await prisma.medicine.update({
+          where: { id: existing.id },
+          data: { ...data, imageUrl },
+        });
+        console.log("image added");
+        updated++;
+      } else {
+        await prisma.medicine.create({ data: { ...data, imageUrl } });
+        console.log("done");
+        created++;
+      }
     } catch (err) {
       console.error(`FAILED — ${err.message}`);
     }
   }
 
-  console.log("Seeding complete.");
+  console.log(
+    `Seeding complete. ${created} created, ${updated} updated, ${skipped} skipped.`
+  );
 }
 
 main()
