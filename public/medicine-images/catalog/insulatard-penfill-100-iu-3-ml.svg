@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="INSULATARD PENFILL 100 IU 3 ML">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#g)"/>
+  <text x="250" y="186" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" fill="#ffffff" opacity="0.85" text-anchor="middle" letter-spacing="3">OTHER</text>
+  <rect x="205" y="203" width="90" height="3" rx="1.5" fill="#ffffff" opacity="0.55"/>
+  <text x="250" y="228.9" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="37" font-weight="600" fill="#ffffff" text-anchor="middle">INSULATARD</text>
+  <text x="250" y="272.6" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="37" font-weight="600" fill="#ffffff" text-anchor="middle">PENFILL 100 IU 3</text>
+  <text x="250" y="316.2" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="37" font-weight="600" fill="#ffffff" text-anchor="middle">ML</text>
+</svg>

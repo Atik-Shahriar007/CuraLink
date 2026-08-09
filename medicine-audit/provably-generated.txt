@@ -1,0 +1,380 @@
+PROVABLY GENERATED - brand token contains digits (377 rows)
+No pharmaceutical company names a product this way. Safe to treat as fake.
+
+RXPLUS89 300MG Ointment               Diabetic Accessories    DIABETIC FOOT CREAM
+RXCARE114 125MG Suspension            Diabetic Accessories    DIABETIC FOOT CREAM
+HEALTHFLAM152 5MG Drop                Diabetic Accessories    GLUCOSE CONTROL SOLUTION
+SUNVIR269 250MG/5ML Nasal Spray       Diabetic Accessories    GLUCOSE CONTROL SOLUTION
+ACETAN334 100ML Powder                Diabetic Accessories    GLUCOSE CONTROL SOLUTION
+DERMAXIN1 750MG Inhaler               Herbal Supplements      GINGER EXTRACT
+ZENOGEST8 20G Tab                     Herbal Supplements      AMLA JUICE
+PULMOXIN50 40MG Cap                   Herbal Supplements      SAFI HERBAL SYRUP
+UNIDERM75 60ML Inhaler                Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+TRUSTFLAM85 25MG Powder               Herbal Supplements      SHATAVARI
+ZENOPRIL97 125MG/5ML Cap              Herbal Supplements      UNANI TONIC
+HEALTHOLOL110 0.5% Suppository        Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+DERMAPRIL122 20MG Nasal Spray         Herbal Supplements      TRIPHALA POWDER
+PHARMAFORTE135 150MG Syrup            Herbal Supplements      TRIPHALA POWDER
+PULMOCIN148 20G Tab                   Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+PULMOXIN161 120ML Powder              Herbal Supplements      NEEM CAPSULE
+ALFAFEN174 500MG Tab                  Herbal Supplements      TRIPHALA POWDER
+PHARMAGLIPTIN187 1G Cream             Herbal Supplements      TRIPHALA POWDER
+MAXTAN200 5MG/5ML Gel                 Herbal Supplements      GILOY TABLET
+HEPACIN213 20MG Suspension            Herbal Supplements      TRIPHALA POWDER
+OSTEOCYC226 5MG/5ML Cream             Herbal Supplements      SAFI HERBAL SYRUP
+TRUSTCIN239 60ML Suspension           Herbal Supplements      SAFI HERBAL SYRUP
+TRUSTSLEEP252 75MG Nasal Spray        Herbal Supplements      ASHWAGANDHA
+ORTHOSTATIN265 750MG Suspension       Herbal Supplements      UNANI TONIC
+CARDICIN278 100MG Cream               Herbal Supplements      SAFI HERBAL SYRUP
+HEALTHMOX291 60ML Suppository         Herbal Supplements      TRIPHALA POWDER
+CARESLEEP304 100ML Cream              Herbal Supplements      BRAHMI CAPSULE
+RAPIMAX317 125MG/5ML Ointment         Herbal Supplements      UNANI TONIC
+DERMAFORMIN330 15G Suppository        Herbal Supplements      GINGER EXTRACT
+PROCALM343 0.5% Gel                   Herbal Supplements      BRAHMI CAPSULE
+PHARMADONE349 150MG Injection         Herbal Supplements      BRAHMI CAPSULE
+NEPHROPAM350 0.5% Powder              Herbal Supplements      SAFI HERBAL SYRUP
+RXPAIN356 100MG Syrup                 Herbal Supplements      GILOY TABLET
+MEDCORT373 25MG Suspension            Herbal Supplements      NEEM CAPSULE
+GASTROFLAM382 15G Cap                 Herbal Supplements      GINGER EXTRACT
+BETACEF386 15G Cap                    Herbal Supplements      BRAHMI CAPSULE
+ALFAPRIL387 1% Drop                   Herbal Supplements      GINGER EXTRACT
+UNICALM390 40MG Suppository           Herbal Supplements      TRIPHALA POWDER
+BETADX394 300MG Nasal Spray           Herbal Supplements      HERBAL COUGH SYRUP
+PHARMAMOX395 5MG/5ML Cap              Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+RENCALM396 5MG Syrup                  Herbal Supplements      SHATAVARI
+SUREOLOL405 0.05% Drop                Herbal Supplements      SAFI HERBAL SYRUP
+ORTHOXL417 500MG Powder               Herbal Supplements      NEEM CAPSULE
+RENPLUS418 150MG Inhaler              Herbal Supplements      HERBAL COUGH SYRUP
+WELLPAM420 20G Gel                    Herbal Supplements      SAFI HERBAL SYRUP
+NEOPLUS422 400MG Nasal Spray          Herbal Supplements      UNANI TONIC
+NEUROTINIB424 5MG/5ML Powder          Herbal Supplements      TRIPHALA POWDER
+GENUSTATIN425 750MG Injection         Herbal Supplements      BRAHMI CAPSULE
+FIRSTPAM439 5MG Suppository           Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+TRUSTMAX443 0.05% Gel                 Herbal Supplements      AMLA JUICE
+CUREFORMIN462 30ML Inhaler            Herbal Supplements      NEEM CAPSULE
+RXCALM476 250MG Suspension            Herbal Supplements      ASHWAGANDHA
+CAREPRIL480 30G Inhaler               Herbal Supplements      GILOY TABLET
+SUNCARE486 200ML Suspension           Herbal Supplements      AMLA JUICE
+MAXVIR494 75MG Gel                    Herbal Supplements      SHATAVARI
+RXZOLE498 30ML Gel                    Herbal Supplements      SAFI HERBAL SYRUP
+RENZOLE500 30G Gel                    Herbal Supplements      GILOY TABLET
+VITALZUMAB501 500MG Gel               Herbal Supplements      TRIPHALA POWDER
+OSTEOFLAM503 75MG Inhaler             Herbal Supplements      GINGER EXTRACT
+NOVOMAX514 125MG/5ML Suppository      Herbal Supplements      TRIPHALA POWDER
+ORTHOVIR515 30ML Ointment             Herbal Supplements      NEEM CAPSULE
+SUNFORMIN517 10MG Ointment            Herbal Supplements      TRIPHALA POWDER
+SUREPLUS525 60ML Suspension           Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+NOVOCIN527 120ML Cap                  Herbal Supplements      TRIPHALA POWDER
+LIFETAN532 0.5% Injection             Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+MEDXL539 300MG Suspension             Herbal Supplements      UNANI TONIC
+BETAMOX544 250MG/5ML Gel              Herbal Supplements      GINGER EXTRACT
+PHARMACALM551 2% Ointment             Herbal Supplements      AMLA JUICE
+NEUROFORMIN559 100ML Suspension       Herbal Supplements      SHATAVARI
+CAREFLAM565 1G Gel                    Herbal Supplements      NEEM CAPSULE
+SUNGEST584 200ML Suspension           Herbal Supplements      BRAHMI CAPSULE
+BIOPRIL585 200MG Tab                  Herbal Supplements      GILOY TABLET
+DEXMOX587 1G Ointment                 Herbal Supplements      BRAHMI CAPSULE
+DERMASARTAN592 2.5MG Cream            Herbal Supplements      TRIPHALA POWDER
+CARDICYC593 120ML Powder              Herbal Supplements      AYURVEDIC DIGESTIVE SYRUP
+DERMAMOX594 150MG Syrup               Herbal Supplements      SAFI HERBAL SYRUP
+RELIATIDE596 75MG Cap                 Herbal Supplements      HERBAL COUGH SYRUP
+BETAGLIPTIN601 750MG Cream            Herbal Supplements      NEEM CAPSULE
+RELIASARTAN606 120ML Inhaler          Herbal Supplements      HERBAL COUGH SYRUP
+RELIACEF607 50MG Powder               Herbal Supplements      GINGER EXTRACT
+BETAVIR610 400MG Gel                  Herbal Supplements      SAFI HERBAL SYRUP
+NOVOPAM616 120ML Nasal Spray          Herbal Supplements      BRAHMI CAPSULE
+ORTHOCORT38 125MG Tab                 Men's Care              MULTIVITAMIN FOR MEN
+NEOXL49 250MG Powder                  Men's Care              MULTIVITAMIN FOR MEN
+GASTROSLEEP62 750MG Suspension        Men's Care              HAIR LOSS TABLET
+RENZOLE109 300MG Cream                Men's Care              HAIR LOSS TABLET
+MAXFORMIN134 1% Tab                   Men's Care              PROSTATE HEALTH SUPPLEMENT
+BETATAN160 0.05% Drop                 Men's Care              HAIR LOSS TABLET
+BIOCORT238 400MG Drop                 Men's Care              PROSTATE HEALTH SUPPLEMENT
+NEODONE251 1% Drop                    Men's Care              L-ARGININE
+BETAZOLE277 5MG Suppository           Men's Care              L-ARGININE
+GASTROFLAM303 200MG Suppository       Men's Care              MULTIVITAMIN FOR MEN
+PHARMACARE316 300MG Injection         Men's Care              PROSTATE HEALTH SUPPLEMENT
+VITALPAIN329 150MG Nasal Spray        Men's Care              ZINC FOR MEN
+DEXTIDE26 1G Suppository              OTC Medicine            ANTACID
+PULMOGOLD45 10MG Suspension           OTC Medicine            IODINE ANTISEPTIC
+NEUROCARE58 200MG Nasal Spray         OTC Medicine            ANTIFUNGAL CREAM
+PROXL71 50MG Tab                      OTC Medicine            MULTIVITAMIN
+MAXTINIB80 0.5% Nasal Spray           OTC Medicine            GLYCERIN SUPPOSITORY
+NEPHRODERM105 25MG Inhaler            OTC Medicine            EYE LUBRICANT
+RAPIMAX117 250MG/5ML Suspension       OTC Medicine            COUGH SYRUP
+BETACYC130 5MG Drop                   OTC Medicine            LOPERAMIDE
+BETAPAIN143 200ML Drop                OTC Medicine            PARACETAMOL
+HEALTHXIN156 125MG Drop               OTC Medicine            COUGH SYRUP
+BETACALM169 5MG/5ML Syrup             OTC Medicine            OMEPRAZOLE
+PULMOFEN182 200MG Gel                 OTC Medicine            CHLORPHENIRAMINE MALEATE
+CAREVIR195 500MG Suspension           OTC Medicine            COUGH SYRUP
+GASTROEX221 0.5% Injection            OTC Medicine            ORAL REHYDRATION SALT
+DEXCALM234 400MG Cream                OTC Medicine            OMEPRAZOLE
+GENUZUMAB247 0.05% Nasal Spray        OTC Medicine            PARACETAMOL
+BIOMOX260 250MG/5ML Tab               OTC Medicine            CETIRIZINE
+GENUFAST273 150MG Gel                 OTC Medicine            PARACETAMOL
+PRODONE299 2% Injection               OTC Medicine            DICLOFENAC GEL
+GENUTINIB312 250MG Injection          OTC Medicine            IODINE ANTISEPTIC
+GASTRODERM325 10MG Cap                OTC Medicine            OMEPRAZOLE
+LIFEDERM338 125MG/5ML Suspension      OTC Medicine            VITAMIN C
+RXDERM351 125MG Nasal Spray           OTC Medicine            VITAMIN C
+HEALTHMOX360 10MG Cream               OTC Medicine            COUGH SYRUP
+PHARMAFLAM368 40MG Injection          OTC Medicine            LORATADINE
+RENPRIL369 20G Ointment               OTC Medicine            ANTACID
+CUREGEST372 60ML Drop                 OTC Medicine            CHLORPHENIRAMINE MALEATE
+NEOZUMAB374 15G Nasal Spray           OTC Medicine            OMEPRAZOLE
+ACEFORTE377 2% Suppository            OTC Medicine            VITAMIN C
+DEXPAIN380 30G Drop                   OTC Medicine            ORAL REHYDRATION SALT
+GASTROGOLD385 250MG/5ML Cap           OTC Medicine            CETIRIZINE
+CARDIFLAM408 20G Tab                  OTC Medicine            VITAMIN C
+FIRSTMOX409 0.05% Suppository         OTC Medicine            MULTIVITAMIN
+FIRSTFEN426 50MG Suppository          OTC Medicine            LOPERAMIDE
+RXXL427 15G Cap                       OTC Medicine            ORAL REHYDRATION SALT
+DERMADERM433 100ML Gel                OTC Medicine            LOPERAMIDE
+OSTEOGLIPTIN435 250MG/5ML Cream       OTC Medicine            ORAL REHYDRATION SALT
+WELLTIDE451 1G Cap                    OTC Medicine            VITAMIN C
+PULMOGLIPTIN453 50MG Cap              OTC Medicine            LORATADINE
+MAXFORMIN456 50MG Nasal Spray         OTC Medicine            DICLOFENAC GEL
+DEXTINIB458 25MG Injection            OTC Medicine            CHLORPHENIRAMINE MALEATE
+OSTEOPRIL461 125MG Injection          OTC Medicine            CETIRIZINE
+RAPIMAX466 0.05% Suspension           OTC Medicine            IBUPROFEN
+FIRSTFAST469 150MG Injection          OTC Medicine            IODINE ANTISEPTIC
+NEUROPLUS474 300MG Syrup              OTC Medicine            ORS
+WELLCALM484 100MG Inhaler             OTC Medicine            CETIRIZINE
+IMMUNOSTATIN485 400MG Drop            OTC Medicine            DICLOFENAC GEL
+MAXTINIB490 0.05% Ointment            OTC Medicine            LORATADINE
+HEALTHXIN493 200MG Syrup              OTC Medicine            ANTIFUNGAL CREAM
+LIFETAN508 200ML Cream                OTC Medicine            IODINE ANTISEPTIC
+HEPASLEEP513 60ML Drop                OTC Medicine            EYE LUBRICANT
+OSTEOTINIB524 20MG Injection          OTC Medicine            EYE LUBRICANT
+ORTHOSTATIN529 400MG Cap              OTC Medicine            BENZOYL PEROXIDE
+NEOCIN530 120ML Injection             OTC Medicine            PARACETAMOL
+OSTEODERM531 400MG Drop               OTC Medicine            LOPERAMIDE
+CARECORT534 30ML Ointment             OTC Medicine            LOPERAMIDE
+WELLXL537 125MG Suspension            OTC Medicine            ANTIFUNGAL CREAM
+PULMOPLUS538 60ML Drop                OTC Medicine            CHLORPHENIRAMINE MALEATE
+GASTROPAM540 2% Injection             OTC Medicine            IODINE ANTISEPTIC
+CAREGOLD547 30ML Ointment             OTC Medicine            IODINE ANTISEPTIC
+BETAOD549 100MG Syrup                 OTC Medicine            CHLORPHENIRAMINE MALEATE
+NEPHROGEST550 0.5% Syrup              OTC Medicine            PARACETAMOL
+RAPIGOLD552 125MG Drop                OTC Medicine            PARACETAMOL
+GENUCORT553 0.05% Suspension          OTC Medicine            ANTIFUNGAL CREAM
+PROFORTE557 1G Suspension             OTC Medicine            LORATADINE
+RAPIEX561 15G Cap                     OTC Medicine            ORS
+RENCALM567 25MG Powder                OTC Medicine            ORS
+SUREMOX571 50MG Suspension            OTC Medicine            LOPERAMIDE
+BETAGEST574 50MG Powder               OTC Medicine            LORATADINE
+UNIPAM578 625MG Cap                   OTC Medicine            ORS
+NEUROSLEEP580 60ML Cream              OTC Medicine            ORS
+RENXL581 30G Inhaler                  OTC Medicine            ORAL REHYDRATION SALT
+GASTRODX582 100MG Gel                 OTC Medicine            COUGH SYRUP
+CUREPAM588 200MG Tab                  OTC Medicine            ANTACID
+NEOMOX589 150MG Cap                   OTC Medicine            PARACETAMOL
+HEALTHFAST597 5MG/5ML Cream           OTC Medicine            PARACETAMOL
+ORTHOCYC599 625MG Ointment            OTC Medicine            OMEPRAZOLE
+TRUSTGEST600 125MG Powder             OTC Medicine            CETIRIZINE
+PHARMAZUMAB604 625MG Suspension       OTC Medicine            ANTIFUNGAL CREAM
+NEOXIN608 1% Inhaler                  OTC Medicine            PARACETAMOL
+WELLCORT611 30ML Drop                 OTC Medicine            LOPERAMIDE
+NEPHRODONE13 500MG Powder             Prescription Medicine   MAGNESIUM SULFATE
+OSTEOSTATIN34 2.5MG Drop              Prescription Medicine   DEXAMETHASONE
+BIOCALM44 250MG Cap                   Prescription Medicine   LEVOTHYROXINE SODIUM
+PHARMACIN57 5MG Powder                Prescription Medicine   TOLPERISONE
+CUREFLAM70 25MG Gel                   Prescription Medicine   BROMHEXINE
+MEDCYC79 400MG Tab                    Prescription Medicine   OMEPRAZOLE
+NEUROCYC92 120ML Cap                  Prescription Medicine   XYLOMETAZOLINE
+FIRSTMOX104 400MG Suspension          Prescription Medicine   CEFIXIME
+HEALTHGEST116 20MG Inhaler            Prescription Medicine   CALCIUM + VITAMIN D3
+OSTEOOLOL129 5MG/5ML Suppository      Prescription Medicine   VITAMIN D3
+VITALFEN142 200MG Gel                 Prescription Medicine   DOMPERIDONE
+WELLSARTAN168 100ML Inhaler           Prescription Medicine   CETIRIZINE
+BETADX181 2% Suppository              Prescription Medicine   PHENYTOIN
+LIFEGEST194 60ML Injection            Prescription Medicine   DOMPERIDONE
+UNIVIR207 200ML Cream                 Prescription Medicine   VILDAGLIPTIN
+CUREFLAM220 1% Drop                   Prescription Medicine   ETORICOXIB
+PHARMASLEEP233 25MG Powder            Prescription Medicine   VITAMIN C
+RXMOX246 120ML Cap                    Prescription Medicine   MULTIVITAMIN + MINERALS
+PULMOMAX259 2% Drop                   Prescription Medicine   ROSUVASTATIN
+CARDIFLAM272 1G Nasal Spray           Prescription Medicine   GLIMEPIRIDE
+ACEFEN285 300MG Inhaler               Prescription Medicine   IPRATROPIUM BROMIDE
+PHARMAZOLE298 30ML Cream              Prescription Medicine   ACECLOFENAC+PARACETAMOL
+BETAPAM311 250MG/5ML Cap              Prescription Medicine   SILYMARIN
+PROOLOL324 1G Syrup                   Prescription Medicine   ENALAPRIL
+SUNOLOL337 5MG/5ML Powder             Prescription Medicine   GUAIFENESIN
+RAPIPLUS352 1% Cream                  Prescription Medicine   TIMOLOL EYE DROP
+VITALFAST353 0.5% Injection           Prescription Medicine   SIMVASTATIN
+SUNMOX355 150MG Tab                   Prescription Medicine   COENZYME Q10
+MEDDERM357 5MG/5ML Suppository        Prescription Medicine   FLUTICASONE NASAL SPRAY
+DERMAZUMAB358 150MG Cream             Prescription Medicine   ULIPRISTAL ACETATE
+BIOCALM359 75MG Powder                Prescription Medicine   GUAIFENESIN
+OSTEOEX364 200MG Syrup                Prescription Medicine   RISPERIDONE
+SUNFORTE375 500MG Inhaler             Prescription Medicine   FINASTERIDE
+UNITAN381 150MG Drop                  Prescription Medicine   BACLOFEN
+BIOXIN383 2% Ointment                 Prescription Medicine   IBUPROFEN
+BETAFORMIN388 40MG Gel                Prescription Medicine   SILVER SULFADIAZINE
+UNISLEEP389 10MG Injection            Prescription Medicine   AMLODIPINE
+RELIAPLUS399 250MG Suppository        Prescription Medicine   VITAMIN D3
+MEDGLIPTIN400 750MG Injection         Prescription Medicine   QUETIAPINE
+ZENOSLEEP402 2.5MG Nasal Spray        Prescription Medicine   ROSUVASTATIN
+IMMUNOFAST403 0.5% Injection          Prescription Medicine   HYOSCINE BUTYLBROMIDE
+ACEFORMIN407 500MG Inhaler            Prescription Medicine   ORS
+PULMOPAM413 100ML Nasal Spray         Prescription Medicine   GLICLAZIDE
+RXOLOL415 125MG Suppository           Prescription Medicine   URSODEOXYCHOLIC ACID
+BIOXIN419 750MG Suspension            Prescription Medicine   DOMPERIDONE
+RELIAPLUS432 5MG/5ML Injection        Prescription Medicine   CALCIUM + VITAMIN D3
+MEDPAIN434 5MG Cap                    Prescription Medicine   CEFUROXIME
+FIRSTFORMIN437 5MG/5ML Inhaler        Prescription Medicine   VITAMIN D3
+MEDGEST441 50MG Cream                 Prescription Medicine   GLIMEPIRIDE
+GASTROGEST444 250MG Drop              Prescription Medicine   ORLISTAT
+TRUSTTIDE445 60ML Suppository         Prescription Medicine   FLUOCINOLONE ACETONIDE
+RENCIN446 500MG Injection             Prescription Medicine   SILVER SULFADIAZINE
+GASTROGEST452 15G Ointment            Prescription Medicine   TERBINAFINE
+OSTEOPAM455 20G Suspension            Prescription Medicine   ATORVASTATIN
+CARDIEX463 40MG Powder                Prescription Medicine   PIOGLITAZONE
+OSTEOFORMIN465 20G Ointment           Prescription Medicine   CARBAMAZEPINE
+RENCORT467 750MG Tab                  Prescription Medicine   FEXOFENADINE
+MAXTINIB471 15G Injection             Prescription Medicine   BECLOMETHASONE NASAL SPRAY
+RAPICIN487 300MG Gel                  Prescription Medicine   OLANZAPINE
+CAREFLAM488 625MG Cream               Prescription Medicine   SODIUM HYALURONATE EYE DROP
+RAPIOD492 200MG Cap                   Prescription Medicine   BISACODYL
+RXCIN495 125MG Gel                    Prescription Medicine   ALPRAZOLAM
+HEPAFAST496 40MG Ointment             Prescription Medicine   OLOPATADINE EYE DROP
+CARDIXIN499 300MG Inhaler             Prescription Medicine   INSULIN GLARGINE
+UNIPAIN505 10MG Gel                   Prescription Medicine   DIAZEPAM
+RENGLIPTIN510 125MG/5ML Tab           Prescription Medicine   MONTELUKAST
+GENUCALM512 250MG Inhaler             Prescription Medicine   FAMOTIDINE
+LIFEPAM516 75MG Suspension            Prescription Medicine   CARBIMAZOLE
+SUNXL518 1G Tab                       Prescription Medicine   METFORMIN HCL
+HEALTHGOLD521 200ML Cap               Prescription Medicine   MONTELUKAST SODIUM
+HEPADONE528 150MG Suppository         Prescription Medicine   FERROUS SULFATE
+MAXSTATIN533 40MG Syrup               Prescription Medicine   ROSUVASTATIN
+DEXMAX541 200ML Gel                   Prescription Medicine   IBUPROFEN
+CUREFAST543 200ML Injection           Prescription Medicine   ULIPRISTAL ACETATE
+TRUSTCEF546 100ML Suppository         Prescription Medicine   PIOGLITAZONE
+VITALMOX554 200ML Cream               Prescription Medicine   LEVONORGESTREL
+NEPHROGLIPTIN555 5MG Cap              Prescription Medicine   DOMPERIDONE+OMEPRAZOLE
+HEALTHMAX556 250MG Tab                Prescription Medicine   TELMISARTAN
+SUNXIN558 2.5MG Powder                Prescription Medicine   BISACODYL
+ZENOCALM562 0.5% Injection            Prescription Medicine   AMITRIPTYLINE
+MAXEX563 5MG/5ML Inhaler              Prescription Medicine   AZITHROMYCIN
+IMMUNOZOLE566 60ML Syrup              Prescription Medicine   TIMOLOL EYE DROP
+FIRSTCYC568 5MG/5ML Cream             Prescription Medicine   METOCLOPRAMIDE
+LIFECIN575 125MG Ointment             Prescription Medicine   XYLOMETAZOLINE
+OSTEOFLAM579 25MG Ointment            Prescription Medicine   VILDAGLIPTIN
+MEDPRIL583 2.5MG Syrup                Prescription Medicine   CALCIUM CARBONATE
+HEALTHPRIL590 60ML Suppository        Prescription Medicine   SODIUM HYALURONATE EYE DROP
+ZENODX591 5MG Cream                   Prescription Medicine   CLOBETASOL PROPIONATE
+DERMAEX598 750MG Gel                  Prescription Medicine   MELATONIN
+MAXFORTE612 20MG Cap                  Prescription Medicine   BISACODYL
+SUREGEST613 25MG Suspension           Prescription Medicine   MIDAZOLAM
+MAXTINIB614 200MG Nasal Spray         Prescription Medicine   AMLODIPINE
+NOVOGEST615 15G Suspension            Prescription Medicine   MIDAZOLAM
+DEXMOX15 300MG Gel                    Supplements & Vitamins  VITAMIN B COMPLEX
+NOVOOD35 250MG Syrup                  Supplements & Vitamins  L-CARNITINE
+PROGOLD46 5MG/5ML Cream               Supplements & Vitamins  GLUCOSAMINE
+MEDDONE59 750MG Gel                   Supplements & Vitamins  VITAMIN B COMPLEX
+HEALTHCEF72 50MG Nasal Spray          Supplements & Vitamins  CALCIUM+VITAMIN D3
+ZENOSARTAN81 250MG/5ML Powder         Supplements & Vitamins  CALCIUM+VITAMIN D3
+SUREMAX106 1G Syrup                   Supplements & Vitamins  VITAMIN D3
+NOVOTAN118 500MG Inhaler              Supplements & Vitamins  IRON+FOLIC ACID
+NOVOFORTE131 100MG Syrup              Supplements & Vitamins  VITAMIN E
+DEXEX144 150MG Powder                 Supplements & Vitamins  MULTIVITAMIN
+UNITIDE157 30G Gel                    Supplements & Vitamins  ZINC
+RAPIGEST170 100ML Cream               Supplements & Vitamins  MAGNESIUM
+ACEDERM183 2% Tab                     Supplements & Vitamins  VITAMIN E
+PULMOFLAM196 50MG Injection           Supplements & Vitamins  PROTEIN POWDER
+HEPAPLUS209 1G Tab                    Supplements & Vitamins  PRENATAL VITAMIN
+WELLFLAM222 15G Suppository           Supplements & Vitamins  COLLAGEN
+WELLGLIPTIN235 200ML Suspension       Supplements & Vitamins  CALCIUM+VITAMIN D3
+CUREGLIPTIN248 40MG Cream             Supplements & Vitamins  PRENATAL VITAMIN
+BETATAN261 30ML Nasal Spray           Supplements & Vitamins  GLUCOSAMINE
+WELLXIN274 150MG Cap                  Supplements & Vitamins  MAGNESIUM
+FIRSTFEN287 2.5MG Suppository         Supplements & Vitamins  IRON+FOLIC ACID
+MEDEX326 0.5% Suspension              Supplements & Vitamins  PROBIOTIC
+GASTROTINIB339 30ML Nasal Spray       Supplements & Vitamins  VITAMIN B COMPLEX
+PHARMAXL354 50MG Nasal Spray          Supplements & Vitamins  L-CARNITINE
+DERMAFORTE361 20MG Nasal Spray        Supplements & Vitamins  COLLAGEN
+MAXSARTAN362 5MG/5ML Injection        Supplements & Vitamins  PRENATAL VITAMIN
+VITALPAM365 30G Suppository           Supplements & Vitamins  PRENATAL VITAMIN
+FIRSTCEF366 20G Suspension            Supplements & Vitamins  COENZYME Q10
+DERMAFORTE367 15G Powder              Supplements & Vitamins  VITAMIN C
+VITALDERM376 0.5% Syrup               Supplements & Vitamins  L-CARNITINE
+IMMUNOPAM378 100ML Drop               Supplements & Vitamins  PROBIOTIC
+NEUROOLOL379 5MG/5ML Nasal Spray      Supplements & Vitamins  OMEGA 3 FISH OIL
+RELIACALM391 75MG Suppository         Supplements & Vitamins  GLUCOSAMINE
+HEPAFAST392 20G Ointment              Supplements & Vitamins  OMEGA 3 FISH OIL
+PHARMAFORTE393 1G Drop                Supplements & Vitamins  VITAMIN B COMPLEX
+CAREEX398 500MG Ointment              Supplements & Vitamins  COENZYME Q10
+ACEFLAM401 40MG Suspension            Supplements & Vitamins  IRON+FOLIC ACID
+RELIAPAM404 15G Suspension            Supplements & Vitamins  FOLIC ACID
+HEPADX406 5MG Nasal Spray             Supplements & Vitamins  PROTEIN POWDER
+RENCARE410 0.05% Gel                  Supplements & Vitamins  MAGNESIUM
+DERMAFLAM411 25MG Injection           Supplements & Vitamins  MULTIVITAMIN
+NOVOXIN412 100MG Gel                  Supplements & Vitamins  VITAMIN E
+ORTHOOD414 125MG/5ML Powder           Supplements & Vitamins  MAGNESIUM
+GASTROPRIL421 150MG Cap               Supplements & Vitamins  CALCIUM+VITAMIN D3
+UNICARE423 60ML Cap                   Supplements & Vitamins  MAGNESIUM
+HEALTHVIR428 100ML Suppository        Supplements & Vitamins  IRON+FOLIC ACID
+ORTHOPAM429 2.5MG Powder              Supplements & Vitamins  FOLIC ACID
+GENUDONE430 50MG Injection            Supplements & Vitamins  VITAMIN B COMPLEX
+MEDFEN431 2.5MG Injection             Supplements & Vitamins  MAGNESIUM
+DEXZOLE436 75MG Powder                Supplements & Vitamins  OMEGA 3 FISH OIL
+MEDCEF440 150MG Syrup                 Supplements & Vitamins  PRENATAL VITAMIN
+RXFORTE442 20MG Inhaler               Supplements & Vitamins  MAGNESIUM
+RELIAXL447 100ML Powder               Supplements & Vitamins  VITAMIN E
+NEOEX449 15G Nasal Spray              Supplements & Vitamins  COENZYME Q10
+CARECEF450 5MG Cream                  Supplements & Vitamins  MULTIVITAMIN FOR KIDS
+VITALDX454 2.5MG Inhaler              Supplements & Vitamins  PRENATAL VITAMIN
+GENUFLAM457 100ML Cap                 Supplements & Vitamins  MAGNESIUM
+NEPHROCALM464 400MG Powder            Supplements & Vitamins  COENZYME Q10
+ZENOPAIN470 75MG Nasal Spray          Supplements & Vitamins  VITAMIN D3
+SUNDX472 25MG Syrup                   Supplements & Vitamins  COLLAGEN
+ALFAOLOL475 30G Powder                Supplements & Vitamins  IRON+FOLIC ACID
+IMMUNOGOLD477 30G Injection           Supplements & Vitamins  PROTEIN POWDER
+SUREFORTE478 300MG Suspension         Supplements & Vitamins  BIOTIN
+NEOOD481 200MG Ointment               Supplements & Vitamins  MAGNESIUM
+PHARMATINIB482 125MG Suppository      Supplements & Vitamins  OMEGA 3 FISH OIL
+SUNXIN489 5MG Cream                   Supplements & Vitamins  MULTIVITAMIN
+BIOTINIB491 125MG/5ML Injection       Supplements & Vitamins  VITAMIN D3
+NEOCALM504 30G Inhaler                Supplements & Vitamins  VITAMIN B COMPLEX
+RAPIMOX506 5MG/5ML Nasal Spray        Supplements & Vitamins  COLLAGEN
+SURETAN507 400MG Syrup                Supplements & Vitamins  COLLAGEN
+WELLSTATIN509 2.5MG Inhaler           Supplements & Vitamins  BIOTIN
+DERMAXIN519 5MG Syrup                 Supplements & Vitamins  L-CARNITINE
+IMMUNOMAX520 20G Tab                  Supplements & Vitamins  CALCIUM+VITAMIN D3
+RXPLUS522 200ML Cap                   Supplements & Vitamins  FOLIC ACID
+IMMUNOMOX523 200ML Tab                Supplements & Vitamins  MULTIVITAMIN FOR KIDS
+OSTEOXIN526 2% Nasal Spray            Supplements & Vitamins  MAGNESIUM
+HEPADONE536 100MG Cap                 Supplements & Vitamins  L-CARNITINE
+BIOFAST542 30G Gel                    Supplements & Vitamins  L-CARNITINE
+CARDIFORTE545 300MG Tab               Supplements & Vitamins  BIOTIN
+NEUROZOLE548 125MG Tab                Supplements & Vitamins  MULTIVITAMIN
+NEPHROSARTAN560 2.5MG Nasal Spray     Supplements & Vitamins  ZINC
+GASTROGOLD564 300MG Gel               Supplements & Vitamins  MULTIVITAMIN
+VITALMOX570 125MG Powder              Supplements & Vitamins  ZINC
+MAXFORTE572 1% Suspension             Supplements & Vitamins  COLLAGEN
+CARETINIB577 1G Syrup                 Supplements & Vitamins  IRON+FOLIC ACID
+VITALFORMIN602 1% Suspension          Supplements & Vitamins  PRENATAL VITAMIN
+CUREPRIL605 15G Tab                   Supplements & Vitamins  VITAMIN E
+HEPAGOLD617 100ML Drop                Supplements & Vitamins  FOLIC ACID
+SURECARE2 60ML Suspension             Women's Care            MULTIVITAMIN FOR WOMEN
+NEUROPAIN11 0.5% Suspension           Women's Care            VAGINAL WASH
+BIOGEST19 75MG Inhaler                Women's Care            EMERGENCY CONTRACEPTIVE
+MEDGEST28 30G Suppository             Women's Care            VAGINAL WASH
+UNISARTAN37 5MG/5ML Drop              Women's Care            CONTRACEPTIVE PILL
+WELLDERM48 120ML Inhaler              Women's Care            IRON SUPPLEMENT FOR WOMEN
+PULMOCALM61 100MG Injection           Women's Care            FOLIC ACID FOR PREGNANCY
+VITALCALM74 120ML Powder              Women's Care            IRON SUPPLEMENT FOR WOMEN
+PHARMAXL83 60ML Ointment              Women's Care            VAGINAL WASH
+WELLFAST108 125MG Cream               Women's Care            EMERGENCY CONTRACEPTIVE
+DERMAEX120 100ML Injection            Women's Care            FOLIC ACID FOR PREGNANCY
+ORTHOOD133 15G Tab                    Women's Care            FOLIC ACID FOR PREGNANCY
+ORTHOTIDE159 15G Cream                Women's Care            CONTRACEPTIVE PILL
+PROGEST172 120ML Inhaler              Women's Care            FOLIC ACID FOR PREGNANCY
+DERMAFAST185 250MG/5ML Powder         Women's Care            IRON SUPPLEMENT FOR WOMEN
+FIRSTGLIPTIN198 75MG Suppository      Women's Care            VAGINAL WASH
+RXCEF211 100MG Powder                 Women's Care            VAGINAL WASH
+TRUSTXL237 125MG/5ML Injection        Women's Care            IRON SUPPLEMENT FOR WOMEN
+RELIATIDE263 1G Powder                Women's Care            PREGNANCY TEST KIT
+LIFEFAST276 100MG Gel                 Women's Care            CONTRACEPTIVE PILL
+ALFAFAST341 125MG Cream               Women's Care            PREGNANCY TEST KIT

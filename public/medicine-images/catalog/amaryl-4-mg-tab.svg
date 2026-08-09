@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="AMARYL 4 MG TAB">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#g)"/>
+  <circle cx="250" cy="205" r="110" fill="#ffffff" opacity="0.18"/>
+  <text x="250" y="245" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="110" font-weight="600" fill="#ffffff" text-anchor="middle">A4</text>
+  <text x="250" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.95" text-anchor="middle">Tablet</text>
+  <text x="250" y="425" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" fill="#ffffff" opacity="0.8" text-anchor="middle">4MG Tab</text>
+</svg>

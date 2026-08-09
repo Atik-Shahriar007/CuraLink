@@ -1,0 +1,1036 @@
+// AUTO-GENERATED FILE — DO NOT EDIT BY HAND.
+// Source: prisma/seed-data/medicines.sql (1000 rows)
+// Regenerate with: node scripts/generate-medicines.mjs
+
+export interface CatalogMedicine {
+  /** Brand / trade name as it appears in the dataset. */
+  name: string;
+  category: string;
+  genericName: string;
+  strengthForm: string;
+  price: number;
+  source: string;
+}
+
+// Pipe-delimited to keep the bundle small; parsed once at module load.
+const RAW = `
+LEVEMIR FLEXPEN 3 ML|Diabetic Accessories|INSULIN DETEMIR|3ML|1600|verified
+NOVOMIX 30 PENFILL 3 ML|Diabetic Accessories|rDNA HUMAN INSULIN|3ML|720|verified
+INSULATARD PENFILL 100 IU 3 ML|Diabetic Accessories|rDNA HUMAN INSULIN|100IU 3ML|460|verified
+GENSULIN R 100 IU VIAL|Diabetic Accessories|INSULIN HUMAN|100IU Vial|415|verified
+HUMULIN N CARTRIDGE 100M IU|Diabetic Accessories|INSULIN HUMAN|100IU|563.8|verified
+CARDIPRIL 0.5% Injection|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|0.5% Injection|1147.08|synthetic_sample
+BIOFAST 30G Syrup|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|30G Syrup|3379.23|synthetic_sample
+SURETIDE 50MG Ointment|Diabetic Accessories|DIABETIC FOOT CREAM|50MG Ointment|2918.26|synthetic_sample
+NOVOPAM 300MG Drop|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|300MG Drop|1963.98|synthetic_sample
+MEDMOX 30ML Tab|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|30ML Tab|43.45|synthetic_sample
+SUREFEN 1G Cap|Diabetic Accessories|DIABETIC FOOT CREAM|1G Cap|2793.6|synthetic_sample
+ACECALM 250MG Cream|Diabetic Accessories|DIABETIC FOOT CREAM|250MG Cream|1677.58|synthetic_sample
+MEDTIDE 750MG Nasal Spray|Diabetic Accessories|DIABETIC FOOT CREAM|750MG Nasal Spray|2198.09|synthetic_sample
+LIFEDONE 20MG Gel|Diabetic Accessories|DIABETIC FOOT CREAM|20MG Gel|1083.9|synthetic_sample
+ZENOVIR 100ML Syrup|Diabetic Accessories|DIABETIC FOOT CREAM|100ML Syrup|158.07|synthetic_sample
+CARDISTATIN 250MG/5ML Gel|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|250MG/5ML Gel|2209.35|synthetic_sample
+SUNDX 200ML Injection|Diabetic Accessories|DIABETIC FOOT CREAM|200ML Injection|2457.14|synthetic_sample
+RAPIVIR 20MG Powder|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|20MG Powder|2858.43|synthetic_sample
+HEALTHCYC 5MG/5ML Suppository|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|5MG/5ML Suppository|1705.43|synthetic_sample
+CARECALM 60ML Tab|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|60ML Tab|2793.28|synthetic_sample
+UNISLEEP 200ML Suppository|Diabetic Accessories|DIABETIC FOOT CREAM|200ML Suppository|606.81|synthetic_sample
+ACEVIR 5MG Cream|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|5MG Cream|2678.65|synthetic_sample
+PHARMAMAX 30G Cap|Diabetic Accessories|DIABETIC FOOT CREAM|30G Cap|2325.43|synthetic_sample
+HEALTHCORT 120ML Cream|Diabetic Accessories|DIABETIC FOOT CREAM|120ML Cream|301.91|synthetic_sample
+RENMOX 300MG Powder|Diabetic Accessories|DIABETIC FOOT CREAM|300MG Powder|571.97|synthetic_sample
+PULMOPRIL 5MG Drop|Diabetic Accessories|DIABETIC FOOT CREAM|5MG Drop|1478.17|synthetic_sample
+CARDIGLIPTIN 15G Suspension|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|15G Suspension|3301.86|synthetic_sample
+PHARMAGOLD 1% Drop|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|1% Drop|1248.99|synthetic_sample
+NOVOZOLE 60ML Inhaler|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|60ML Inhaler|892.12|synthetic_sample
+RXPLUS89 300MG Ointment|Diabetic Accessories|DIABETIC FOOT CREAM|300MG Ointment|1838.88|synthetic_sample
+RXCARE114 125MG Suspension|Diabetic Accessories|DIABETIC FOOT CREAM|125MG Suspension|550.24|synthetic_sample
+HEALTHFLAM152 5MG Drop|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|5MG Drop|3392.86|synthetic_sample
+SUNVIR269 250MG/5ML Nasal Spray|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|250MG/5ML Nasal Spray|2106.61|synthetic_sample
+ACETAN334 100ML Powder|Diabetic Accessories|GLUCOSE CONTROL SOLUTION|100ML Powder|2665.23|synthetic_sample
+ASHWAGANDHA ROOT CAPSULES|Herbal Supplements|ASHWAGANDHA|Capsule|760|verified
+SADURI 225ML SYRUP|Herbal Supplements|UNANI MEDICINE|225ML Syrup|150|verified
+ALKULI 100 ML SYRUP|Herbal Supplements|UNANI MEDICINE|100ML Syrup|75|verified
+MAUL-HAYAT 450ML SYRUP|Herbal Supplements|UNANI MEDICINE|450ML Syrup|280|verified
+ALKULI 450 ML SYRUP|Herbal Supplements|UNANI MEDICINE|450ML Syrup|185|verified
+SAFI 450 ML SYRUP|Herbal Supplements|UNANI MEDICINE|450ML Syrup|240|verified
+UNIFEN 120ML Ointment|Herbal Supplements|SHATAVARI|120ML Ointment|1852.84|synthetic_sample
+UNIPRIL 25MG Suspension|Herbal Supplements|ASHWAGANDHA|25MG Suspension|3169.16|synthetic_sample
+NOVOGOLD 30G Drop|Herbal Supplements|ASHWAGANDHA|30G Drop|552.7|synthetic_sample
+ACEDERM 100ML Syrup|Herbal Supplements|BRAHMI CAPSULE|100ML Syrup|1931.78|synthetic_sample
+MEDGEST 125MG Suspension|Herbal Supplements|SHATAVARI|125MG Suspension|2296.89|synthetic_sample
+TRUSTZUMAB 400MG Gel|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|400MG Gel|956.73|synthetic_sample
+RELIASARTAN 2.5MG Syrup|Herbal Supplements|NEEM CAPSULE|2.5MG Syrup|1430.99|synthetic_sample
+CUREMAX 2.5MG Powder|Herbal Supplements|SAFI HERBAL SYRUP|2.5MG Powder|2302.5|synthetic_sample
+SURECALM 60ML Inhaler|Herbal Supplements|BRAHMI CAPSULE|60ML Inhaler|2416.72|synthetic_sample
+IMMUNOZUMAB 25MG Inhaler|Herbal Supplements|GINGER EXTRACT|25MG Inhaler|2224.64|synthetic_sample
+LIFEPRIL 5MG/5ML Injection|Herbal Supplements|GILOY TABLET|5MG/5ML Injection|1232.06|synthetic_sample
+NOVOCIN 5MG/5ML Suspension|Herbal Supplements|SHATAVARI|5MG/5ML Suspension|3308.74|synthetic_sample
+IMMUNOTIDE 25MG Gel|Herbal Supplements|UNANI TONIC|25MG Gel|1642.29|synthetic_sample
+LIFEMAX 5MG Cream|Herbal Supplements|UNANI TONIC|5MG Cream|1270.37|synthetic_sample
+PROPAIN 200ML Powder|Herbal Supplements|NEEM CAPSULE|200ML Powder|2436.86|synthetic_sample
+FIRSTGOLD 200MG Inhaler|Herbal Supplements|NEEM CAPSULE|200MG Inhaler|2840.62|synthetic_sample
+HEALTHVIR 100ML Cream|Herbal Supplements|UNANI TONIC|100ML Cream|2671.27|synthetic_sample
+NOVODONE 125MG Drop|Herbal Supplements|GILOY TABLET|125MG Drop|1065.83|synthetic_sample
+MEDMAX 15G Gel|Herbal Supplements|NEEM CAPSULE|15G Gel|3077.01|synthetic_sample
+SUREOD 20MG Suspension|Herbal Supplements|UNANI TONIC|20MG Suspension|2043.16|synthetic_sample
+CAREOLOL 100MG Inhaler|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|100MG Inhaler|20.12|synthetic_sample
+NEUROPRIL 75MG Inhaler|Herbal Supplements|BRAHMI CAPSULE|75MG Inhaler|1629.95|synthetic_sample
+ZENOSTATIN 100MG Inhaler|Herbal Supplements|SHATAVARI|100MG Inhaler|2288.06|synthetic_sample
+WELLDX 100MG Drop|Herbal Supplements|ASHWAGANDHA|100MG Drop|1360.69|synthetic_sample
+ALFAXIN 15G Syrup|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|15G Syrup|645.8|synthetic_sample
+UNIXIN 750MG Ointment|Herbal Supplements|NEEM CAPSULE|750MG Ointment|1475.02|synthetic_sample
+LIFEOLOL 50MG Tab|Herbal Supplements|BRAHMI CAPSULE|50MG Tab|907.07|synthetic_sample
+OSTEOSTATIN 100MG Inhaler|Herbal Supplements|GILOY TABLET|100MG Inhaler|1097.52|synthetic_sample
+TRUSTFLAM 150MG Nasal Spray|Herbal Supplements|GILOY TABLET|150MG Nasal Spray|1134.14|synthetic_sample
+VITALFLAM 2% Cap|Herbal Supplements|SAFI HERBAL SYRUP|2% Cap|877.86|synthetic_sample
+PRODX 30ML Suppository|Herbal Supplements|GILOY TABLET|30ML Suppository|787.35|synthetic_sample
+IMMUNOTAN 1% Cap|Herbal Supplements|TRIPHALA POWDER|1% Cap|3376.29|synthetic_sample
+CUREOD 200MG Tab|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|200MG Tab|2109.16|synthetic_sample
+PHARMADX 15G Powder|Herbal Supplements|TULSI EXTRACT|15G Powder|539.26|synthetic_sample
+DEXOD 50MG Suppository|Herbal Supplements|NEEM CAPSULE|50MG Suppository|2750.54|synthetic_sample
+DERMAFLAM 30ML Inhaler|Herbal Supplements|GILOY TABLET|30ML Inhaler|1797.46|synthetic_sample
+SUREPAIN 75MG Gel|Herbal Supplements|SAFI HERBAL SYRUP|75MG Gel|1647.94|synthetic_sample
+BETASLEEP 75MG Ointment|Herbal Supplements|GILOY TABLET|75MG Ointment|334.3|synthetic_sample
+RELIAFEN 500MG Ointment|Herbal Supplements|AMLA JUICE|500MG Ointment|277.75|synthetic_sample
+ZENOSLEEP 0.5% Drop|Herbal Supplements|NEEM CAPSULE|0.5% Drop|1466.49|synthetic_sample
+HEALTHZUMAB 2% Inhaler|Herbal Supplements|GILOY TABLET|2% Inhaler|2643.37|synthetic_sample
+DERMAFAST 50MG Powder|Herbal Supplements|UNANI TONIC|50MG Powder|721.12|synthetic_sample
+UNIFORMIN 15G Cream|Herbal Supplements|HERBAL COUGH SYRUP|15G Cream|1578.36|synthetic_sample
+DEXEX 750MG Inhaler|Herbal Supplements|AMLA JUICE|750MG Inhaler|2922.38|synthetic_sample
+DEXGLIPTIN 10MG Gel|Herbal Supplements|AMLA JUICE|10MG Gel|3072.38|synthetic_sample
+PULMOFORMIN 500MG Powder|Herbal Supplements|AMLA JUICE|500MG Powder|2927.5|synthetic_sample
+HEALTHCEF 2% Injection|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|2% Injection|1262.35|synthetic_sample
+SUREFORTE 60ML Inhaler|Herbal Supplements|NEEM CAPSULE|60ML Inhaler|1833.06|synthetic_sample
+PROCEF 125MG Cap|Herbal Supplements|TRIPHALA POWDER|125MG Cap|198.02|synthetic_sample
+IMMUNOSARTAN 0.5% Inhaler|Herbal Supplements|AMLA JUICE|0.5% Inhaler|666.16|synthetic_sample
+PULMOTINIB 125MG/5ML Powder|Herbal Supplements|SAFI HERBAL SYRUP|125MG/5ML Powder|77.91|synthetic_sample
+GASTROSLEEP 5MG Cream|Herbal Supplements|BRAHMI CAPSULE|5MG Cream|2694.35|synthetic_sample
+MAXDX 400MG Injection|Herbal Supplements|UNANI TONIC|400MG Injection|532.68|synthetic_sample
+FIRSTFORMIN 40MG Gel|Herbal Supplements|TRIPHALA POWDER|40MG Gel|876.79|synthetic_sample
+IMMUNODERM 1% Drop|Herbal Supplements|TRIPHALA POWDER|1% Drop|3245.01|synthetic_sample
+OSTEOZOLE 40MG Inhaler|Herbal Supplements|GILOY TABLET|40MG Inhaler|1167.85|synthetic_sample
+DEXFEN 15G Cream|Herbal Supplements|TULSI EXTRACT|15G Cream|2258.17|synthetic_sample
+FIRSTEX 30G Cap|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|30G Cap|3114.92|synthetic_sample
+HEPACEF 750MG Injection|Herbal Supplements|SHATAVARI|750MG Injection|2808.5|synthetic_sample
+PROFORMIN 500MG Tab|Herbal Supplements|TRIPHALA POWDER|500MG Tab|1713.34|synthetic_sample
+WELLCIN 500MG Drop|Herbal Supplements|HERBAL COUGH SYRUP|500MG Drop|673.28|synthetic_sample
+NEPHROGLIPTIN 125MG Syrup|Herbal Supplements|HERBAL COUGH SYRUP|125MG Syrup|566.07|synthetic_sample
+RENCIN 750MG Ointment|Herbal Supplements|GILOY TABLET|750MG Ointment|1451.97|synthetic_sample
+NEOOLOL 75MG Suppository|Herbal Supplements|UNANI TONIC|75MG Suppository|3220.5|synthetic_sample
+FIRSTOLOL 625MG Cap|Herbal Supplements|GINGER EXTRACT|625MG Cap|1713.72|synthetic_sample
+FIRSTCARE 60ML Drop|Herbal Supplements|SAFI HERBAL SYRUP|60ML Drop|1478.22|synthetic_sample
+HEALTHGOLD 100MG Powder|Herbal Supplements|SAFI HERBAL SYRUP|100MG Powder|913.86|synthetic_sample
+HEPAOD 300MG Inhaler|Herbal Supplements|AMLA JUICE|300MG Inhaler|2043.25|synthetic_sample
+MAXFORMIN 5MG Powder|Herbal Supplements|UNANI TONIC|5MG Powder|733.88|synthetic_sample
+CARECEF 20G Injection|Herbal Supplements|NEEM CAPSULE|20G Injection|601.07|synthetic_sample
+MEDFORTE 20G Syrup|Herbal Supplements|SHATAVARI|20G Syrup|3021.72|synthetic_sample
+NEUROXL 100ML Ointment|Herbal Supplements|SHATAVARI|100ML Ointment|148.19|synthetic_sample
+NEUROSARTAN 100ML Suppository|Herbal Supplements|GILOY TABLET|100ML Suppository|2674.82|synthetic_sample
+NEUROGLIPTIN 5MG Suspension|Herbal Supplements|GINGER EXTRACT|5MG Suspension|617.92|synthetic_sample
+IMMUNOMOX 10MG Nasal Spray|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|10MG Nasal Spray|3227.66|synthetic_sample
+IMMUNOCIN 300MG Ointment|Herbal Supplements|SHATAVARI|300MG Ointment|1606.8|synthetic_sample
+GASTROFAST 1% Injection|Herbal Supplements|SAFI HERBAL SYRUP|1% Injection|1784.61|synthetic_sample
+OSTEOPRIL 250MG Nasal Spray|Herbal Supplements|TULSI EXTRACT|250MG Nasal Spray|2965.22|synthetic_sample
+CUREMOX 30G Ointment|Herbal Supplements|TULSI EXTRACT|30G Ointment|1710.99|synthetic_sample
+BETADONE 500MG Cream|Herbal Supplements|AMLA JUICE|500MG Cream|2911.38|synthetic_sample
+BIOFLAM 750MG Syrup|Herbal Supplements|SAFI HERBAL SYRUP|750MG Syrup|3057.09|synthetic_sample
+BIODX 500MG Ointment|Herbal Supplements|TULSI EXTRACT|500MG Ointment|739.16|synthetic_sample
+NEPHROVIR 60ML Nasal Spray|Herbal Supplements|GILOY TABLET|60ML Nasal Spray|141.97|synthetic_sample
+NOVOOD 100MG Ointment|Herbal Supplements|SAFI HERBAL SYRUP|100MG Ointment|3287.99|synthetic_sample
+MAXSARTAN 50MG Gel|Herbal Supplements|TULSI EXTRACT|50MG Gel|2904.82|synthetic_sample
+MEDDERM 120ML Cream|Herbal Supplements|GINGER EXTRACT|120ML Cream|49.44|synthetic_sample
+HEPACIN 1% Syrup|Herbal Supplements|TRIPHALA POWDER|1% Syrup|1753.23|synthetic_sample
+BETACYC 250MG/5ML Suspension|Herbal Supplements|HERBAL COUGH SYRUP|250MG/5ML Suspension|1528.96|synthetic_sample
+NEUROCEF 2% Suspension|Herbal Supplements|GINGER EXTRACT|2% Suspension|809.66|synthetic_sample
+DERMAXIN1 750MG Inhaler|Herbal Supplements|GINGER EXTRACT|750MG Inhaler|2490.29|synthetic_sample
+ALFAZOLE 0.05% Drop|Herbal Supplements|ASHWAGANDHA|0.05% Drop|871.7|synthetic_sample
+PULMOFORTE 250MG/5ML Cream|Herbal Supplements|BRAHMI CAPSULE|250MG/5ML Cream|698.05|synthetic_sample
+CARDIEX 0.05% Nasal Spray|Herbal Supplements|BRAHMI CAPSULE|0.05% Nasal Spray|2196.14|synthetic_sample
+ZENOGEST8 20G Tab|Herbal Supplements|AMLA JUICE|20G Tab|2679.85|synthetic_sample
+VITALZOLE 0.5% Cap|Herbal Supplements|NEEM CAPSULE|0.5% Cap|477.39|synthetic_sample
+GASTROFLAM 200ML Powder|Herbal Supplements|SHATAVARI|200ML Powder|3372.35|synthetic_sample
+FIRSTZUMAB 100MG Cap|Herbal Supplements|SHATAVARI|100MG Cap|3339.77|synthetic_sample
+CARESTATIN 200MG Powder|Herbal Supplements|BRAHMI CAPSULE|200MG Powder|2947.73|synthetic_sample
+RENFEN 100ML Ointment|Herbal Supplements|TULSI EXTRACT|100ML Ointment|771.36|synthetic_sample
+PULMOXIN50 40MG Cap|Herbal Supplements|SAFI HERBAL SYRUP|40MG Cap|620.38|synthetic_sample
+UNIDERM75 60ML Inhaler|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|60ML Inhaler|176.59|synthetic_sample
+TRUSTFLAM85 25MG Powder|Herbal Supplements|SHATAVARI|25MG Powder|903.39|synthetic_sample
+ZENOPRIL97 125MG/5ML Cap|Herbal Supplements|UNANI TONIC|125MG/5ML Cap|2755.64|synthetic_sample
+HEALTHOLOL110 0.5% Suppository|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|0.5% Suppository|1155.16|synthetic_sample
+DERMAPRIL122 20MG Nasal Spray|Herbal Supplements|TRIPHALA POWDER|20MG Nasal Spray|2761.1|synthetic_sample
+PHARMAFORTE135 150MG Syrup|Herbal Supplements|TRIPHALA POWDER|150MG Syrup|1357.13|synthetic_sample
+PULMOCIN148 20G Tab|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|20G Tab|491.48|synthetic_sample
+PULMOXIN161 120ML Powder|Herbal Supplements|NEEM CAPSULE|120ML Powder|320.92|synthetic_sample
+ALFAFEN174 500MG Tab|Herbal Supplements|TRIPHALA POWDER|500MG Tab|1766.4|synthetic_sample
+PHARMAGLIPTIN187 1G Cream|Herbal Supplements|TRIPHALA POWDER|1G Cream|3078.09|synthetic_sample
+MAXTAN200 5MG/5ML Gel|Herbal Supplements|GILOY TABLET|5MG/5ML Gel|1200.5|synthetic_sample
+HEPACIN213 20MG Suspension|Herbal Supplements|TRIPHALA POWDER|20MG Suspension|2251.93|synthetic_sample
+OSTEOCYC226 5MG/5ML Cream|Herbal Supplements|SAFI HERBAL SYRUP|5MG/5ML Cream|1159.22|synthetic_sample
+TRUSTCIN239 60ML Suspension|Herbal Supplements|SAFI HERBAL SYRUP|60ML Suspension|1809.62|synthetic_sample
+TRUSTSLEEP252 75MG Nasal Spray|Herbal Supplements|ASHWAGANDHA|75MG Nasal Spray|2123.53|synthetic_sample
+ORTHOSTATIN265 750MG Suspension|Herbal Supplements|UNANI TONIC|750MG Suspension|2769.47|synthetic_sample
+CARDICIN278 100MG Cream|Herbal Supplements|SAFI HERBAL SYRUP|100MG Cream|3367.27|synthetic_sample
+HEALTHMOX291 60ML Suppository|Herbal Supplements|TRIPHALA POWDER|60ML Suppository|3068.52|synthetic_sample
+CARESLEEP304 100ML Cream|Herbal Supplements|BRAHMI CAPSULE|100ML Cream|2040.01|synthetic_sample
+RAPIMAX317 125MG/5ML Ointment|Herbal Supplements|UNANI TONIC|125MG/5ML Ointment|3292.67|synthetic_sample
+DERMAFORMIN330 15G Suppository|Herbal Supplements|GINGER EXTRACT|15G Suppository|1961.12|synthetic_sample
+PROCALM343 0.5% Gel|Herbal Supplements|BRAHMI CAPSULE|0.5% Gel|256.87|synthetic_sample
+PHARMADONE349 150MG Injection|Herbal Supplements|BRAHMI CAPSULE|150MG Injection|3187.54|synthetic_sample
+NEPHROPAM350 0.5% Powder|Herbal Supplements|SAFI HERBAL SYRUP|0.5% Powder|813.15|synthetic_sample
+RXPAIN356 100MG Syrup|Herbal Supplements|GILOY TABLET|100MG Syrup|963.93|synthetic_sample
+MEDCORT373 25MG Suspension|Herbal Supplements|NEEM CAPSULE|25MG Suspension|717.54|synthetic_sample
+GASTROFLAM382 15G Cap|Herbal Supplements|GINGER EXTRACT|15G Cap|1774.89|synthetic_sample
+BETACEF386 15G Cap|Herbal Supplements|BRAHMI CAPSULE|15G Cap|2968.61|synthetic_sample
+ALFAPRIL387 1% Drop|Herbal Supplements|GINGER EXTRACT|1% Drop|51.89|synthetic_sample
+UNICALM390 40MG Suppository|Herbal Supplements|TRIPHALA POWDER|40MG Suppository|2637.13|synthetic_sample
+BETADX394 300MG Nasal Spray|Herbal Supplements|HERBAL COUGH SYRUP|300MG Nasal Spray|2948.38|synthetic_sample
+PHARMAMOX395 5MG/5ML Cap|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|5MG/5ML Cap|150.25|synthetic_sample
+RENCALM396 5MG Syrup|Herbal Supplements|SHATAVARI|5MG Syrup|356.11|synthetic_sample
+SUREOLOL405 0.05% Drop|Herbal Supplements|SAFI HERBAL SYRUP|0.05% Drop|422.03|synthetic_sample
+ORTHOXL417 500MG Powder|Herbal Supplements|NEEM CAPSULE|500MG Powder|833.66|synthetic_sample
+RENPLUS418 150MG Inhaler|Herbal Supplements|HERBAL COUGH SYRUP|150MG Inhaler|3212.61|synthetic_sample
+WELLPAM420 20G Gel|Herbal Supplements|SAFI HERBAL SYRUP|20G Gel|1169.17|synthetic_sample
+NEOPLUS422 400MG Nasal Spray|Herbal Supplements|UNANI TONIC|400MG Nasal Spray|2108.15|synthetic_sample
+NEUROTINIB424 5MG/5ML Powder|Herbal Supplements|TRIPHALA POWDER|5MG/5ML Powder|2642.66|synthetic_sample
+GENUSTATIN425 750MG Injection|Herbal Supplements|BRAHMI CAPSULE|750MG Injection|1897.72|synthetic_sample
+FIRSTPAM439 5MG Suppository|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|5MG Suppository|2864.94|synthetic_sample
+TRUSTMAX443 0.05% Gel|Herbal Supplements|AMLA JUICE|0.05% Gel|3318.09|synthetic_sample
+CUREFORMIN462 30ML Inhaler|Herbal Supplements|NEEM CAPSULE|30ML Inhaler|3124.21|synthetic_sample
+RXCALM476 250MG Suspension|Herbal Supplements|ASHWAGANDHA|250MG Suspension|3283.6|synthetic_sample
+CAREPRIL480 30G Inhaler|Herbal Supplements|GILOY TABLET|30G Inhaler|3148.05|synthetic_sample
+SUNCARE486 200ML Suspension|Herbal Supplements|AMLA JUICE|200ML Suspension|52.66|synthetic_sample
+MAXVIR494 75MG Gel|Herbal Supplements|SHATAVARI|75MG Gel|3415.45|synthetic_sample
+RXZOLE498 30ML Gel|Herbal Supplements|SAFI HERBAL SYRUP|30ML Gel|1948.57|synthetic_sample
+RENZOLE500 30G Gel|Herbal Supplements|GILOY TABLET|30G Gel|2968.9|synthetic_sample
+VITALZUMAB501 500MG Gel|Herbal Supplements|TRIPHALA POWDER|500MG Gel|2062.7|synthetic_sample
+OSTEOFLAM503 75MG Inhaler|Herbal Supplements|GINGER EXTRACT|75MG Inhaler|771.34|synthetic_sample
+NOVOMAX514 125MG/5ML Suppository|Herbal Supplements|TRIPHALA POWDER|125MG/5ML Suppository|2712.82|synthetic_sample
+ORTHOVIR515 30ML Ointment|Herbal Supplements|NEEM CAPSULE|30ML Ointment|2739.38|synthetic_sample
+SUNFORMIN517 10MG Ointment|Herbal Supplements|TRIPHALA POWDER|10MG Ointment|2843.96|synthetic_sample
+SUREPLUS525 60ML Suspension|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|60ML Suspension|1049.3|synthetic_sample
+NOVOCIN527 120ML Cap|Herbal Supplements|TRIPHALA POWDER|120ML Cap|1282.62|synthetic_sample
+LIFETAN532 0.5% Injection|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|0.5% Injection|1512.93|synthetic_sample
+MEDXL539 300MG Suspension|Herbal Supplements|UNANI TONIC|300MG Suspension|2698.67|synthetic_sample
+BETAMOX544 250MG/5ML Gel|Herbal Supplements|GINGER EXTRACT|250MG/5ML Gel|1722.57|synthetic_sample
+PHARMACALM551 2% Ointment|Herbal Supplements|AMLA JUICE|2% Ointment|2434.45|synthetic_sample
+NEUROFORMIN559 100ML Suspension|Herbal Supplements|SHATAVARI|100ML Suspension|2378.98|synthetic_sample
+CAREFLAM565 1G Gel|Herbal Supplements|NEEM CAPSULE|1G Gel|2104.39|synthetic_sample
+SUNGEST584 200ML Suspension|Herbal Supplements|BRAHMI CAPSULE|200ML Suspension|1948.2|synthetic_sample
+BIOPRIL585 200MG Tab|Herbal Supplements|GILOY TABLET|200MG Tab|1140.9|synthetic_sample
+DEXMOX587 1G Ointment|Herbal Supplements|BRAHMI CAPSULE|1G Ointment|1781.35|synthetic_sample
+DERMASARTAN592 2.5MG Cream|Herbal Supplements|TRIPHALA POWDER|2.5MG Cream|38.4|synthetic_sample
+CARDICYC593 120ML Powder|Herbal Supplements|AYURVEDIC DIGESTIVE SYRUP|120ML Powder|81.66|synthetic_sample
+DERMAMOX594 150MG Syrup|Herbal Supplements|SAFI HERBAL SYRUP|150MG Syrup|3028.4|synthetic_sample
+RELIATIDE596 75MG Cap|Herbal Supplements|HERBAL COUGH SYRUP|75MG Cap|1836.59|synthetic_sample
+BETAGLIPTIN601 750MG Cream|Herbal Supplements|NEEM CAPSULE|750MG Cream|323.21|synthetic_sample
+RELIASARTAN606 120ML Inhaler|Herbal Supplements|HERBAL COUGH SYRUP|120ML Inhaler|2710.97|synthetic_sample
+RELIACEF607 50MG Powder|Herbal Supplements|GINGER EXTRACT|50MG Powder|3059.81|synthetic_sample
+BETAVIR610 400MG Gel|Herbal Supplements|SAFI HERBAL SYRUP|400MG Gel|557.38|synthetic_sample
+NOVOPAM616 120ML Nasal Spray|Herbal Supplements|BRAHMI CAPSULE|120ML Nasal Spray|1407.39|synthetic_sample
+RAPIMOX 400MG Nasal Spray|Men's Care|MULTIVITAMIN FOR MEN|400MG Nasal Spray|2060.36|synthetic_sample
+ORTHOGLIPTIN 625MG Nasal Spray|Men's Care|MULTIVITAMIN FOR MEN|625MG Nasal Spray|135.82|synthetic_sample
+UNIFORTE 250MG Ointment|Men's Care|ENERGY SUPPLEMENT|250MG Ointment|2514.77|synthetic_sample
+CURECORT 2% Injection|Men's Care|PROSTATE HEALTH SUPPLEMENT|2% Injection|1657.47|synthetic_sample
+DERMATINIB 40MG Injection|Men's Care|MULTIVITAMIN FOR MEN|40MG Injection|551.39|synthetic_sample
+SUNMOX 2.5MG Syrup|Men's Care|ZINC FOR MEN|2.5MG Syrup|1255.13|synthetic_sample
+RELIADX 75MG Cream|Men's Care|L-ARGININE|75MG Cream|1439.01|synthetic_sample
+MEDEX 5MG/5ML Inhaler|Men's Care|L-ARGININE|5MG/5ML Inhaler|160.87|synthetic_sample
+SUREPLUS 125MG/5ML Inhaler|Men's Care|L-ARGININE|125MG/5ML Inhaler|3025.14|synthetic_sample
+BETAFEN 10MG Nasal Spray|Men's Care|MULTIVITAMIN FOR MEN|10MG Nasal Spray|2118.62|synthetic_sample
+SUREGLIPTIN 100MG Suppository|Men's Care|ZINC FOR MEN|100MG Suppository|1515.3|synthetic_sample
+OSTEOMOX 200ML Nasal Spray|Men's Care|L-ARGININE|200ML Nasal Spray|930.83|synthetic_sample
+PULMOZUMAB 50MG Tab|Men's Care|ZINC FOR MEN|50MG Tab|1447.73|synthetic_sample
+ACETAN 0.5% Cream|Men's Care|ENERGY SUPPLEMENT|0.5% Cream|1570.98|synthetic_sample
+PULMOCALM 125MG Powder|Men's Care|ZINC FOR MEN|125MG Powder|2820.61|synthetic_sample
+CARDISLEEP 300MG Tab|Men's Care|L-ARGININE|300MG Tab|2055.45|synthetic_sample
+LIFEXIN 100MG Nasal Spray|Men's Care|L-ARGININE|100MG Nasal Spray|2747.4|synthetic_sample
+TRUSTGLIPTIN 200ML Suppository|Men's Care|L-ARGININE|200ML Suppository|3340.68|synthetic_sample
+GENUCORT 5MG Inhaler|Men's Care|PROSTATE HEALTH SUPPLEMENT|5MG Inhaler|3462.93|synthetic_sample
+CARDIFEN 1G Injection|Men's Care|L-ARGININE|1G Injection|447.46|synthetic_sample
+TRUSTDERM 1G Inhaler|Men's Care|ZINC FOR MEN|1G Inhaler|1042.31|synthetic_sample
+RENPAIN 0.5% Tab|Men's Care|ENERGY SUPPLEMENT|0.5% Tab|175.68|synthetic_sample
+ALFAFORMIN 0.05% Syrup|Men's Care|ENERGY SUPPLEMENT|0.05% Syrup|68.9|synthetic_sample
+ORTHOFORTE 50MG Tab|Men's Care|PROSTATE HEALTH SUPPLEMENT|50MG Tab|2846.5|synthetic_sample
+IMMUNOCORT 750MG Cream|Men's Care|HAIR LOSS TABLET|750MG Cream|178.13|synthetic_sample
+TRUSTCIN 25MG Inhaler|Men's Care|ZINC FOR MEN|25MG Inhaler|739.31|synthetic_sample
+RAPICYC 500MG Syrup|Men's Care|PROSTATE HEALTH SUPPLEMENT|500MG Syrup|351.96|synthetic_sample
+PULMOFEN 100MG Ointment|Men's Care|L-ARGININE|100MG Ointment|381.78|synthetic_sample
+CAREFAST 25MG Cap|Men's Care|HAIR LOSS TABLET|25MG Cap|922.3|synthetic_sample
+PHARMAFLAM 250MG Syrup|Men's Care|PROSTATE HEALTH SUPPLEMENT|250MG Syrup|1747.5|synthetic_sample
+MEDCALM 20MG Injection|Men's Care|ENERGY SUPPLEMENT|20MG Injection|1395.61|synthetic_sample
+RAPITAN 15G Injection|Men's Care|PROSTATE HEALTH SUPPLEMENT|15G Injection|3492.88|synthetic_sample
+ZENOGLIPTIN 2% Tab|Men's Care|ENERGY SUPPLEMENT|2% Tab|2716.51|synthetic_sample
+RENDONE 30ML Inhaler|Men's Care|MULTIVITAMIN FOR MEN|30ML Inhaler|1483.55|synthetic_sample
+CARDIXL 0.05% Syrup|Men's Care|ENERGY SUPPLEMENT|0.05% Syrup|1448.63|synthetic_sample
+NOVOOLOL 30G Nasal Spray|Men's Care|PROSTATE HEALTH SUPPLEMENT|30G Nasal Spray|3455.19|synthetic_sample
+GENUCALM 125MG/5ML Suppository|Men's Care|ENERGY SUPPLEMENT|125MG/5ML Suppository|503.25|synthetic_sample
+DEXPLUS 5MG/5ML Syrup|Men's Care|MULTIVITAMIN FOR MEN|5MG/5ML Syrup|3345.68|synthetic_sample
+DEXXL 1% Inhaler|Men's Care|ENERGY SUPPLEMENT|1% Inhaler|3346.73|synthetic_sample
+DEXCYC 40MG Gel|Men's Care|PROSTATE HEALTH SUPPLEMENT|40MG Gel|3098.48|synthetic_sample
+PROFAST 0.05% Drop|Men's Care|ZINC FOR MEN|0.05% Drop|1678.48|synthetic_sample
+CAREDONE 10MG Injection|Men's Care|PROSTATE HEALTH SUPPLEMENT|10MG Injection|233.73|synthetic_sample
+CURECYC 0.05% Gel|Men's Care|HAIR LOSS TABLET|0.05% Gel|3456.36|synthetic_sample
+BIOFORMIN 500MG Tab|Men's Care|MULTIVITAMIN FOR MEN|500MG Tab|2790.06|synthetic_sample
+RELIAPLUS 250MG Tab|Men's Care|HAIR LOSS TABLET|250MG Tab|521.88|synthetic_sample
+MAXCIN 75MG Ointment|Men's Care|MULTIVITAMIN FOR MEN|75MG Ointment|48.54|synthetic_sample
+DEXTIDE 2% Inhaler|Men's Care|HAIR LOSS TABLET|2% Inhaler|1172.46|synthetic_sample
+RELIAOLOL 100MG Suspension|Men's Care|PROSTATE HEALTH SUPPLEMENT|100MG Suspension|1067.54|synthetic_sample
+MAXVIR 100MG Syrup|Men's Care|PROSTATE HEALTH SUPPLEMENT|100MG Syrup|1070.89|synthetic_sample
+DERMAOLOL 125MG/5ML Cream|Men's Care|ZINC FOR MEN|125MG/5ML Cream|609.33|synthetic_sample
+CURETAN 2% Ointment|Men's Care|ENERGY SUPPLEMENT|2% Ointment|1345.36|synthetic_sample
+LIFEZUMAB 625MG Suspension|Men's Care|MULTIVITAMIN FOR MEN|625MG Suspension|406.68|synthetic_sample
+LIFECALM 100MG Nasal Spray|Men's Care|MULTIVITAMIN FOR MEN|100MG Nasal Spray|349.85|synthetic_sample
+RXFEN 0.5% Drop|Men's Care|ZINC FOR MEN|0.5% Drop|1404.17|synthetic_sample
+DERMAMOX 200ML Cream|Men's Care|L-ARGININE|200ML Cream|3351.74|synthetic_sample
+BIOMOX 0.5% Nasal Spray|Men's Care|ZINC FOR MEN|0.5% Nasal Spray|1670.38|synthetic_sample
+CURECIN 400MG Cream|Men's Care|L-ARGININE|400MG Cream|1777.45|synthetic_sample
+PROMOX 1G Nasal Spray|Men's Care|L-ARGININE|1G Nasal Spray|2924.09|synthetic_sample
+PROCYC 120ML Syrup|Men's Care|ZINC FOR MEN|120ML Syrup|3088.72|synthetic_sample
+BETAOD 150MG Inhaler|Men's Care|HAIR LOSS TABLET|150MG Inhaler|497.03|synthetic_sample
+ORTHOFAST 1G Cream|Men's Care|ENERGY SUPPLEMENT|1G Cream|2684.38|synthetic_sample
+RENGEST 625MG Powder|Men's Care|MULTIVITAMIN FOR MEN|625MG Powder|511.89|synthetic_sample
+MAXMAX 20MG Drop|Men's Care|ENERGY SUPPLEMENT|20MG Drop|1379.53|synthetic_sample
+MEDFLAM 20MG Ointment|Men's Care|MULTIVITAMIN FOR MEN|20MG Ointment|883.89|synthetic_sample
+NOVOMOX 10MG Injection|Men's Care|PROSTATE HEALTH SUPPLEMENT|10MG Injection|1466.92|synthetic_sample
+ORTHOCORT38 125MG Tab|Men's Care|MULTIVITAMIN FOR MEN|125MG Tab|3102.62|synthetic_sample
+NEOXL49 250MG Powder|Men's Care|MULTIVITAMIN FOR MEN|250MG Powder|709.84|synthetic_sample
+GASTROSLEEP62 750MG Suspension|Men's Care|HAIR LOSS TABLET|750MG Suspension|1892.08|synthetic_sample
+ALFAFLAM 1G Powder|Men's Care|L-ARGININE|1G Powder|408.83|synthetic_sample
+RENZOLE109 300MG Cream|Men's Care|HAIR LOSS TABLET|300MG Cream|2360.85|synthetic_sample
+MAXFORMIN134 1% Tab|Men's Care|PROSTATE HEALTH SUPPLEMENT|1% Tab|1439|synthetic_sample
+BETATAN160 0.05% Drop|Men's Care|HAIR LOSS TABLET|0.05% Drop|478.09|synthetic_sample
+BIOCORT238 400MG Drop|Men's Care|PROSTATE HEALTH SUPPLEMENT|400MG Drop|1771.39|synthetic_sample
+NEODONE251 1% Drop|Men's Care|L-ARGININE|1% Drop|2541.46|synthetic_sample
+BETAZOLE277 5MG Suppository|Men's Care|L-ARGININE|5MG Suppository|1356.46|synthetic_sample
+GASTROFLAM303 200MG Suppository|Men's Care|MULTIVITAMIN FOR MEN|200MG Suppository|1463.89|synthetic_sample
+PHARMACARE316 300MG Injection|Men's Care|PROSTATE HEALTH SUPPLEMENT|300MG Injection|3375.55|synthetic_sample
+VITALPAIN329 150MG Nasal Spray|Men's Care|ZINC FOR MEN|150MG Nasal Spray|2248.7|synthetic_sample
+JOYTRIP 150 MG TAB|OTC Medicine|HYOSCINE HYDROBROMIDE|150MG Tab|5.02|verified
+HISTACIN 4 MG TAB|OTC Medicine|CHLORPHENIRAMINE MALEATE|4MG Tab|0.29|verified
+RIBOSON 5 MG TAB|OTC Medicine|RIBOFLAVIN|5MG Tab|0.3|verified
+VOLIGEL 50GM GEL|OTC Medicine|DICLOFENAC SODIUM|50GM Gel|97|verified
+ACE 500 TAB|OTC Medicine|PARACETAMOL BP|500 Tab|1.2|verified
+AMODIS 400 MG TAB|OTC Medicine|METRONIDAZOLE|400MG Tab|1.7|verified
+FAMOTACK 20 MG TAB|OTC Medicine|FAMOTIDINE|20MG Tab|3|verified
+CALBO JR 250 MG TAB|OTC Medicine|CALCIUM|250MG Tab|4|verified
+GLYSUP 2.30 GM SUPPOSITORY|OTC Medicine|GLYCERIN|2.30GM Suppository|5|verified
+NEBANOL PLUS 10 MG OINTMENT|OTC Medicine|NEOMYCIN+BACITRACIN+POLYMYXIN B|10MG Ointment|30.2|verified
+SECLO 20 MG CAP|OTC Medicine|OMEPRAZOLE|20MG Cap|6|verified
+ANTAZOL 0.05% NASAL DROPS|OTC Medicine|XYLOMETAZOLINE|0.05% Nasal Drop|18|verified
+BURNA 25 GM CREAM|OTC Medicine|SILVER SULFADIAZINE|25GM Cream|60|verified
+FAMOTACK 50 ML PFS|OTC Medicine|FAMOTIDINE USP|50ML PFS|55|verified
+V-PLEX 15 ML DROP|OTC Medicine|MULTIVITAMIN|15ML Drop|22.07|verified
+PERMIN 15 GM CREAM|OTC Medicine|PERMETHRIN 5%|15GM Cream|25.17|verified
+MILK OF MAGNESIA PLUS 120 ML SYRUP|OTC Medicine|MAGNESIUM HYDROXIDE|120ML Syrup|95.29|verified
+LORIX 30 GM CREAM|OTC Medicine|PERMETHRIN 5%|30GM Cream|60|verified
+TRUSTSTATIN 60ML Nasal Spray|OTC Medicine|LORATADINE|60ML Nasal Spray|113.18|synthetic_sample
+ACEPAM 200ML Inhaler|OTC Medicine|MULTIVITAMIN|200ML Inhaler|3314.08|synthetic_sample
+DEXPRIL 2.5MG Inhaler|OTC Medicine|MULTIVITAMIN|2.5MG Inhaler|3391.55|synthetic_sample
+TRUSTCALM 30G Nasal Spray|OTC Medicine|ORAL REHYDRATION SALT|30G Nasal Spray|29.37|synthetic_sample
+ZENOZOLE 200ML Powder|OTC Medicine|LORATADINE|200ML Powder|780.07|synthetic_sample
+IMMUNOFORTE 100ML Gel|OTC Medicine|ANTIFUNGAL CREAM|100ML Gel|2365.34|synthetic_sample
+RENPAM 400MG Syrup|OTC Medicine|MULTIVITAMIN|400MG Syrup|1341.86|synthetic_sample
+MAXCORT 5MG Suspension|OTC Medicine|IBUPROFEN|5MG Suspension|2175.43|synthetic_sample
+PHARMAPRIL 125MG Syrup|OTC Medicine|CETIRIZINE|125MG Syrup|2839.37|synthetic_sample
+PHARMAMOX 750MG Suppository|OTC Medicine|VITAMIN C|750MG Suppository|2017.71|synthetic_sample
+RXPAM 25MG Powder|OTC Medicine|ANTIFUNGAL CREAM|25MG Powder|968.31|synthetic_sample
+VITALDERM 200ML Powder|OTC Medicine|CHLORPHENIRAMINE MALEATE|200ML Powder|3385.91|synthetic_sample
+MAXPRIL 250MG/5ML Suppository|OTC Medicine|ANTACID|250MG/5ML Suppository|854|synthetic_sample
+RELIATINIB 100ML Ointment|OTC Medicine|LORATADINE|100ML Ointment|3108.54|synthetic_sample
+OSTEOSLEEP 40MG Suppository|OTC Medicine|BENZOYL PEROXIDE|40MG Suppository|3091.93|synthetic_sample
+BETADX 30G Cap|OTC Medicine|ANTACID|30G Cap|2979.38|synthetic_sample
+UNIEX 20G Drop|OTC Medicine|BENZOYL PEROXIDE|20G Drop|2752.87|synthetic_sample
+OSTEOPLUS 60ML Nasal Spray|OTC Medicine|OMEPRAZOLE|60ML Nasal Spray|584.92|synthetic_sample
+NEUROCARE 2% Tab|OTC Medicine|EYE LUBRICANT|2% Tab|1939.97|synthetic_sample
+BIOSLEEP 125MG/5ML Powder|OTC Medicine|ANTIFUNGAL CREAM|125MG/5ML Powder|2570.23|synthetic_sample
+BIOMAX 125MG/5ML Syrup|OTC Medicine|COUGH SYRUP|125MG/5ML Syrup|3259.93|synthetic_sample
+TRUSTFEN 1% Ointment|OTC Medicine|GLYCERIN SUPPOSITORY|1% Ointment|3341.22|synthetic_sample
+NEOCEF 1G Suppository|OTC Medicine|LOPERAMIDE|1G Suppository|1988.1|synthetic_sample
+HEALTHPRIL 100MG Gel|OTC Medicine|COUGH SYRUP|100MG Gel|1797.34|synthetic_sample
+NEUROCALM 30G Syrup|OTC Medicine|DICLOFENAC GEL|30G Syrup|775.21|synthetic_sample
+IMMUNOTINIB 125MG/5ML Cream|OTC Medicine|COUGH SYRUP|125MG/5ML Cream|1449.93|synthetic_sample
+HEALTHDX 20G Drop|OTC Medicine|IODINE ANTISEPTIC|20G Drop|1429.34|synthetic_sample
+DERMAPLUS 1G Suppository|OTC Medicine|ORAL REHYDRATION SALT|1G Suppository|2909.82|synthetic_sample
+CARDIFAST 5MG Ointment|OTC Medicine|LOPERAMIDE|5MG Ointment|2581.38|synthetic_sample
+VITALFORTE 15G Nasal Spray|OTC Medicine|OMEPRAZOLE|15G Nasal Spray|1924.94|synthetic_sample
+CURETINIB 300MG Ointment|OTC Medicine|MULTIVITAMIN|300MG Ointment|1732.51|synthetic_sample
+RELIAPAIN 5MG Suppository|OTC Medicine|VITAMIN C|5MG Suppository|2967.93|synthetic_sample
+RAPIFAST 30G Injection|OTC Medicine|PARACETAMOL|30G Injection|225.42|synthetic_sample
+ZENOFAST 1% Syrup|OTC Medicine|GLYCERIN SUPPOSITORY|1% Syrup|753.08|synthetic_sample
+MEDZOLE 20MG Cap|OTC Medicine|LOPERAMIDE|20MG Cap|815.72|synthetic_sample
+ORTHOOLOL 250MG/5ML Cap|OTC Medicine|DICLOFENAC GEL|250MG/5ML Cap|597.03|synthetic_sample
+RXOD 125MG Drop|OTC Medicine|IBUPROFEN|125MG Drop|422.75|synthetic_sample
+CARDIFORMIN 250MG Powder|OTC Medicine|EYE LUBRICANT|250MG Powder|2929.74|synthetic_sample
+ACEMOX 15G Inhaler|OTC Medicine|EYE LUBRICANT|15G Inhaler|3491.15|synthetic_sample
+IMMUNOEX 5MG Suspension|OTC Medicine|PARACETAMOL|5MG Suspension|2369.26|synthetic_sample
+NEOEX 400MG Suppository|OTC Medicine|DICLOFENAC GEL|400MG Suppository|3422.68|synthetic_sample
+DEXDERM 250MG Nasal Spray|OTC Medicine|IODINE ANTISEPTIC|250MG Nasal Spray|658.03|synthetic_sample
+NEPHRODERM 20MG Syrup|OTC Medicine|LOPERAMIDE|20MG Syrup|2417.7|synthetic_sample
+NEPHROTINIB 30G Suppository|OTC Medicine|VITAMIN C|30G Suppository|1663.05|synthetic_sample
+PHARMAGEST 40MG Drop|OTC Medicine|PARACETAMOL|40MG Drop|1067.81|synthetic_sample
+BIOVIR 400MG Ointment|OTC Medicine|MULTIVITAMIN|400MG Ointment|3120.25|synthetic_sample
+BIOPRIL 625MG Syrup|OTC Medicine|EYE LUBRICANT|625MG Syrup|3228.72|synthetic_sample
+CAREDERM 1% Injection|OTC Medicine|CHLORPHENIRAMINE MALEATE|1% Injection|2710.13|synthetic_sample
+TRUSTOD 100ML Injection|OTC Medicine|IODINE ANTISEPTIC|100ML Injection|3381.26|synthetic_sample
+HEPAGOLD 250MG/5ML Nasal Spray|OTC Medicine|CHLORPHENIRAMINE MALEATE|250MG/5ML Nasal Spray|1282|synthetic_sample
+DEXSARTAN 20MG Gel|OTC Medicine|CETIRIZINE|20MG Gel|94.22|synthetic_sample
+CARDIPAM 75MG Injection|OTC Medicine|CETIRIZINE|75MG Injection|2229.85|synthetic_sample
+HEALTHFORMIN 0.5% Tab|OTC Medicine|BENZOYL PEROXIDE|0.5% Tab|1254.87|synthetic_sample
+FIRSTFAST 150MG Cap|OTC Medicine|VITAMIN C|150MG Cap|2774.03|synthetic_sample
+ZENOZUMAB 20G Ointment|OTC Medicine|CHLORPHENIRAMINE MALEATE|20G Ointment|3418.19|synthetic_sample
+CARDITIDE 1% Tab|OTC Medicine|MULTIVITAMIN|1% Tab|130.45|synthetic_sample
+HEPAMOX 0.5% Cream|OTC Medicine|PARACETAMOL|0.5% Cream|2193.53|synthetic_sample
+ALFAOD 20G Syrup|OTC Medicine|OMEPRAZOLE|20G Syrup|362.06|synthetic_sample
+WELLFORTE 60ML Suppository|OTC Medicine|COUGH SYRUP|60ML Suppository|2182.12|synthetic_sample
+RENTIDE 125MG Nasal Spray|OTC Medicine|EYE LUBRICANT|125MG Nasal Spray|2931.97|synthetic_sample
+PROGLIPTIN 25MG Cream|OTC Medicine|GLYCERIN SUPPOSITORY|25MG Cream|424.37|synthetic_sample
+VITALXIN 400MG Nasal Spray|OTC Medicine|CHLORPHENIRAMINE MALEATE|400MG Nasal Spray|304.49|synthetic_sample
+UNIOLOL 750MG Syrup|OTC Medicine|OMEPRAZOLE|750MG Syrup|393.86|synthetic_sample
+GASTROCARE 20G Cream|OTC Medicine|CETIRIZINE|20G Cream|3302.02|synthetic_sample
+IMMUNOCALM 2% Injection|OTC Medicine|LOPERAMIDE|2% Injection|337.23|synthetic_sample
+PULMODX 1G Ointment|OTC Medicine|MULTIVITAMIN|1G Ointment|3447.4|synthetic_sample
+LIFEXL 250MG Cream|OTC Medicine|OMEPRAZOLE|250MG Cream|1451.27|synthetic_sample
+NEURODERM 0.5% Drop|OTC Medicine|CHLORPHENIRAMINE MALEATE|0.5% Drop|1083.82|synthetic_sample
+CUREVIR 10MG Syrup|OTC Medicine|EYE LUBRICANT|10MG Syrup|2032.54|synthetic_sample
+PROMAX 120ML Cream|OTC Medicine|ANTIFUNGAL CREAM|120ML Cream|2368.19|synthetic_sample
+DERMADX 5MG Tab|OTC Medicine|COUGH SYRUP|5MG Tab|1257.04|synthetic_sample
+SUNPRIL 2% Powder|OTC Medicine|OMEPRAZOLE|2% Powder|910.63|synthetic_sample
+TRUSTXIN 125MG Injection|OTC Medicine|GLYCERIN SUPPOSITORY|125MG Injection|640.98|synthetic_sample
+FIRSTCEF 250MG/5ML Powder|OTC Medicine|ORS|250MG/5ML Powder|2157.13|synthetic_sample
+HEPAZUMAB 75MG Cap|OTC Medicine|CETIRIZINE|75MG Cap|251.58|synthetic_sample
+VITALGOLD 60ML Gel|OTC Medicine|ORAL REHYDRATION SALT|60ML Gel|1769.51|synthetic_sample
+CAREMAX 250MG Ointment|OTC Medicine|PARACETAMOL|250MG Ointment|12.95|synthetic_sample
+RXCEF 60ML Nasal Spray|OTC Medicine|ORS|60ML Nasal Spray|3394.1|synthetic_sample
+HEPAOLOL 150MG Tab|OTC Medicine|CETIRIZINE|150MG Tab|1114.35|synthetic_sample
+MEDVIR 5MG/5ML Cream|OTC Medicine|CHLORPHENIRAMINE MALEATE|5MG/5ML Cream|392.13|synthetic_sample
+NEPHROCYC 250MG/5ML Cap|OTC Medicine|CHLORPHENIRAMINE MALEATE|250MG/5ML Cap|415.99|synthetic_sample
+CARESLEEP 0.05% Inhaler|OTC Medicine|MULTIVITAMIN|0.05% Inhaler|2895.73|synthetic_sample
+VITALFORMIN 30ML Cream|OTC Medicine|EYE LUBRICANT|30ML Cream|1686.73|synthetic_sample
+NEPHROEX 0.05% Cream|OTC Medicine|IBUPROFEN|0.05% Cream|106.73|synthetic_sample
+NEUROMOX 200MG Gel|OTC Medicine|EYE LUBRICANT|200MG Gel|935.11|synthetic_sample
+NOVOTINIB 125MG Drop|OTC Medicine|GLYCERIN SUPPOSITORY|125MG Drop|1968.05|synthetic_sample
+ORTHOFLAM 15G Injection|OTC Medicine|PARACETAMOL|15G Injection|447.02|synthetic_sample
+RAPIZOLE 100ML Injection|OTC Medicine|CHLORPHENIRAMINE MALEATE|100ML Injection|1435.52|synthetic_sample
+TRUSTSARTAN 15G Cream|OTC Medicine|MULTIVITAMIN|15G Cream|2345.23|synthetic_sample
+FIRSTGLIPTIN 750MG Tab|OTC Medicine|EYE LUBRICANT|750MG Tab|1932.81|synthetic_sample
+LIFEZOLE 125MG/5ML Powder|OTC Medicine|CHLORPHENIRAMINE MALEATE|125MG/5ML Powder|2732.65|synthetic_sample
+OSTEODERM 120ML Cap|OTC Medicine|ANTIFUNGAL CREAM|120ML Cap|3057.31|synthetic_sample
+DEXTIDE26 1G Suppository|OTC Medicine|ANTACID|1G Suppository|618.13|synthetic_sample
+CARDISARTAN 125MG Cap|OTC Medicine|GLYCERIN SUPPOSITORY|125MG Cap|982.6|synthetic_sample
+PULMOGOLD45 10MG Suspension|OTC Medicine|IODINE ANTISEPTIC|10MG Suspension|2061.84|synthetic_sample
+NEUROCARE58 200MG Nasal Spray|OTC Medicine|ANTIFUNGAL CREAM|200MG Nasal Spray|1251.03|synthetic_sample
+PROXL71 50MG Tab|OTC Medicine|MULTIVITAMIN|50MG Tab|1978.53|synthetic_sample
+MAXTINIB80 0.5% Nasal Spray|OTC Medicine|GLYCERIN SUPPOSITORY|0.5% Nasal Spray|1379.01|synthetic_sample
+NEPHRODERM105 25MG Inhaler|OTC Medicine|EYE LUBRICANT|25MG Inhaler|216.26|synthetic_sample
+RAPIMAX117 250MG/5ML Suspension|OTC Medicine|COUGH SYRUP|250MG/5ML Suspension|2432.57|synthetic_sample
+BETACYC130 5MG Drop|OTC Medicine|LOPERAMIDE|5MG Drop|2919.3|synthetic_sample
+BETAPAIN143 200ML Drop|OTC Medicine|PARACETAMOL|200ML Drop|2357.2|synthetic_sample
+HEALTHXIN156 125MG Drop|OTC Medicine|COUGH SYRUP|125MG Drop|219.36|synthetic_sample
+BETACALM169 5MG/5ML Syrup|OTC Medicine|OMEPRAZOLE|5MG/5ML Syrup|3056.32|synthetic_sample
+PULMOFEN182 200MG Gel|OTC Medicine|CHLORPHENIRAMINE MALEATE|200MG Gel|3422.37|synthetic_sample
+CAREVIR195 500MG Suspension|OTC Medicine|COUGH SYRUP|500MG Suspension|1154.33|synthetic_sample
+GASTROEX221 0.5% Injection|OTC Medicine|ORAL REHYDRATION SALT|0.5% Injection|1003.06|synthetic_sample
+DEXCALM234 400MG Cream|OTC Medicine|OMEPRAZOLE|400MG Cream|1585.22|synthetic_sample
+GENUZUMAB247 0.05% Nasal Spray|OTC Medicine|PARACETAMOL|0.05% Nasal Spray|2490.84|synthetic_sample
+BIOMOX260 250MG/5ML Tab|OTC Medicine|CETIRIZINE|250MG/5ML Tab|2959.63|synthetic_sample
+GENUFAST273 150MG Gel|OTC Medicine|PARACETAMOL|150MG Gel|1773.48|synthetic_sample
+PRODONE299 2% Injection|OTC Medicine|DICLOFENAC GEL|2% Injection|1659.78|synthetic_sample
+GENUTINIB312 250MG Injection|OTC Medicine|IODINE ANTISEPTIC|250MG Injection|960.84|synthetic_sample
+GASTRODERM325 10MG Cap|OTC Medicine|OMEPRAZOLE|10MG Cap|1376.32|synthetic_sample
+LIFEDERM338 125MG/5ML Suspension|OTC Medicine|VITAMIN C|125MG/5ML Suspension|493.68|synthetic_sample
+RXDERM351 125MG Nasal Spray|OTC Medicine|VITAMIN C|125MG Nasal Spray|203.42|synthetic_sample
+HEALTHMOX360 10MG Cream|OTC Medicine|COUGH SYRUP|10MG Cream|1343.81|synthetic_sample
+PHARMAFLAM368 40MG Injection|OTC Medicine|LORATADINE|40MG Injection|1472.46|synthetic_sample
+RENPRIL369 20G Ointment|OTC Medicine|ANTACID|20G Ointment|2157.75|synthetic_sample
+CUREGEST372 60ML Drop|OTC Medicine|CHLORPHENIRAMINE MALEATE|60ML Drop|1897.91|synthetic_sample
+NEOZUMAB374 15G Nasal Spray|OTC Medicine|OMEPRAZOLE|15G Nasal Spray|1753.49|synthetic_sample
+ACEFORTE377 2% Suppository|OTC Medicine|VITAMIN C|2% Suppository|2598.04|synthetic_sample
+DEXPAIN380 30G Drop|OTC Medicine|ORAL REHYDRATION SALT|30G Drop|3049.89|synthetic_sample
+GASTROGOLD385 250MG/5ML Cap|OTC Medicine|CETIRIZINE|250MG/5ML Cap|2261.72|synthetic_sample
+CARDIFLAM408 20G Tab|OTC Medicine|VITAMIN C|20G Tab|2124.78|synthetic_sample
+FIRSTMOX409 0.05% Suppository|OTC Medicine|MULTIVITAMIN|0.05% Suppository|2280.19|synthetic_sample
+FIRSTFEN426 50MG Suppository|OTC Medicine|LOPERAMIDE|50MG Suppository|3331.9|synthetic_sample
+RXXL427 15G Cap|OTC Medicine|ORAL REHYDRATION SALT|15G Cap|2456.79|synthetic_sample
+DERMADERM433 100ML Gel|OTC Medicine|LOPERAMIDE|100ML Gel|3206.57|synthetic_sample
+OSTEOGLIPTIN435 250MG/5ML Cream|OTC Medicine|ORAL REHYDRATION SALT|250MG/5ML Cream|2477.21|synthetic_sample
+WELLTIDE451 1G Cap|OTC Medicine|VITAMIN C|1G Cap|3393.61|synthetic_sample
+PULMOGLIPTIN453 50MG Cap|OTC Medicine|LORATADINE|50MG Cap|1763.63|synthetic_sample
+MAXFORMIN456 50MG Nasal Spray|OTC Medicine|DICLOFENAC GEL|50MG Nasal Spray|499.55|synthetic_sample
+DEXTINIB458 25MG Injection|OTC Medicine|CHLORPHENIRAMINE MALEATE|25MG Injection|398.82|synthetic_sample
+OSTEOPRIL461 125MG Injection|OTC Medicine|CETIRIZINE|125MG Injection|933.68|synthetic_sample
+RAPIMAX466 0.05% Suspension|OTC Medicine|IBUPROFEN|0.05% Suspension|2823.31|synthetic_sample
+FIRSTFAST469 150MG Injection|OTC Medicine|IODINE ANTISEPTIC|150MG Injection|2513.64|synthetic_sample
+NEUROPLUS474 300MG Syrup|OTC Medicine|ORS|300MG Syrup|140.09|synthetic_sample
+WELLCALM484 100MG Inhaler|OTC Medicine|CETIRIZINE|100MG Inhaler|450.45|synthetic_sample
+IMMUNOSTATIN485 400MG Drop|OTC Medicine|DICLOFENAC GEL|400MG Drop|1685.5|synthetic_sample
+MAXTINIB490 0.05% Ointment|OTC Medicine|LORATADINE|0.05% Ointment|853.21|synthetic_sample
+HEALTHXIN493 200MG Syrup|OTC Medicine|ANTIFUNGAL CREAM|200MG Syrup|1775.74|synthetic_sample
+LIFETAN508 200ML Cream|OTC Medicine|IODINE ANTISEPTIC|200ML Cream|2201.28|synthetic_sample
+HEPASLEEP513 60ML Drop|OTC Medicine|EYE LUBRICANT|60ML Drop|288.97|synthetic_sample
+OSTEOTINIB524 20MG Injection|OTC Medicine|EYE LUBRICANT|20MG Injection|642.44|synthetic_sample
+ORTHOSTATIN529 400MG Cap|OTC Medicine|BENZOYL PEROXIDE|400MG Cap|1545.02|synthetic_sample
+NEOCIN530 120ML Injection|OTC Medicine|PARACETAMOL|120ML Injection|12.87|synthetic_sample
+OSTEODERM531 400MG Drop|OTC Medicine|LOPERAMIDE|400MG Drop|292.93|synthetic_sample
+CARECORT534 30ML Ointment|OTC Medicine|LOPERAMIDE|30ML Ointment|2895.89|synthetic_sample
+WELLXL537 125MG Suspension|OTC Medicine|ANTIFUNGAL CREAM|125MG Suspension|2628.09|synthetic_sample
+PULMOPLUS538 60ML Drop|OTC Medicine|CHLORPHENIRAMINE MALEATE|60ML Drop|1406.98|synthetic_sample
+GASTROPAM540 2% Injection|OTC Medicine|IODINE ANTISEPTIC|2% Injection|2864.04|synthetic_sample
+CAREGOLD547 30ML Ointment|OTC Medicine|IODINE ANTISEPTIC|30ML Ointment|1938.79|synthetic_sample
+BETAOD549 100MG Syrup|OTC Medicine|CHLORPHENIRAMINE MALEATE|100MG Syrup|1748.8|synthetic_sample
+NEPHROGEST550 0.5% Syrup|OTC Medicine|PARACETAMOL|0.5% Syrup|141.8|synthetic_sample
+RAPIGOLD552 125MG Drop|OTC Medicine|PARACETAMOL|125MG Drop|3350.88|synthetic_sample
+GENUCORT553 0.05% Suspension|OTC Medicine|ANTIFUNGAL CREAM|0.05% Suspension|482.75|synthetic_sample
+PROFORTE557 1G Suspension|OTC Medicine|LORATADINE|1G Suspension|802.58|synthetic_sample
+RAPIEX561 15G Cap|OTC Medicine|ORS|15G Cap|1775.14|synthetic_sample
+RENCALM567 25MG Powder|OTC Medicine|ORS|25MG Powder|619.85|synthetic_sample
+SUREMOX571 50MG Suspension|OTC Medicine|LOPERAMIDE|50MG Suspension|840.9|synthetic_sample
+BETAGEST574 50MG Powder|OTC Medicine|LORATADINE|50MG Powder|41.1|synthetic_sample
+UNIPAM578 625MG Cap|OTC Medicine|ORS|625MG Cap|2560.17|synthetic_sample
+NEUROSLEEP580 60ML Cream|OTC Medicine|ORS|60ML Cream|1274.67|synthetic_sample
+RENXL581 30G Inhaler|OTC Medicine|ORAL REHYDRATION SALT|30G Inhaler|1948.39|synthetic_sample
+GASTRODX582 100MG Gel|OTC Medicine|COUGH SYRUP|100MG Gel|2313.64|synthetic_sample
+CUREPAM588 200MG Tab|OTC Medicine|ANTACID|200MG Tab|3316.3|synthetic_sample
+NEOMOX589 150MG Cap|OTC Medicine|PARACETAMOL|150MG Cap|2635.1|synthetic_sample
+HEALTHFAST597 5MG/5ML Cream|OTC Medicine|PARACETAMOL|5MG/5ML Cream|1598.8|synthetic_sample
+ORTHOCYC599 625MG Ointment|OTC Medicine|OMEPRAZOLE|625MG Ointment|1124.75|synthetic_sample
+TRUSTGEST600 125MG Powder|OTC Medicine|CETIRIZINE|125MG Powder|1577.93|synthetic_sample
+PHARMAZUMAB604 625MG Suspension|OTC Medicine|ANTIFUNGAL CREAM|625MG Suspension|1864.39|synthetic_sample
+NEOXIN608 1% Inhaler|OTC Medicine|PARACETAMOL|1% Inhaler|2881.77|synthetic_sample
+WELLCORT611 30ML Drop|OTC Medicine|LOPERAMIDE|30ML Drop|311.17|synthetic_sample
+LYSI 240ML SYRUP|Prescription Medicine|COD LIVER OIL|Syrup 240ML|3500|verified
+BLACK ANT 200 ML SYRUP|Prescription Medicine|SYRUP|Syrup 200ML|490|verified
+NAPADOL 325MG/37.5MG TAB|Prescription Medicine|PARACETAMOL+TRAMADOL|325MG/37.5MG Tab|7.2|verified
+NEUROCARE TAB|Prescription Medicine|VITAMIN B1,B6,B12|Tab|270|verified
+ISPERGUL 120 MG POWDER|Prescription Medicine|ACID TANNIC 33%|120MG Powder|450|verified
+RAVU 100MG CAP|Prescription Medicine|RAVUCONAZOLE|100MG Cap|270|verified
+GINTEX 500 MG CAP|Prescription Medicine|PROGESTERONE|500MG Cap|10.8|verified
+CORALCAL D 500MG/200IU TAB|Prescription Medicine|CALCIUM|500MG/200IU Tab|11.7|verified
+UROKIT PLUS 200ML ORAL SOLUTION|Prescription Medicine|POTASSIUM CITRATE & CITRIC ACID|200ML Oral Solution|180|verified
+MONTAIR 10 MG TAB|Prescription Medicine|MONTELUKAST SODIUM|10MG Tab|15.8|verified
+VALEX CR 500 MG TAB|Prescription Medicine|SODIUM VALPROATE+VALPORIC ACID|500MG Tab|13|verified
+DORMICUM 7.5 MG TAB|Prescription Medicine|MIDAZOLAM|7.5MG Tab|22|verified
+SYSTEAR 10ML EYE DROP|Prescription Medicine|LUBRICATING|10ML Eye Drop|250|verified
+ARIPRA 10 MG TAB|Prescription Medicine|ARIPIPRAZOLE|10MG Tab|5|verified
+MIRAPRO 15 MG TAB|Prescription Medicine|MIRTAZAPINE|15MG Tab|8.1|verified
+TRIDYL 5 MG TABLET|Prescription Medicine|TRIHEXYPHENIDYL HCL|5MG Tab|12|verified
+FIMOXYCLAV 625 MG TAB|Prescription Medicine|AMOXICILLIN+CLAVULANIC ACID|625MG Tab|32.1|verified
+FLUCLOX 500 MG CAP|Prescription Medicine|FLUCLOXACILLIN|500MG Cap|14|verified
+FILFRESH 3 MG TAB|Prescription Medicine|MELATONIN|3MG Tab|3.01|verified
+PRONOR 5 MG TAB|Prescription Medicine|FINASTERIDE|5MG Tab|9.07|verified
+MELATRIN 30G CREAM|Prescription Medicine|FLUOCINOLONE ACETONIDE|30G Cream|200|verified
+PERKINIL 5 MG TAB|Prescription Medicine|PROCYCLIDINE|5MG Tab|1.25|verified
+AMARYL 4 MG TAB|Prescription Medicine|GLIMEPIRIDE|4MG Tab|21.06|verified
+GLIPITA M 50/500 TAB|Prescription Medicine|SITAGLIPTIN+METFORMIN|50/500 Tab|16|verified
+GLIPITA M XR 500 MG TABLET|Prescription Medicine|METFORMIN HCL+GLIBENCLAMIDE|500MG Tab|18|verified
+VIGLITA 50 MG TAB|Prescription Medicine|VILDAGLIPTIN|50MG Tab|16|verified
+VILDAPIN PLUS 850 TAB|Prescription Medicine|VILDAGLIPTIN+METFORMIN|850 Tab|21|verified
+MAXFLAM 400MG Suspension|Prescription Medicine|MONTELUKAST+LEVOCETIRIZINE|400MG Suspension|490.1|synthetic_sample
+PULMOZOLE 125MG/5ML Suppository|Prescription Medicine|PANTOPRAZOLE|125MG/5ML Suppository|1405.27|synthetic_sample
+HEPAFORTE 25MG Suspension|Prescription Medicine|PIOGLITAZONE|25MG Suspension|1552.07|synthetic_sample
+ALFASARTAN 2% Suspension|Prescription Medicine|BISOPROLOL|2% Suspension|998.89|synthetic_sample
+WELLCORT 150MG Injection|Prescription Medicine|ACECLOFENAC+PARACETAMOL|150MG Injection|2756.24|synthetic_sample
+OSTEOPAIN 60ML Suspension|Prescription Medicine|PARACETAMOL|60ML Suspension|2750.58|synthetic_sample
+NEPHROCORT 250MG/5ML Injection|Prescription Medicine|LOPERAMIDE|250MG/5ML Injection|1120.34|synthetic_sample
+ALFAZUMAB 25MG Inhaler|Prescription Medicine|ESOMEPRAZOLE|25MG Inhaler|2734.75|synthetic_sample
+HEPAPLUS 120ML Suspension|Prescription Medicine|CETIRIZINE|120ML Suspension|1995.33|synthetic_sample
+ORTHOGOLD 25MG Cap|Prescription Medicine|TOLPERISONE|25MG Cap|1403.67|synthetic_sample
+LIFESLEEP 625MG Nasal Spray|Prescription Medicine|METRONIDAZOLE|625MG Nasal Spray|92.48|synthetic_sample
+CARECORT 125MG Gel|Prescription Medicine|SODIUM HYALURONATE EYE DROP|125MG Gel|1343.78|synthetic_sample
+PULMOSTATIN 50MG Ointment|Prescription Medicine|CALCIUM + VITAMIN D3|50MG Ointment|2661.77|synthetic_sample
+GASTROPAM 2% Suppository|Prescription Medicine|VILDAGLIPTIN|2% Suppository|1858.92|synthetic_sample
+HEPAFORMIN 120ML Cap|Prescription Medicine|AMITRIPTYLINE|120ML Cap|322.67|synthetic_sample
+NEPHROFORTE 60ML Drop|Prescription Medicine|GUAIFENESIN|60ML Drop|348.93|synthetic_sample
+DERMAFEN 120ML Ointment|Prescription Medicine|GUAIFENESIN|120ML Ointment|1194.45|synthetic_sample
+DEXCORT 0.05% Ointment|Prescription Medicine|SERTRALINE|0.05% Ointment|1834.82|synthetic_sample
+GENUXIN 2% Cream|Prescription Medicine|DEXTROMETHORPHAN|2% Cream|3212.94|synthetic_sample
+ZENOMAX 30ML Drop|Prescription Medicine|CALCIUM CARBONATE|30ML Drop|3382.01|synthetic_sample
+PHARMATAN 40MG Syrup|Prescription Medicine|SILVER SULFADIAZINE|40MG Syrup|1833.15|synthetic_sample
+TRUSTPAIN 50MG Cream|Prescription Medicine|PIOGLITAZONE|50MG Cream|282.08|synthetic_sample
+HEALTHTAN 120ML Gel|Prescription Medicine|METFORMIN HCL|120ML Gel|715.67|synthetic_sample
+PROZOLE 100MG Tab|Prescription Medicine|IPRATROPIUM BROMIDE|100MG Tab|2498.14|synthetic_sample
+IMMUNOGOLD 750MG Cream|Prescription Medicine|OXYMETAZOLINE|750MG Cream|1008.69|synthetic_sample
+SUNCEF 120ML Syrup|Prescription Medicine|PREDNISOLONE|120ML Syrup|2269.7|synthetic_sample
+HEALTHDONE 300MG Inhaler|Prescription Medicine|BROMHEXINE|300MG Inhaler|2509.78|synthetic_sample
+RXPAIN 125MG/5ML Suspension|Prescription Medicine|FLUOCINOLONE ACETONIDE|125MG/5ML Suspension|2022.01|synthetic_sample
+RXCARE 50MG Gel|Prescription Medicine|SERTRALINE|50MG Gel|2810.25|synthetic_sample
+ORTHOCYC 0.05% Injection|Prescription Medicine|DEXTROMETHORPHAN|0.05% Injection|278.41|synthetic_sample
+BETAFLAM 100MG Cap|Prescription Medicine|IBUPROFEN|100MG Cap|307.37|synthetic_sample
+SUREXL 5MG Syrup|Prescription Medicine|HYDROCORTISONE|5MG Syrup|3335.61|synthetic_sample
+RELIAFAST 400MG Gel|Prescription Medicine|ACECLOFENAC|400MG Gel|2792.55|synthetic_sample
+PULMOPAIN 750MG Tab|Prescription Medicine|CEFIXIME|750MG Tab|788.5|synthetic_sample
+RENFORTE 1% Inhaler|Prescription Medicine|PARACETAMOL|1% Inhaler|2975.67|synthetic_sample
+IMMUNOPAM 750MG Suspension|Prescription Medicine|CETIRIZINE|750MG Suspension|2256.88|synthetic_sample
+ZENOCALM 300MG Cap|Prescription Medicine|PARACETAMOL|300MG Cap|1855.29|synthetic_sample
+SUNZOLE 20MG Gel|Prescription Medicine|ACECLOFENAC|20MG Gel|589.63|synthetic_sample
+BIOOD 15G Suspension|Prescription Medicine|HYOSCINE BUTYLBROMIDE|15G Suspension|1898.35|synthetic_sample
+VITALPLUS 10MG Cap|Prescription Medicine|OLOPATADINE EYE DROP|10MG Cap|1033.59|synthetic_sample
+PHARMACORT 5MG/5ML Gel|Prescription Medicine|LEVETIRACETAM|5MG/5ML Gel|278.18|synthetic_sample
+HEPADERM 5MG/5ML Inhaler|Prescription Medicine|ETORICOXIB|5MG/5ML Inhaler|660.88|synthetic_sample
+ZENOCIN 250MG Tab|Prescription Medicine|OLOPATADINE EYE DROP|250MG Tab|2557.85|synthetic_sample
+MEDFORMIN 250MG Nasal Spray|Prescription Medicine|THEOPHYLLINE|250MG Nasal Spray|2723.3|synthetic_sample
+SUNTAN 10MG Gel|Prescription Medicine|BISOPROLOL|10MG Gel|223.55|synthetic_sample
+PROXIN 100MG Gel|Prescription Medicine|THEOPHYLLINE|100MG Gel|2876.79|synthetic_sample
+NOVOPRIL 750MG Suspension|Prescription Medicine|CIPROFLOXACIN|750MG Suspension|2626.15|synthetic_sample
+WELLXL 0.05% Drop|Prescription Medicine|METFORMIN HCL|0.05% Drop|323.63|synthetic_sample
+NEODX 125MG Powder|Prescription Medicine|OLANZAPINE|125MG Powder|433.08|synthetic_sample
+SUREGEST 300MG Suppository|Prescription Medicine|URSODEOXYCHOLIC ACID|300MG Suppository|3172.25|synthetic_sample
+ACEOD 150MG Nasal Spray|Prescription Medicine|CLARITHROMYCIN|150MG Nasal Spray|473.26|synthetic_sample
+BETAOLOL 60ML Syrup|Prescription Medicine|BETAMETHASONE|60ML Syrup|2281.21|synthetic_sample
+FIRSTGEST 2.5MG Nasal Spray|Prescription Medicine|PREDNISOLONE|2.5MG Nasal Spray|915.35|synthetic_sample
+ZENOOLOL 2% Cream|Prescription Medicine|DICLOFENAC SODIUM|2% Cream|2145.5|synthetic_sample
+ACECORT 625MG Inhaler|Prescription Medicine|AZITHROMYCIN|625MG Inhaler|3291.65|synthetic_sample
+GENUFLAM 750MG Injection|Prescription Medicine|SILVER SULFADIAZINE|750MG Injection|1446.34|synthetic_sample
+ACECARE 125MG/5ML Suspension|Prescription Medicine|THEOPHYLLINE|125MG/5ML Suspension|3435.9|synthetic_sample
+UNITINIB 50MG Drop|Prescription Medicine|MULTIVITAMIN + MINERALS|50MG Drop|356.09|synthetic_sample
+RXZUMAB 20MG Syrup|Prescription Medicine|MELATONIN|20MG Syrup|2358.38|synthetic_sample
+NOVOFORTE 2.5MG Inhaler|Prescription Medicine|VITAMIN C|2.5MG Inhaler|234.96|synthetic_sample
+NEUROFAST 10MG Ointment|Prescription Medicine|OXYTOCIN|10MG Ointment|2128.54|synthetic_sample
+NEOCORT 750MG Drop|Prescription Medicine|TIMOLOL EYE DROP|750MG Drop|2169.94|synthetic_sample
+SUNCYC 120ML Gel|Prescription Medicine|ACECLOFENAC|120ML Gel|2960.49|synthetic_sample
+ACECIN 5MG Cap|Prescription Medicine|SERTRALINE|5MG Cap|505.7|synthetic_sample
+CARDIDERM 500MG Suppository|Prescription Medicine|VITAMIN E|500MG Suppository|1698.24|synthetic_sample
+PROFEN 125MG Injection|Prescription Medicine|PARACETAMOL|125MG Injection|2450.79|synthetic_sample
+LIFECEF 0.05% Suppository|Prescription Medicine|HYDROCORTISONE|0.05% Suppository|1136.17|synthetic_sample
+FIRSTSTATIN 0.05% Cap|Prescription Medicine|VITAMIN B COMPLEX|0.05% Cap|3143.01|synthetic_sample
+GASTROMOX 100ML Cap|Prescription Medicine|PREDNISOLONE|100ML Cap|2370.37|synthetic_sample
+GENUSARTAN 250MG Drop|Prescription Medicine|METOPROLOL SUCCINATE|250MG Drop|2683.02|synthetic_sample
+GENUPAM 2% Gel|Prescription Medicine|MONTELUKAST+LEVOCETIRIZINE|2% Gel|2467.15|synthetic_sample
+DERMACYC 25MG Suppository|Prescription Medicine|OMEPRAZOLE|25MG Suppository|2281.08|synthetic_sample
+IMMUNOXL 200ML Ointment|Prescription Medicine|MONTELUKAST+LEVOCETIRIZINE|200ML Ointment|2390.22|synthetic_sample
+CARECYC 10MG Nasal Spray|Prescription Medicine|MUPIROCIN|10MG Nasal Spray|20.75|synthetic_sample
+PHARMAFAST 60ML Cap|Prescription Medicine|OXYMETAZOLINE|60ML Cap|2838.86|synthetic_sample
+VITALCARE 30ML Cap|Prescription Medicine|BISOPROLOL|30ML Cap|3300.81|synthetic_sample
+MAXXL 625MG Nasal Spray|Prescription Medicine|IPRATROPIUM BROMIDE|625MG Nasal Spray|846.21|synthetic_sample
+CARDIMOX 300MG Injection|Prescription Medicine|CETIRIZINE+PSEUDOEPHEDRINE|300MG Injection|860.01|synthetic_sample
+MEDXIN 250MG Drop|Prescription Medicine|VITAMIN E|250MG Drop|2310.11|synthetic_sample
+RAPIPAIN 2.5MG Cream|Prescription Medicine|GLUCOSAMINE SULFATE|2.5MG Cream|1812.85|synthetic_sample
+ALFASTATIN 20G Injection|Prescription Medicine|LOPERAMIDE|20G Injection|1795.74|synthetic_sample
+MAXOLOL 1G Syrup|Prescription Medicine|METOPROLOL SUCCINATE|1G Syrup|436.28|synthetic_sample
+DERMACORT 40MG Drop|Prescription Medicine|FAMOTIDINE|40MG Drop|1492.99|synthetic_sample
+DEXCIN 750MG Tab|Prescription Medicine|THEOPHYLLINE|750MG Tab|2631.79|synthetic_sample
+TRUSTDONE 30ML Inhaler|Prescription Medicine|HYOSCINE BUTYLBROMIDE|30ML Inhaler|232.73|synthetic_sample
+NEPHROGOLD 50MG Injection|Prescription Medicine|ISOTRETINOIN|50MG Injection|1509.31|synthetic_sample
+RAPIGOLD 500MG Syrup|Prescription Medicine|ETHINYL ESTRADIOL+LEVONORGESTREL|500MG Syrup|197.45|synthetic_sample
+NOVOZUMAB 200MG Ointment|Prescription Medicine|CLONAZEPAM|200MG Ointment|2879.12|synthetic_sample
+CURESTATIN 100ML Injection|Prescription Medicine|AZITHROMYCIN|100ML Injection|3049.77|synthetic_sample
+ALFAVIR 25MG Inhaler|Prescription Medicine|ULIPRISTAL ACETATE|25MG Inhaler|1574.01|synthetic_sample
+PULMOVIR 100ML Ointment|Prescription Medicine|COENZYME Q10|100ML Ointment|3037.77|synthetic_sample
+SUREMAX 100MG Cream|Prescription Medicine|DUTASTERIDE|100MG Cream|2173.87|synthetic_sample
+MEDZUMAB 250MG/5ML Tab|Prescription Medicine|LOSARTAN POTASSIUM|250MG/5ML Tab|80.85|synthetic_sample
+MEDTAN 500MG Inhaler|Prescription Medicine|KETOCONAZOLE CREAM|500MG Inhaler|103.31|synthetic_sample
+NEOGOLD 1% Syrup|Prescription Medicine|BETAMETHASONE|1% Syrup|351.5|synthetic_sample
+VITALCYC 125MG Inhaler|Prescription Medicine|LEVONORGESTREL|125MG Inhaler|2055.8|synthetic_sample
+BIOZUMAB 40MG Inhaler|Prescription Medicine|CEFUROXIME|40MG Inhaler|2601.66|synthetic_sample
+HEALTHOLOL 10MG Suppository|Prescription Medicine|PARACETAMOL+TRAMADOL|10MG Suppository|476.32|synthetic_sample
+NEUROTAN 2% Powder|Prescription Medicine|LEVOTHYROXINE SODIUM|2% Powder|3281.75|synthetic_sample
+NEPHRODONE13 500MG Powder|Prescription Medicine|MAGNESIUM SULFATE|500MG Powder|3239.85|synthetic_sample
+NOVOTAN 500MG Suspension|Prescription Medicine|ROSUVASTATIN|500MG Suspension|1436.82|synthetic_sample
+RXMAX 100ML Powder|Prescription Medicine|FLUTICASONE NASAL SPRAY|100ML Powder|1223.9|synthetic_sample
+OSTEOSTATIN34 2.5MG Drop|Prescription Medicine|DEXAMETHASONE|2.5MG Drop|2664.16|synthetic_sample
+BIOCALM44 250MG Cap|Prescription Medicine|LEVOTHYROXINE SODIUM|250MG Cap|2001.36|synthetic_sample
+PHARMACIN57 5MG Powder|Prescription Medicine|TOLPERISONE|5MG Powder|2583.13|synthetic_sample
+CUREFLAM70 25MG Gel|Prescription Medicine|BROMHEXINE|25MG Gel|213.8|synthetic_sample
+MEDCYC79 400MG Tab|Prescription Medicine|OMEPRAZOLE|400MG Tab|1467.81|synthetic_sample
+NEUROCYC92 120ML Cap|Prescription Medicine|XYLOMETAZOLINE|120ML Cap|1065.55|synthetic_sample
+FIRSTMOX104 400MG Suspension|Prescription Medicine|CEFIXIME|400MG Suspension|2274.76|synthetic_sample
+HEALTHGEST116 20MG Inhaler|Prescription Medicine|CALCIUM + VITAMIN D3|20MG Inhaler|2968.24|synthetic_sample
+OSTEOOLOL129 5MG/5ML Suppository|Prescription Medicine|VITAMIN D3|5MG/5ML Suppository|2114.85|synthetic_sample
+VITALFEN142 200MG Gel|Prescription Medicine|DOMPERIDONE|200MG Gel|1834.97|synthetic_sample
+WELLSARTAN168 100ML Inhaler|Prescription Medicine|CETIRIZINE|100ML Inhaler|718.02|synthetic_sample
+BETADX181 2% Suppository|Prescription Medicine|PHENYTOIN|2% Suppository|2005.36|synthetic_sample
+LIFEGEST194 60ML Injection|Prescription Medicine|DOMPERIDONE|60ML Injection|100.54|synthetic_sample
+UNIVIR207 200ML Cream|Prescription Medicine|VILDAGLIPTIN|200ML Cream|871.7|synthetic_sample
+CUREFLAM220 1% Drop|Prescription Medicine|ETORICOXIB|1% Drop|3287.18|synthetic_sample
+PHARMASLEEP233 25MG Powder|Prescription Medicine|VITAMIN C|25MG Powder|3130.06|synthetic_sample
+RXMOX246 120ML Cap|Prescription Medicine|MULTIVITAMIN + MINERALS|120ML Cap|1740.97|synthetic_sample
+PULMOMAX259 2% Drop|Prescription Medicine|ROSUVASTATIN|2% Drop|3342.72|synthetic_sample
+CARDIFLAM272 1G Nasal Spray|Prescription Medicine|GLIMEPIRIDE|1G Nasal Spray|343.65|synthetic_sample
+ACEFEN285 300MG Inhaler|Prescription Medicine|IPRATROPIUM BROMIDE|300MG Inhaler|650.89|synthetic_sample
+PHARMAZOLE298 30ML Cream|Prescription Medicine|ACECLOFENAC+PARACETAMOL|30ML Cream|1420.44|synthetic_sample
+BETAPAM311 250MG/5ML Cap|Prescription Medicine|SILYMARIN|250MG/5ML Cap|534.54|synthetic_sample
+PROOLOL324 1G Syrup|Prescription Medicine|ENALAPRIL|1G Syrup|3498.4|synthetic_sample
+SUNOLOL337 5MG/5ML Powder|Prescription Medicine|GUAIFENESIN|5MG/5ML Powder|1803.84|synthetic_sample
+RAPIPLUS352 1% Cream|Prescription Medicine|TIMOLOL EYE DROP|1% Cream|3096.41|synthetic_sample
+VITALFAST353 0.5% Injection|Prescription Medicine|SIMVASTATIN|0.5% Injection|3351.08|synthetic_sample
+SUNMOX355 150MG Tab|Prescription Medicine|COENZYME Q10|150MG Tab|2491.32|synthetic_sample
+MEDDERM357 5MG/5ML Suppository|Prescription Medicine|FLUTICASONE NASAL SPRAY|5MG/5ML Suppository|3470.72|synthetic_sample
+DERMAZUMAB358 150MG Cream|Prescription Medicine|ULIPRISTAL ACETATE|150MG Cream|341.2|synthetic_sample
+BIOCALM359 75MG Powder|Prescription Medicine|GUAIFENESIN|75MG Powder|1992.02|synthetic_sample
+OSTEOEX364 200MG Syrup|Prescription Medicine|RISPERIDONE|200MG Syrup|1786.96|synthetic_sample
+SUNFORTE375 500MG Inhaler|Prescription Medicine|FINASTERIDE|500MG Inhaler|2093.16|synthetic_sample
+UNITAN381 150MG Drop|Prescription Medicine|BACLOFEN|150MG Drop|3084.18|synthetic_sample
+BIOXIN383 2% Ointment|Prescription Medicine|IBUPROFEN|2% Ointment|912.1|synthetic_sample
+BETAFORMIN388 40MG Gel|Prescription Medicine|SILVER SULFADIAZINE|40MG Gel|1724.22|synthetic_sample
+UNISLEEP389 10MG Injection|Prescription Medicine|AMLODIPINE|10MG Injection|546.16|synthetic_sample
+RELIAPLUS399 250MG Suppository|Prescription Medicine|VITAMIN D3|250MG Suppository|3218.71|synthetic_sample
+MEDGLIPTIN400 750MG Injection|Prescription Medicine|QUETIAPINE|750MG Injection|2657.49|synthetic_sample
+ZENOSLEEP402 2.5MG Nasal Spray|Prescription Medicine|ROSUVASTATIN|2.5MG Nasal Spray|2549.06|synthetic_sample
+IMMUNOFAST403 0.5% Injection|Prescription Medicine|HYOSCINE BUTYLBROMIDE|0.5% Injection|1879.94|synthetic_sample
+ACEFORMIN407 500MG Inhaler|Prescription Medicine|ORS|500MG Inhaler|2731.64|synthetic_sample
+PULMOPAM413 100ML Nasal Spray|Prescription Medicine|GLICLAZIDE|100ML Nasal Spray|1894.34|synthetic_sample
+RXOLOL415 125MG Suppository|Prescription Medicine|URSODEOXYCHOLIC ACID|125MG Suppository|2691.83|synthetic_sample
+BIOXIN419 750MG Suspension|Prescription Medicine|DOMPERIDONE|750MG Suspension|2377.24|synthetic_sample
+RELIAPLUS432 5MG/5ML Injection|Prescription Medicine|CALCIUM + VITAMIN D3|5MG/5ML Injection|2468.78|synthetic_sample
+MEDPAIN434 5MG Cap|Prescription Medicine|CEFUROXIME|5MG Cap|2939.29|synthetic_sample
+FIRSTFORMIN437 5MG/5ML Inhaler|Prescription Medicine|VITAMIN D3|5MG/5ML Inhaler|3195.25|synthetic_sample
+MEDGEST441 50MG Cream|Prescription Medicine|GLIMEPIRIDE|50MG Cream|3420.34|synthetic_sample
+GASTROGEST444 250MG Drop|Prescription Medicine|ORLISTAT|250MG Drop|1574.07|synthetic_sample
+TRUSTTIDE445 60ML Suppository|Prescription Medicine|FLUOCINOLONE ACETONIDE|60ML Suppository|1964.26|synthetic_sample
+RENCIN446 500MG Injection|Prescription Medicine|SILVER SULFADIAZINE|500MG Injection|2586.84|synthetic_sample
+GASTROGEST452 15G Ointment|Prescription Medicine|TERBINAFINE|15G Ointment|799.02|synthetic_sample
+OSTEOPAM455 20G Suspension|Prescription Medicine|ATORVASTATIN|20G Suspension|585.3|synthetic_sample
+CARDIEX463 40MG Powder|Prescription Medicine|PIOGLITAZONE|40MG Powder|902.06|synthetic_sample
+OSTEOFORMIN465 20G Ointment|Prescription Medicine|CARBAMAZEPINE|20G Ointment|3310.11|synthetic_sample
+RENCORT467 750MG Tab|Prescription Medicine|FEXOFENADINE|750MG Tab|453.57|synthetic_sample
+MAXTINIB471 15G Injection|Prescription Medicine|BECLOMETHASONE NASAL SPRAY|15G Injection|1515.21|synthetic_sample
+RAPICIN487 300MG Gel|Prescription Medicine|OLANZAPINE|300MG Gel|148.61|synthetic_sample
+CAREFLAM488 625MG Cream|Prescription Medicine|SODIUM HYALURONATE EYE DROP|625MG Cream|2816.78|synthetic_sample
+RAPIOD492 200MG Cap|Prescription Medicine|BISACODYL|200MG Cap|3380.09|synthetic_sample
+RXCIN495 125MG Gel|Prescription Medicine|ALPRAZOLAM|125MG Gel|965.73|synthetic_sample
+HEPAFAST496 40MG Ointment|Prescription Medicine|OLOPATADINE EYE DROP|40MG Ointment|98.96|synthetic_sample
+CARDIXIN499 300MG Inhaler|Prescription Medicine|INSULIN GLARGINE|300MG Inhaler|2892.25|synthetic_sample
+UNIPAIN505 10MG Gel|Prescription Medicine|DIAZEPAM|10MG Gel|1196.57|synthetic_sample
+RENGLIPTIN510 125MG/5ML Tab|Prescription Medicine|MONTELUKAST|125MG/5ML Tab|1706.94|synthetic_sample
+GENUCALM512 250MG Inhaler|Prescription Medicine|FAMOTIDINE|250MG Inhaler|2387.26|synthetic_sample
+LIFEPAM516 75MG Suspension|Prescription Medicine|CARBIMAZOLE|75MG Suspension|2533.47|synthetic_sample
+SUNXL518 1G Tab|Prescription Medicine|METFORMIN HCL|1G Tab|2335.92|synthetic_sample
+HEALTHGOLD521 200ML Cap|Prescription Medicine|MONTELUKAST SODIUM|200ML Cap|3436.15|synthetic_sample
+HEPADONE528 150MG Suppository|Prescription Medicine|FERROUS SULFATE|150MG Suppository|2099.26|synthetic_sample
+MAXSTATIN533 40MG Syrup|Prescription Medicine|ROSUVASTATIN|40MG Syrup|2940.83|synthetic_sample
+DEXMAX541 200ML Gel|Prescription Medicine|IBUPROFEN|200ML Gel|360.02|synthetic_sample
+CUREFAST543 200ML Injection|Prescription Medicine|ULIPRISTAL ACETATE|200ML Injection|1850.75|synthetic_sample
+TRUSTCEF546 100ML Suppository|Prescription Medicine|PIOGLITAZONE|100ML Suppository|1153.7|synthetic_sample
+VITALMOX554 200ML Cream|Prescription Medicine|LEVONORGESTREL|200ML Cream|2263.77|synthetic_sample
+NEPHROGLIPTIN555 5MG Cap|Prescription Medicine|DOMPERIDONE+OMEPRAZOLE|5MG Cap|1321.63|synthetic_sample
+HEALTHMAX556 250MG Tab|Prescription Medicine|TELMISARTAN|250MG Tab|996.06|synthetic_sample
+SUNXIN558 2.5MG Powder|Prescription Medicine|BISACODYL|2.5MG Powder|128.84|synthetic_sample
+ZENOCALM562 0.5% Injection|Prescription Medicine|AMITRIPTYLINE|0.5% Injection|1073.8|synthetic_sample
+MAXEX563 5MG/5ML Inhaler|Prescription Medicine|AZITHROMYCIN|5MG/5ML Inhaler|1952.24|synthetic_sample
+IMMUNOZOLE566 60ML Syrup|Prescription Medicine|TIMOLOL EYE DROP|60ML Syrup|1063.14|synthetic_sample
+FIRSTCYC568 5MG/5ML Cream|Prescription Medicine|METOCLOPRAMIDE|5MG/5ML Cream|3266.46|synthetic_sample
+LIFECIN575 125MG Ointment|Prescription Medicine|XYLOMETAZOLINE|125MG Ointment|2156.89|synthetic_sample
+OSTEOFLAM579 25MG Ointment|Prescription Medicine|VILDAGLIPTIN|25MG Ointment|2302.54|synthetic_sample
+MEDPRIL583 2.5MG Syrup|Prescription Medicine|CALCIUM CARBONATE|2.5MG Syrup|186.04|synthetic_sample
+HEALTHPRIL590 60ML Suppository|Prescription Medicine|SODIUM HYALURONATE EYE DROP|60ML Suppository|902.31|synthetic_sample
+ZENODX591 5MG Cream|Prescription Medicine|CLOBETASOL PROPIONATE|5MG Cream|2009.73|synthetic_sample
+DERMAEX598 750MG Gel|Prescription Medicine|MELATONIN|750MG Gel|553.44|synthetic_sample
+MAXFORTE612 20MG Cap|Prescription Medicine|BISACODYL|20MG Cap|3278.19|synthetic_sample
+SUREGEST613 25MG Suspension|Prescription Medicine|MIDAZOLAM|25MG Suspension|1437.67|synthetic_sample
+MAXTINIB614 200MG Nasal Spray|Prescription Medicine|AMLODIPINE|200MG Nasal Spray|2785.37|synthetic_sample
+NOVOGEST615 15G Suspension|Prescription Medicine|MIDAZOLAM|15G Suspension|43.98|synthetic_sample
+CENTRUM MEN 200P TAB|Supplements & Vitamins|MULTIVITAMIN|200 Tab|2250|verified
+PURNAVA VITAMIN E|Supplements & Vitamins|VITAMIN E|Cap|180|verified
+DERMAZUMAB 5MG Drop|Supplements & Vitamins|VITAMIN C|5MG Drop|1965.24|synthetic_sample
+CUREFORTE 625MG Syrup|Supplements & Vitamins|MAGNESIUM|625MG Syrup|490.43|synthetic_sample
+ORTHOEX 60ML Powder|Supplements & Vitamins|CALCIUM+VITAMIN D3|60ML Powder|3375.34|synthetic_sample
+VITALTAN 200ML Gel|Supplements & Vitamins|IRON+FOLIC ACID|200ML Gel|749.69|synthetic_sample
+OSTEOOLOL 625MG Syrup|Supplements & Vitamins|PRENATAL VITAMIN|625MG Syrup|405.77|synthetic_sample
+ALFACALM 400MG Powder|Supplements & Vitamins|FOLIC ACID|400MG Powder|781.79|synthetic_sample
+CAREXIN 40MG Inhaler|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|40MG Inhaler|994.68|synthetic_sample
+DERMASARTAN 30ML Ointment|Supplements & Vitamins|OMEGA 3 FISH OIL|30ML Ointment|1159.42|synthetic_sample
+ACEGOLD 75MG Inhaler|Supplements & Vitamins|IRON+FOLIC ACID|75MG Inhaler|1974.77|synthetic_sample
+RAPIFLAM 750MG Nasal Spray|Supplements & Vitamins|BIOTIN|750MG Nasal Spray|1946.16|synthetic_sample
+RENCORT 30ML Cap|Supplements & Vitamins|COLLAGEN|30ML Cap|2122.9|synthetic_sample
+CAREEX 100ML Inhaler|Supplements & Vitamins|CALCIUM+VITAMIN D3|100ML Inhaler|3206.42|synthetic_sample
+RAPIMAX 2.5MG Injection|Supplements & Vitamins|PROBIOTIC|2.5MG Injection|991.37|synthetic_sample
+IMMUNOPRIL 1% Injection|Supplements & Vitamins|VITAMIN D3|1% Injection|1313.19|synthetic_sample
+RAPIDONE 25MG Gel|Supplements & Vitamins|COLLAGEN|25MG Gel|494.37|synthetic_sample
+PHARMATINIB 300MG Cap|Supplements & Vitamins|OMEGA 3 FISH OIL|300MG Cap|2053.17|synthetic_sample
+RAPIFORTE 30ML Ointment|Supplements & Vitamins|PROBIOTIC|30ML Ointment|2554.18|synthetic_sample
+VITALPRIL 40MG Inhaler|Supplements & Vitamins|OMEGA 3 FISH OIL|40MG Inhaler|953.82|synthetic_sample
+GENUMAX 1% Suspension|Supplements & Vitamins|VITAMIN C|1% Suspension|1230.15|synthetic_sample
+UNICEF 0.5% Cap|Supplements & Vitamins|PROTEIN POWDER|0.5% Cap|995.95|synthetic_sample
+RENXIN 100ML Injection|Supplements & Vitamins|COLLAGEN|100ML Injection|3168.76|synthetic_sample
+RELIAMOX 200ML Ointment|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|200ML Ointment|154.28|synthetic_sample
+ALFAPLUS 1% Tab|Supplements & Vitamins|FOLIC ACID|1% Tab|2152.75|synthetic_sample
+FIRSTDX 40MG Syrup|Supplements & Vitamins|COENZYME Q10|40MG Syrup|231.99|synthetic_sample
+BETAMAX 50MG Drop|Supplements & Vitamins|COENZYME Q10|50MG Drop|1118.27|synthetic_sample
+VITALGEST 5MG/5ML Nasal Spray|Supplements & Vitamins|PROTEIN POWDER|5MG/5ML Nasal Spray|2078.85|synthetic_sample
+NEPHROZOLE 40MG Injection|Supplements & Vitamins|OMEGA 3 FISH OIL|40MG Injection|1213.58|synthetic_sample
+CARDIGEST 60ML Powder|Supplements & Vitamins|ZINC|60ML Powder|1804.45|synthetic_sample
+RELIAFORTE 5MG/5ML Inhaler|Supplements & Vitamins|FOLIC ACID|5MG/5ML Inhaler|2532.03|synthetic_sample
+RELIAGLIPTIN 60ML Inhaler|Supplements & Vitamins|COLLAGEN|60ML Inhaler|1946.37|synthetic_sample
+PULMOTIDE 625MG Tab|Supplements & Vitamins|VITAMIN E|625MG Tab|1937.48|synthetic_sample
+PROSTATIN 0.5% Ointment|Supplements & Vitamins|VITAMIN C|0.5% Ointment|1321.34|synthetic_sample
+RENCYC 40MG Drop|Supplements & Vitamins|MULTIVITAMIN|40MG Drop|2090.04|synthetic_sample
+WELLCARE 5MG/5ML Syrup|Supplements & Vitamins|VITAMIN C|5MG/5ML Syrup|848.59|synthetic_sample
+HEALTHFAST 2.5MG Ointment|Supplements & Vitamins|ZINC|2.5MG Ointment|2467.17|synthetic_sample
+PHARMADONE 2% Injection|Supplements & Vitamins|VITAMIN B COMPLEX|2% Injection|1898.07|synthetic_sample
+NEPHROCEF 100MG Drop|Supplements & Vitamins|PROTEIN POWDER|100MG Drop|1982.37|synthetic_sample
+UNICARE 20G Gel|Supplements & Vitamins|VITAMIN E|20G Gel|1261.71|synthetic_sample
+HEPAFLAM 125MG Gel|Supplements & Vitamins|CALCIUM+VITAMIN D3|125MG Gel|123.2|synthetic_sample
+MAXEX 2.5MG Gel|Supplements & Vitamins|IRON+FOLIC ACID|2.5MG Gel|1162.41|synthetic_sample
+VITALSARTAN 40MG Drop|Supplements & Vitamins|GLUCOSAMINE|40MG Drop|1184.15|synthetic_sample
+CARDIXIN 250MG Suspension|Supplements & Vitamins|FOLIC ACID|250MG Suspension|443.4|synthetic_sample
+PROFORTE 2% Tab|Supplements & Vitamins|IRON+FOLIC ACID|2% Tab|2466.81|synthetic_sample
+WELLGEST 10MG Ointment|Supplements & Vitamins|BIOTIN|10MG Ointment|2041.42|synthetic_sample
+OSTEOPAM 0.5% Cap|Supplements & Vitamins|IRON+FOLIC ACID|0.5% Cap|1762.67|synthetic_sample
+RELIACARE 200ML Suspension|Supplements & Vitamins|VITAMIN D3|200ML Suspension|1158.45|synthetic_sample
+DERMAFORTE 250MG Powder|Supplements & Vitamins|GLUCOSAMINE|250MG Powder|2509.32|synthetic_sample
+DERMAXL 1% Tab|Supplements & Vitamins|COLLAGEN|1% Tab|2849.46|synthetic_sample
+ZENODERM 1G Drop|Supplements & Vitamins|PRENATAL VITAMIN|1G Drop|88.42|synthetic_sample
+DERMATAN 20G Inhaler|Supplements & Vitamins|COENZYME Q10|20G Inhaler|500.31|synthetic_sample
+RXSTATIN 2% Ointment|Supplements & Vitamins|VITAMIN E|2% Ointment|1758.58|synthetic_sample
+MAXPAIN 300MG Cap|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|300MG Cap|1573.31|synthetic_sample
+FIRSTMOX 75MG Gel|Supplements & Vitamins|VITAMIN E|75MG Gel|903.85|synthetic_sample
+LIFETINIB 2% Ointment|Supplements & Vitamins|MAGNESIUM|2% Ointment|1279.04|synthetic_sample
+GENUSTATIN 625MG Cap|Supplements & Vitamins|GLUCOSAMINE|625MG Cap|2164.12|synthetic_sample
+TRUSTCARE 200MG Suspension|Supplements & Vitamins|OMEGA 3 FISH OIL|200MG Suspension|1903.58|synthetic_sample
+RAPIXIN 100ML Drop|Supplements & Vitamins|PRENATAL VITAMIN|100ML Drop|3267.45|synthetic_sample
+RELIAGEST 40MG Injection|Supplements & Vitamins|MAGNESIUM|40MG Injection|1396.05|synthetic_sample
+IMMUNOCARE 40MG Powder|Supplements & Vitamins|VITAMIN B COMPLEX|40MG Powder|654.09|synthetic_sample
+PHARMACALM 40MG Cream|Supplements & Vitamins|VITAMIN D3|40MG Cream|173.51|synthetic_sample
+PROFLAM 40MG Ointment|Supplements & Vitamins|CALCIUM+VITAMIN D3|40MG Ointment|1740.7|synthetic_sample
+TRUSTFORTE 30ML Ointment|Supplements & Vitamins|VITAMIN B COMPLEX|30ML Ointment|836.54|synthetic_sample
+RXFAST 100ML Drop|Supplements & Vitamins|FOLIC ACID|100ML Drop|1347.73|synthetic_sample
+ORTHODONE 150MG Tab|Supplements & Vitamins|PROBIOTIC|150MG Tab|1625.12|synthetic_sample
+TRUSTCYC 5MG/5ML Cream|Supplements & Vitamins|GLUCOSAMINE|5MG/5ML Cream|1403.35|synthetic_sample
+MEDTINIB 200ML Nasal Spray|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|200ML Nasal Spray|2929.79|synthetic_sample
+SURECEF 125MG/5ML Inhaler|Supplements & Vitamins|OMEGA 3 FISH OIL|125MG/5ML Inhaler|1702.55|synthetic_sample
+GASTROSARTAN 200ML Powder|Supplements & Vitamins|PROBIOTIC|200ML Powder|3286.91|synthetic_sample
+RXFORTE 200MG Inhaler|Supplements & Vitamins|BIOTIN|200MG Inhaler|3083.38|synthetic_sample
+SUNXL 500MG Powder|Supplements & Vitamins|COENZYME Q10|500MG Powder|3002.05|synthetic_sample
+MEDCEF 100MG Gel|Supplements & Vitamins|BIOTIN|100MG Gel|315.59|synthetic_sample
+NOVODX 10MG Cap|Supplements & Vitamins|OMEGA 3 FISH OIL|10MG Cap|1797.92|synthetic_sample
+ORTHOCEF 1% Suppository|Supplements & Vitamins|BIOTIN|1% Suppository|2693.27|synthetic_sample
+ALFADONE 75MG Tab|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|75MG Tab|1571.68|synthetic_sample
+NOVOSLEEP 5MG Syrup|Supplements & Vitamins|VITAMIN C|5MG Syrup|2497.13|synthetic_sample
+PROZUMAB 750MG Tab|Supplements & Vitamins|VITAMIN E|750MG Tab|3214.53|synthetic_sample
+FIRSTTINIB 200ML Suspension|Supplements & Vitamins|PROBIOTIC|200ML Suspension|2571.58|synthetic_sample
+RAPIDERM 750MG Injection|Supplements & Vitamins|VITAMIN D3|750MG Injection|668.87|synthetic_sample
+ZENOFORMIN 2% Suspension|Supplements & Vitamins|VITAMIN D3|2% Suspension|3180.83|synthetic_sample
+BIOGOLD 0.5% Tab|Supplements & Vitamins|PROBIOTIC|0.5% Tab|1497.04|synthetic_sample
+LIFEGOLD 50MG Inhaler|Supplements & Vitamins|PROTEIN POWDER|50MG Inhaler|2570.5|synthetic_sample
+OSTEOGLIPTIN 0.5% Inhaler|Supplements & Vitamins|GLUCOSAMINE|0.5% Inhaler|2715.92|synthetic_sample
+TRUSTDX 0.05% Nasal Spray|Supplements & Vitamins|GLUCOSAMINE|0.05% Nasal Spray|1670.06|synthetic_sample
+HEPATINIB 0.5% Nasal Spray|Supplements & Vitamins|MULTIVITAMIN|0.5% Nasal Spray|307.13|synthetic_sample
+PROTIDE 60ML Syrup|Supplements & Vitamins|VITAMIN C|60ML Syrup|1857.62|synthetic_sample
+TRUSTOLOL 300MG Cap|Supplements & Vitamins|CALCIUM+VITAMIN D3|300MG Cap|2090.69|synthetic_sample
+OSTEOCALM 75MG Drop|Supplements & Vitamins|PRENATAL VITAMIN|75MG Drop|2448.21|synthetic_sample
+DERMAVIR 125MG Cream|Supplements & Vitamins|CALCIUM+VITAMIN D3|125MG Cream|2728.74|synthetic_sample
+CARDIFLAM 15G Drop|Supplements & Vitamins|MAGNESIUM|15G Drop|1816.13|synthetic_sample
+ACEZUMAB 125MG Inhaler|Supplements & Vitamins|MAGNESIUM|125MG Inhaler|1054.52|synthetic_sample
+RELIACEF 20MG Suppository|Supplements & Vitamins|BIOTIN|20MG Suppository|826.19|synthetic_sample
+SURESLEEP 400MG Tab|Supplements & Vitamins|CALCIUM+VITAMIN D3|400MG Tab|214.72|synthetic_sample
+NEUROCIN 5MG Tab|Supplements & Vitamins|VITAMIN E|5MG Tab|2643.42|synthetic_sample
+ORTHOTAN 150MG Syrup|Supplements & Vitamins|VITAMIN E|150MG Syrup|1394.96|synthetic_sample
+RXGOLD 150MG Gel|Supplements & Vitamins|VITAMIN C|150MG Gel|627.43|synthetic_sample
+RAPICARE 120ML Suppository|Supplements & Vitamins|PRENATAL VITAMIN|120ML Suppository|2322.04|synthetic_sample
+MAXCALM 250MG Ointment|Supplements & Vitamins|VITAMIN D3|250MG Ointment|3166.06|synthetic_sample
+RENCARE 30G Cream|Supplements & Vitamins|MULTIVITAMIN|30G Cream|2158.05|synthetic_sample
+DEXMOX15 300MG Gel|Supplements & Vitamins|VITAMIN B COMPLEX|300MG Gel|2551.16|synthetic_sample
+CARDITINIB 5MG Powder|Supplements & Vitamins|GLUCOSAMINE|5MG Powder|3490.43|synthetic_sample
+MAXDERM 125MG Cap|Supplements & Vitamins|VITAMIN C|125MG Cap|91.71|synthetic_sample
+NOVOOD35 250MG Syrup|Supplements & Vitamins|L-CARNITINE|250MG Syrup|155.39|synthetic_sample
+PROGOLD46 5MG/5ML Cream|Supplements & Vitamins|GLUCOSAMINE|5MG/5ML Cream|3147.53|synthetic_sample
+MEDDONE59 750MG Gel|Supplements & Vitamins|VITAMIN B COMPLEX|750MG Gel|3109.15|synthetic_sample
+HEALTHCEF72 50MG Nasal Spray|Supplements & Vitamins|CALCIUM+VITAMIN D3|50MG Nasal Spray|2051.68|synthetic_sample
+ZENOSARTAN81 250MG/5ML Powder|Supplements & Vitamins|CALCIUM+VITAMIN D3|250MG/5ML Powder|2552.72|synthetic_sample
+UNIDERM 60ML Suspension|Supplements & Vitamins|VITAMIN C|60ML Suspension|1685.87|synthetic_sample
+SUREMAX106 1G Syrup|Supplements & Vitamins|VITAMIN D3|1G Syrup|558.96|synthetic_sample
+NOVOTAN118 500MG Inhaler|Supplements & Vitamins|IRON+FOLIC ACID|500MG Inhaler|648.53|synthetic_sample
+NOVOFORTE131 100MG Syrup|Supplements & Vitamins|VITAMIN E|100MG Syrup|1869.86|synthetic_sample
+DEXEX144 150MG Powder|Supplements & Vitamins|MULTIVITAMIN|150MG Powder|2703.17|synthetic_sample
+UNITIDE157 30G Gel|Supplements & Vitamins|ZINC|30G Gel|669.8|synthetic_sample
+RAPIGEST170 100ML Cream|Supplements & Vitamins|MAGNESIUM|100ML Cream|468.04|synthetic_sample
+ACEDERM183 2% Tab|Supplements & Vitamins|VITAMIN E|2% Tab|846.2|synthetic_sample
+PULMOFLAM196 50MG Injection|Supplements & Vitamins|PROTEIN POWDER|50MG Injection|213.43|synthetic_sample
+HEPAPLUS209 1G Tab|Supplements & Vitamins|PRENATAL VITAMIN|1G Tab|139.39|synthetic_sample
+WELLFLAM222 15G Suppository|Supplements & Vitamins|COLLAGEN|15G Suppository|2246.6|synthetic_sample
+WELLGLIPTIN235 200ML Suspension|Supplements & Vitamins|CALCIUM+VITAMIN D3|200ML Suspension|88|synthetic_sample
+CUREGLIPTIN248 40MG Cream|Supplements & Vitamins|PRENATAL VITAMIN|40MG Cream|1127.7|synthetic_sample
+BETATAN261 30ML Nasal Spray|Supplements & Vitamins|GLUCOSAMINE|30ML Nasal Spray|927.72|synthetic_sample
+WELLXIN274 150MG Cap|Supplements & Vitamins|MAGNESIUM|150MG Cap|3217.85|synthetic_sample
+FIRSTFEN287 2.5MG Suppository|Supplements & Vitamins|IRON+FOLIC ACID|2.5MG Suppository|3390.27|synthetic_sample
+MEDEX326 0.5% Suspension|Supplements & Vitamins|PROBIOTIC|0.5% Suspension|1595.4|synthetic_sample
+GASTROTINIB339 30ML Nasal Spray|Supplements & Vitamins|VITAMIN B COMPLEX|30ML Nasal Spray|1772.09|synthetic_sample
+PHARMAXL354 50MG Nasal Spray|Supplements & Vitamins|L-CARNITINE|50MG Nasal Spray|3252.76|synthetic_sample
+DERMAFORTE361 20MG Nasal Spray|Supplements & Vitamins|COLLAGEN|20MG Nasal Spray|2463.71|synthetic_sample
+MAXSARTAN362 5MG/5ML Injection|Supplements & Vitamins|PRENATAL VITAMIN|5MG/5ML Injection|2824.88|synthetic_sample
+VITALPAM365 30G Suppository|Supplements & Vitamins|PRENATAL VITAMIN|30G Suppository|2096.15|synthetic_sample
+FIRSTCEF366 20G Suspension|Supplements & Vitamins|COENZYME Q10|20G Suspension|3026.34|synthetic_sample
+DERMAFORTE367 15G Powder|Supplements & Vitamins|VITAMIN C|15G Powder|2339.34|synthetic_sample
+VITALDERM376 0.5% Syrup|Supplements & Vitamins|L-CARNITINE|0.5% Syrup|412.49|synthetic_sample
+IMMUNOPAM378 100ML Drop|Supplements & Vitamins|PROBIOTIC|100ML Drop|3112.3|synthetic_sample
+NEUROOLOL379 5MG/5ML Nasal Spray|Supplements & Vitamins|OMEGA 3 FISH OIL|5MG/5ML Nasal Spray|1707.32|synthetic_sample
+RELIACALM391 75MG Suppository|Supplements & Vitamins|GLUCOSAMINE|75MG Suppository|2057.45|synthetic_sample
+HEPAFAST392 20G Ointment|Supplements & Vitamins|OMEGA 3 FISH OIL|20G Ointment|962.9|synthetic_sample
+PHARMAFORTE393 1G Drop|Supplements & Vitamins|VITAMIN B COMPLEX|1G Drop|515.1|synthetic_sample
+CAREEX398 500MG Ointment|Supplements & Vitamins|COENZYME Q10|500MG Ointment|910.04|synthetic_sample
+ACEFLAM401 40MG Suspension|Supplements & Vitamins|IRON+FOLIC ACID|40MG Suspension|3190.54|synthetic_sample
+RELIAPAM404 15G Suspension|Supplements & Vitamins|FOLIC ACID|15G Suspension|191.66|synthetic_sample
+HEPADX406 5MG Nasal Spray|Supplements & Vitamins|PROTEIN POWDER|5MG Nasal Spray|894.92|synthetic_sample
+RENCARE410 0.05% Gel|Supplements & Vitamins|MAGNESIUM|0.05% Gel|429.96|synthetic_sample
+DERMAFLAM411 25MG Injection|Supplements & Vitamins|MULTIVITAMIN|25MG Injection|14.23|synthetic_sample
+NOVOXIN412 100MG Gel|Supplements & Vitamins|VITAMIN E|100MG Gel|2057|synthetic_sample
+ORTHOOD414 125MG/5ML Powder|Supplements & Vitamins|MAGNESIUM|125MG/5ML Powder|282.86|synthetic_sample
+GASTROPRIL421 150MG Cap|Supplements & Vitamins|CALCIUM+VITAMIN D3|150MG Cap|1184.67|synthetic_sample
+UNICARE423 60ML Cap|Supplements & Vitamins|MAGNESIUM|60ML Cap|1828.49|synthetic_sample
+HEALTHVIR428 100ML Suppository|Supplements & Vitamins|IRON+FOLIC ACID|100ML Suppository|463.22|synthetic_sample
+ORTHOPAM429 2.5MG Powder|Supplements & Vitamins|FOLIC ACID|2.5MG Powder|2384.26|synthetic_sample
+GENUDONE430 50MG Injection|Supplements & Vitamins|VITAMIN B COMPLEX|50MG Injection|2496.03|synthetic_sample
+MEDFEN431 2.5MG Injection|Supplements & Vitamins|MAGNESIUM|2.5MG Injection|762.83|synthetic_sample
+DEXZOLE436 75MG Powder|Supplements & Vitamins|OMEGA 3 FISH OIL|75MG Powder|2423.11|synthetic_sample
+MEDCEF440 150MG Syrup|Supplements & Vitamins|PRENATAL VITAMIN|150MG Syrup|640.13|synthetic_sample
+RXFORTE442 20MG Inhaler|Supplements & Vitamins|MAGNESIUM|20MG Inhaler|2497.84|synthetic_sample
+RELIAXL447 100ML Powder|Supplements & Vitamins|VITAMIN E|100ML Powder|1161.46|synthetic_sample
+NEOEX449 15G Nasal Spray|Supplements & Vitamins|COENZYME Q10|15G Nasal Spray|1303.17|synthetic_sample
+CARECEF450 5MG Cream|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|5MG Cream|2775.13|synthetic_sample
+VITALDX454 2.5MG Inhaler|Supplements & Vitamins|PRENATAL VITAMIN|2.5MG Inhaler|460.6|synthetic_sample
+GENUFLAM457 100ML Cap|Supplements & Vitamins|MAGNESIUM|100ML Cap|547.86|synthetic_sample
+NEPHROCALM464 400MG Powder|Supplements & Vitamins|COENZYME Q10|400MG Powder|2410.73|synthetic_sample
+ZENOPAIN470 75MG Nasal Spray|Supplements & Vitamins|VITAMIN D3|75MG Nasal Spray|2497.11|synthetic_sample
+SUNDX472 25MG Syrup|Supplements & Vitamins|COLLAGEN|25MG Syrup|869.07|synthetic_sample
+ALFAOLOL475 30G Powder|Supplements & Vitamins|IRON+FOLIC ACID|30G Powder|831.66|synthetic_sample
+IMMUNOGOLD477 30G Injection|Supplements & Vitamins|PROTEIN POWDER|30G Injection|2075.06|synthetic_sample
+SUREFORTE478 300MG Suspension|Supplements & Vitamins|BIOTIN|300MG Suspension|686.59|synthetic_sample
+NEOOD481 200MG Ointment|Supplements & Vitamins|MAGNESIUM|200MG Ointment|2581.72|synthetic_sample
+PHARMATINIB482 125MG Suppository|Supplements & Vitamins|OMEGA 3 FISH OIL|125MG Suppository|333.06|synthetic_sample
+SUNXIN489 5MG Cream|Supplements & Vitamins|MULTIVITAMIN|5MG Cream|1320|synthetic_sample
+BIOTINIB491 125MG/5ML Injection|Supplements & Vitamins|VITAMIN D3|125MG/5ML Injection|2772.89|synthetic_sample
+NEOCALM504 30G Inhaler|Supplements & Vitamins|VITAMIN B COMPLEX|30G Inhaler|481.84|synthetic_sample
+RAPIMOX506 5MG/5ML Nasal Spray|Supplements & Vitamins|COLLAGEN|5MG/5ML Nasal Spray|3403.59|synthetic_sample
+SURETAN507 400MG Syrup|Supplements & Vitamins|COLLAGEN|400MG Syrup|1090.57|synthetic_sample
+WELLSTATIN509 2.5MG Inhaler|Supplements & Vitamins|BIOTIN|2.5MG Inhaler|1019.03|synthetic_sample
+DERMAXIN519 5MG Syrup|Supplements & Vitamins|L-CARNITINE|5MG Syrup|1428.48|synthetic_sample
+IMMUNOMAX520 20G Tab|Supplements & Vitamins|CALCIUM+VITAMIN D3|20G Tab|2812.64|synthetic_sample
+RXPLUS522 200ML Cap|Supplements & Vitamins|FOLIC ACID|200ML Cap|2305.22|synthetic_sample
+IMMUNOMOX523 200ML Tab|Supplements & Vitamins|MULTIVITAMIN FOR KIDS|200ML Tab|899.77|synthetic_sample
+OSTEOXIN526 2% Nasal Spray|Supplements & Vitamins|MAGNESIUM|2% Nasal Spray|3390.3|synthetic_sample
+HEPADONE536 100MG Cap|Supplements & Vitamins|L-CARNITINE|100MG Cap|384.12|synthetic_sample
+BIOFAST542 30G Gel|Supplements & Vitamins|L-CARNITINE|30G Gel|1450.7|synthetic_sample
+CARDIFORTE545 300MG Tab|Supplements & Vitamins|BIOTIN|300MG Tab|3234.03|synthetic_sample
+NEUROZOLE548 125MG Tab|Supplements & Vitamins|MULTIVITAMIN|125MG Tab|3120.81|synthetic_sample
+NEPHROSARTAN560 2.5MG Nasal Spray|Supplements & Vitamins|ZINC|2.5MG Nasal Spray|873.73|synthetic_sample
+GASTROGOLD564 300MG Gel|Supplements & Vitamins|MULTIVITAMIN|300MG Gel|3234.74|synthetic_sample
+VITALMOX570 125MG Powder|Supplements & Vitamins|ZINC|125MG Powder|3049.76|synthetic_sample
+MAXFORTE572 1% Suspension|Supplements & Vitamins|COLLAGEN|1% Suspension|2841.89|synthetic_sample
+CARETINIB577 1G Syrup|Supplements & Vitamins|IRON+FOLIC ACID|1G Syrup|1208.45|synthetic_sample
+VITALFORMIN602 1% Suspension|Supplements & Vitamins|PRENATAL VITAMIN|1% Suspension|561.66|synthetic_sample
+CUREPRIL605 15G Tab|Supplements & Vitamins|VITAMIN E|15G Tab|1917.9|synthetic_sample
+HEPAGOLD617 100ML Drop|Supplements & Vitamins|FOLIC ACID|100ML Drop|2339.08|synthetic_sample
+PREGNOTREND CAP|Women's Care|CAPSULE|Cap|8340|verified
+VWASH 100 ML|Women's Care|VWASH|100ML|450|verified
+NORIX 1.5 MG PILL|Women's Care|PROGESTIN|1.5MG Pill|70|verified
+NORET 28 TAB|Women's Care|LEVONORGESTREL WITH ETHINYL ESTRADIOL|Tab|23.52|verified
+UTAL 5 MG TAB|Women's Care|ULIPRISTAL ACETATE|5MG Tab|54.5|verified
+BETAZUMAB 20G Syrup|Women's Care|EMERGENCY CONTRACEPTIVE|20G Syrup|1728.32|synthetic_sample
+HEALTHEX 75MG Gel|Women's Care|CONTRACEPTIVE PILL|75MG Gel|869.17|synthetic_sample
+FIRSTPAIN 15G Ointment|Women's Care|IRON SUPPLEMENT FOR WOMEN|15G Ointment|543.48|synthetic_sample
+DERMADERM 15G Drop|Women's Care|CONTRACEPTIVE PILL|15G Drop|880.42|synthetic_sample
+ALFAMAX 250MG/5ML Ointment|Women's Care|IRON SUPPLEMENT FOR WOMEN|250MG/5ML Ointment|3287.45|synthetic_sample
+GASTROTIDE 10MG Tab|Women's Care|FOLIC ACID FOR PREGNANCY|10MG Tab|858.46|synthetic_sample
+MAXOD 200ML Ointment|Women's Care|MULTIVITAMIN FOR WOMEN|200ML Ointment|22.62|synthetic_sample
+SUNXIN 50MG Injection|Women's Care|MULTIVITAMIN FOR WOMEN|50MG Injection|2026.24|synthetic_sample
+CARECARE 5MG Gel|Women's Care|FOLIC ACID FOR PREGNANCY|5MG Gel|327.5|synthetic_sample
+SUREFAST 20MG Injection|Women's Care|IRON SUPPLEMENT FOR WOMEN|20MG Injection|2134.49|synthetic_sample
+DEXXIN 30ML Cream|Women's Care|CONTRACEPTIVE PILL|30ML Cream|2428.47|synthetic_sample
+ALFACEF 0.5% Drop|Women's Care|CALCIUM FOR WOMEN|0.5% Drop|1594.8|synthetic_sample
+ZENOCORT 125MG Gel|Women's Care|VAGINAL WASH|125MG Gel|814.2|synthetic_sample
+NEOFLAM 125MG Powder|Women's Care|MULTIVITAMIN FOR WOMEN|125MG Powder|3456.37|synthetic_sample
+DEXVIR 100MG Suppository|Women's Care|VAGINAL WASH|100MG Suppository|1948.18|synthetic_sample
+RXDONE 60ML Cream|Women's Care|FOLIC ACID FOR PREGNANCY|60ML Cream|389.89|synthetic_sample
+BIOSARTAN 15G Syrup|Women's Care|PREGNANCY TEST KIT|15G Syrup|1624.91|synthetic_sample
+CUREPAM 40MG Nasal Spray|Women's Care|IRON SUPPLEMENT FOR WOMEN|40MG Nasal Spray|1084.92|synthetic_sample
+MAXTIDE 100ML Powder|Women's Care|PREGNANCY TEST KIT|100ML Powder|123.73|synthetic_sample
+UNIPLUS 30G Gel|Women's Care|CONTRACEPTIVE PILL|30G Gel|1207.11|synthetic_sample
+ACEOLOL 500MG Nasal Spray|Women's Care|IRON SUPPLEMENT FOR WOMEN|500MG Nasal Spray|850.12|synthetic_sample
+NEODERM 500MG Ointment|Women's Care|FOLIC ACID FOR PREGNANCY|500MG Ointment|1564.68|synthetic_sample
+WELLTIDE 0.5% Injection|Women's Care|EMERGENCY CONTRACEPTIVE|0.5% Injection|645.21|synthetic_sample
+ZENOOD 500MG Powder|Women's Care|FOLIC ACID FOR PREGNANCY|500MG Powder|1748.56|synthetic_sample
+GENUZOLE 300MG Suspension|Women's Care|CONTRACEPTIVE PILL|300MG Suspension|3154.65|synthetic_sample
+RELIACORT 30G Nasal Spray|Women's Care|VAGINAL WASH|30G Nasal Spray|595.2|synthetic_sample
+SUNCORT 1% Suspension|Women's Care|VAGINAL WASH|1% Suspension|3013.95|synthetic_sample
+MAXDONE 150MG Powder|Women's Care|CALCIUM FOR WOMEN|150MG Powder|1545.62|synthetic_sample
+GENUCIN 125MG/5ML Cream|Women's Care|VAGINAL WASH|125MG/5ML Cream|463.68|synthetic_sample
+PULMOMAX 10MG Tab|Women's Care|VAGINAL WASH|10MG Tab|3005.69|synthetic_sample
+NOVOSTATIN 0.5% Injection|Women's Care|CALCIUM FOR WOMEN|0.5% Injection|482.05|synthetic_sample
+DEXCEF 250MG Suspension|Women's Care|EMERGENCY CONTRACEPTIVE|250MG Suspension|1433.66|synthetic_sample
+BETACARE 100ML Nasal Spray|Women's Care|VAGINAL WASH|100ML Nasal Spray|623.19|synthetic_sample
+ORTHODX 200MG Suppository|Women's Care|CALCIUM FOR WOMEN|200MG Suppository|3314.34|synthetic_sample
+GENUCEF 100MG Ointment|Women's Care|MULTIVITAMIN FOR WOMEN|100MG Ointment|1200.88|synthetic_sample
+MEDCIN 20MG Drop|Women's Care|MULTIVITAMIN FOR WOMEN|20MG Drop|1937.19|synthetic_sample
+NOVOFEN 30ML Ointment|Women's Care|IRON SUPPLEMENT FOR WOMEN|30ML Ointment|3348.54|synthetic_sample
+IMMUNOMAX 50MG Cap|Women's Care|FOLIC ACID FOR PREGNANCY|50MG Cap|587.55|synthetic_sample
+RXDERM 250MG/5ML Syrup|Women's Care|PREGNANCY TEST KIT|250MG/5ML Syrup|3228.39|synthetic_sample
+VITALFEN 2.5MG Inhaler|Women's Care|CONTRACEPTIVE PILL|2.5MG Inhaler|2815.68|synthetic_sample
+UNIDX 200ML Syrup|Women's Care|CONTRACEPTIVE PILL|200ML Syrup|1099.93|synthetic_sample
+BIOTIDE 2.5MG Gel|Women's Care|FOLIC ACID FOR PREGNANCY|2.5MG Gel|619.77|synthetic_sample
+VITALMOX 1% Tab|Women's Care|PREGNANCY TEST KIT|1% Tab|3011.57|synthetic_sample
+NEOZUMAB 125MG Cap|Women's Care|CALCIUM FOR WOMEN|125MG Cap|53.51|synthetic_sample
+HEALTHPAIN 625MG Powder|Women's Care|PREGNANCY TEST KIT|625MG Powder|1896.54|synthetic_sample
+RELIADERM 100ML Cream|Women's Care|EMERGENCY CONTRACEPTIVE|100ML Cream|1567.35|synthetic_sample
+GASTRODX 30G Nasal Spray|Women's Care|MULTIVITAMIN FOR WOMEN|30G Nasal Spray|863.37|synthetic_sample
+CUREXIN 1% Tab|Women's Care|CALCIUM FOR WOMEN|1% Tab|2395.72|synthetic_sample
+RAPIEX 30G Ointment|Women's Care|PREGNANCY TEST KIT|30G Ointment|736.04|synthetic_sample
+MAXGOLD 125MG Drop|Women's Care|IRON SUPPLEMENT FOR WOMEN|125MG Drop|667.36|synthetic_sample
+BIOEX 60ML Powder|Women's Care|EMERGENCY CONTRACEPTIVE|60ML Powder|43.5|synthetic_sample
+NEPHROFORMIN 10MG Syrup|Women's Care|CALCIUM FOR WOMEN|10MG Syrup|3386.36|synthetic_sample
+NEOTAN 10MG Tab|Women's Care|MULTIVITAMIN FOR WOMEN|10MG Tab|3469.47|synthetic_sample
+PULMOGOLD 1G Cream|Women's Care|IRON SUPPLEMENT FOR WOMEN|1G Cream|2694.58|synthetic_sample
+RELIASTATIN 100ML Suspension|Women's Care|CALCIUM FOR WOMEN|100ML Suspension|2595.86|synthetic_sample
+BIOGEST 50MG Ointment|Women's Care|EMERGENCY CONTRACEPTIVE|50MG Ointment|2595.53|synthetic_sample
+NEPHROXIN 500MG Injection|Women's Care|CALCIUM FOR WOMEN|500MG Injection|1421.72|synthetic_sample
+OSTEOTINIB 150MG Powder|Women's Care|FOLIC ACID FOR PREGNANCY|150MG Powder|3205.79|synthetic_sample
+DERMAGLIPTIN 625MG Cap|Women's Care|PREGNANCY TEST KIT|625MG Cap|3050.91|synthetic_sample
+GENUGEST 30G Nasal Spray|Women's Care|IRON SUPPLEMENT FOR WOMEN|30G Nasal Spray|2726.33|synthetic_sample
+WELLSARTAN 5MG Gel|Women's Care|EMERGENCY CONTRACEPTIVE|5MG Gel|1427.41|synthetic_sample
+LIFESARTAN 250MG Suspension|Women's Care|FOLIC ACID FOR PREGNANCY|250MG Suspension|577.36|synthetic_sample
+SUREVIR 5MG Tab|Women's Care|VAGINAL WASH|5MG Tab|698.53|synthetic_sample
+IMMUNOSLEEP 250MG Drop|Women's Care|VAGINAL WASH|250MG Drop|2187.11|synthetic_sample
+OSTEOFORTE 0.5% Injection|Women's Care|CALCIUM FOR WOMEN|0.5% Injection|1968.37|synthetic_sample
+PHARMAOD 750MG Gel|Women's Care|MULTIVITAMIN FOR WOMEN|750MG Gel|2428.65|synthetic_sample
+GENUZUMAB 40MG Injection|Women's Care|EMERGENCY CONTRACEPTIVE|40MG Injection|3316.2|synthetic_sample
+SUNFAST 200ML Cap|Women's Care|FOLIC ACID FOR PREGNANCY|200ML Cap|1467.68|synthetic_sample
+TRUSTXL 400MG Gel|Women's Care|VAGINAL WASH|400MG Gel|1347.43|synthetic_sample
+ZENOPAIN 60ML Powder|Women's Care|CONTRACEPTIVE PILL|60ML Powder|2220.11|synthetic_sample
+WELLFAST 125MG/5ML Cream|Women's Care|FOLIC ACID FOR PREGNANCY|125MG/5ML Cream|695.13|synthetic_sample
+NEPHROCIN 200MG Cap|Women's Care|IRON SUPPLEMENT FOR WOMEN|200MG Cap|1762.33|synthetic_sample
+CUREGOLD 500MG Syrup|Women's Care|VAGINAL WASH|500MG Syrup|2946.34|synthetic_sample
+CAREPRIL 0.5% Ointment|Women's Care|CONTRACEPTIVE PILL|0.5% Ointment|2434.65|synthetic_sample
+BETAGOLD 5MG Injection|Women's Care|CONTRACEPTIVE PILL|5MG Injection|562.77|synthetic_sample
+HEPAFEN 50MG Tab|Women's Care|EMERGENCY CONTRACEPTIVE|50MG Tab|198.29|synthetic_sample
+SURECARE2 60ML Suspension|Women's Care|MULTIVITAMIN FOR WOMEN|60ML Suspension|2330.37|synthetic_sample
+LIFEFAST 150MG Powder|Women's Care|IRON SUPPLEMENT FOR WOMEN|150MG Powder|1706.72|synthetic_sample
+NEUROPAIN11 0.5% Suspension|Women's Care|VAGINAL WASH|0.5% Suspension|2102.32|synthetic_sample
+WELLPAIN 500MG Injection|Women's Care|MULTIVITAMIN FOR WOMEN|500MG Injection|2158.11|synthetic_sample
+BIOGEST19 75MG Inhaler|Women's Care|EMERGENCY CONTRACEPTIVE|75MG Inhaler|1601.22|synthetic_sample
+MEDGEST28 30G Suppository|Women's Care|VAGINAL WASH|30G Suppository|3463.96|synthetic_sample
+UNISARTAN37 5MG/5ML Drop|Women's Care|CONTRACEPTIVE PILL|5MG/5ML Drop|2194.76|synthetic_sample
+WELLDERM48 120ML Inhaler|Women's Care|IRON SUPPLEMENT FOR WOMEN|120ML Inhaler|2554.31|synthetic_sample
+PULMOCALM61 100MG Injection|Women's Care|FOLIC ACID FOR PREGNANCY|100MG Injection|644.47|synthetic_sample
+VITALCALM74 120ML Powder|Women's Care|IRON SUPPLEMENT FOR WOMEN|120ML Powder|329.57|synthetic_sample
+PHARMAXL83 60ML Ointment|Women's Care|VAGINAL WASH|60ML Ointment|3375.55|synthetic_sample
+WELLFAST108 125MG Cream|Women's Care|EMERGENCY CONTRACEPTIVE|125MG Cream|2725.82|synthetic_sample
+DERMAEX120 100ML Injection|Women's Care|FOLIC ACID FOR PREGNANCY|100ML Injection|361|synthetic_sample
+ORTHOOD133 15G Tab|Women's Care|FOLIC ACID FOR PREGNANCY|15G Tab|2258.81|synthetic_sample
+ORTHOTIDE159 15G Cream|Women's Care|CONTRACEPTIVE PILL|15G Cream|2320.12|synthetic_sample
+PROGEST172 120ML Inhaler|Women's Care|FOLIC ACID FOR PREGNANCY|120ML Inhaler|782.59|synthetic_sample
+DERMAFAST185 250MG/5ML Powder|Women's Care|IRON SUPPLEMENT FOR WOMEN|250MG/5ML Powder|2310.45|synthetic_sample
+FIRSTGLIPTIN198 75MG Suppository|Women's Care|VAGINAL WASH|75MG Suppository|867.03|synthetic_sample
+RXCEF211 100MG Powder|Women's Care|VAGINAL WASH|100MG Powder|2052.23|synthetic_sample
+TRUSTXL237 125MG/5ML Injection|Women's Care|IRON SUPPLEMENT FOR WOMEN|125MG/5ML Injection|3453.66|synthetic_sample
+RELIATIDE263 1G Powder|Women's Care|PREGNANCY TEST KIT|1G Powder|264.77|synthetic_sample
+LIFEFAST276 100MG Gel|Women's Care|CONTRACEPTIVE PILL|100MG Gel|2408.83|synthetic_sample
+ALFAFAST341 125MG Cream|Women's Care|PREGNANCY TEST KIT|125MG Cream|3231.01|synthetic_sample
+`;
+
+export const MEDICINES: CatalogMedicine[] = RAW.trim()
+  .split("\n")
+  .map((line) => {
+    const [name, category, genericName, strengthForm, price, source] =
+      line.split("|");
+    return {
+      name,
+      category,
+      genericName,
+      strengthForm,
+      price: Number(price),
+      source,
+    };
+  });
+
+export const MEDICINE_CATEGORIES: string[] = [
+  ...new Set(MEDICINES.map((m) => m.category)),
+].sort();
