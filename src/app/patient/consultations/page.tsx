@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/lib/AuthContext";
+import { getPusherClient } from "@/lib/pusherClient";
 
 interface Consultation {
   id: string;
@@ -14,6 +16,13 @@ interface Consultation {
     photoUrl: string | null;
     account: { firstName: string | null; lastName: string | null };
   };
+  prescription: { id: string; revision: number; updatedAt: string } | null;
+}
+
+interface PrescriptionAlert {
+  consultationId: string;
+  isUpdate: boolean;
+  doctorName: string;
 }
 
 const statusStyles: Record<string, string> = {
@@ -27,15 +36,42 @@ function PatientConsultationsContent() {
   const searchParams = useSearchParams();
   const justPaid = searchParams.get("success") === "true";
 
+  const { account } = useAuth();
+  const patientId = account?.patient?.id;
+
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState<PrescriptionAlert | null>(null);
+
+  const load = useCallback(
+    () =>
+      fetch("/api/patient/consultations")
+        .then((res) => res.json())
+        .then((d) => setConsultations(Array.isArray(d) ? d : [])),
+    []
+  );
 
   useEffect(() => {
-    fetch("/api/patient/consultations")
-      .then((res) => res.json())
-      .then(setConsultations)
-      .finally(() => setLoading(false));
-  }, []);
+    load().finally(() => setLoading(false));
+  }, [load]);
+
+  // Live notice when the doctor writes or edits a prescription.
+  useEffect(() => {
+    if (!patientId) return;
+
+    const pusher = getPusherClient();
+    const channel = pusher.subscribe(`patient-${patientId}`);
+
+    channel.bind("prescription-updated", (data: PrescriptionAlert) => {
+      setAlert(data);
+      load();
+    });
+
+    return () => {
+      channel.unbind_all();
+      pusher.unsubscribe(`patient-${patientId}`);
+    };
+  }, [patientId, load]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -44,6 +80,23 @@ function PatientConsultationsContent() {
       {justPaid && (
         <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 mb-6">
           Payment successful! Your consultation has been booked.
+        </div>
+      )}
+
+      {alert && (
+        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg px-4 py-3 mb-6 flex items-center justify-between gap-4">
+          <span>
+            {alert.doctorName}{" "}
+            {alert.isUpdate
+              ? "updated your prescription."
+              : "sent you a prescription."}
+          </span>
+          <Link
+            href={`/consultation/${alert.consultationId}/notes`}
+            className="font-medium hover:underline flex-shrink-0"
+          >
+            View
+          </Link>
         </div>
       )}
 
@@ -113,6 +166,16 @@ function PatientConsultationsContent() {
                       Rate Doctor
                     </Link>
                   </>
+                )}
+                {c.prescription && (
+                  <Link
+                    href={`/consultation/${c.id}/notes`}
+                    className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700"
+                  >
+                    {c.prescription.revision > 1
+                      ? "Prescription (updated)"
+                      : "Prescription"}
+                  </Link>
                 )}
               </div>
             </div>

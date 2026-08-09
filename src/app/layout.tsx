@@ -31,12 +31,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Browser extensions inject attributes into <html> and <body> before React
+  // hydrates (crxemulator, bis_register, __processed_*), which React reports as
+  // a hydration mismatch. suppressHydrationWarning only covers the element it is
+  // placed on, so both need it.
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <AuthProvider>
           <Navbar />
           {children}

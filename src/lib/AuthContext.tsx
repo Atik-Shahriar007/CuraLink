@@ -9,6 +9,10 @@ interface Account {
   isProfileCompleted: boolean;
   firstName: string | null;
   lastName: string | null;
+  // /api/auth/me returns the linked profile rows; used to subscribe to the
+  // patient's own realtime channel.
+  doctor?: { id: string } | null;
+  patient?: { id: string } | null;
 }
 
 interface AuthContextType {
