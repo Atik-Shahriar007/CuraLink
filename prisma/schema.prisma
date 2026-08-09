@@ -137,6 +137,7 @@ model Doctor {
   payments        Payment[]
   blogPosts       BlogPost[]
   reviews         Review[]
+  prescriptions   Prescription[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -161,6 +162,7 @@ model Patient {
   payments      Payment[]
   ambulanceRequests  AmbulanceRequest[]
   reviews            Review[]
+  prescriptions      Prescription[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -178,8 +180,9 @@ model Consultation {
   patientId String
   patient   Patient             @relation(fields: [patientId], references: [id])
 
-  payment   Payment?
-  review    Review?
+  payment      Payment?
+  review       Review?
+  prescription Prescription?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -232,18 +235,23 @@ model Medicine {
   genericName           String
   form                  String
   therapeuticCategory   String
-  manufacturer          String
+  // Null for catalog rows imported from medicines.sql, which carries no
+  // manufacturer or clinical text. Curated entries still fill these in.
+  manufacturer          String?
   strength              String
   unit                  String
   price                 Float
   prescriptionRequired  Boolean  @default(false)
-  description           String
-  dosage                String
-  sideEffects           String
+  description           String?
+  dosage                String?
+  sideEffects           String?
   imageUrl              String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([brandName])
+  @@index([therapeuticCategory])
 }
 
 model BlogPost {
@@ -301,6 +309,28 @@ model AmbulanceRequest {
   updatedAt DateTime @updatedAt
 }
 
+model Prescription {
+  id             String       @id @default(cuid())
+
+  consultationId String       @unique
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+
+  doctorId  String
+  doctor    Doctor  @relation(fields: [doctorId], references: [id])
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id])
+
+  advice    String?
+  // Bumped on every doctor edit so the patient portal can flag an update.
+  revision  Int     @default(1)
+
+  items     PrescriptionItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model SupportTicket {
   id             String         @id @default(cuid())
   ticketNumber   Int            @default(autoincrement())
@@ -320,6 +350,31 @@ model SupportTicket {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model PrescriptionItem {
+  id             String       @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+
+  name         String
+  genericName  String?
+  strengthForm String?
+  category     String?
+
+  // Free-text instruction the doctor writes per medicine, e.g.
+  // "1 tablet twice daily after meals for 5 days".
+  dosage       String
+
+  // Set when the medicine is not in the bundled catalog, so the patient is told
+  // to source it outside CuraLink.
+  collectFromElsewhere Boolean @default(false)
+
+  sortOrder    Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([prescriptionId])
 }
 
 model SupportMessage {

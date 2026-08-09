@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="Sepnil Solution">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#6ee7b7"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#g)"/>
+  <circle cx="250" cy="200" r="112" fill="#ffffff" opacity="0.18"/>
+  <text x="250" y="242" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="110" font-weight="600" fill="#ffffff" text-anchor="middle">SS</text>
+  <text x="250" y="372" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#ffffff" opacity="0.95" text-anchor="middle">Solution</text>
+</svg>
