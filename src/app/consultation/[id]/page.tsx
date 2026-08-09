@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import DailyIframe, { DailyCall } from "@daily-co/daily-js";
 import { useAuth } from "@/lib/AuthContext";
 import { getPusherClient } from "@/lib/pusherClient";
+import PrescriptionWriter from "@/app/components/PrescriptionWriter";
 
 interface ChatMessage {
   text: string;
@@ -32,6 +33,7 @@ export default function ConsultationRoomPage() {
   const [sending, setSending] = useState(false);
   const [isDoctorView, setIsDoctorView] = useState(false);
   const [ending, setEnding] = useState(false);
+  const [sidebarTab, setSidebarTab] = useState<"chat" | "prescription">("chat");
 
   // Video join logic
   useEffect(() => {
@@ -197,7 +199,32 @@ export default function ConsultationRoomPage() {
 
       <div className="w-80 border-l flex flex-col bg-white text-gray-900">
         <div className="px-4 py-3 border-b flex items-center justify-between">
-          <span className="font-semibold">Chat</span>
+          {isDoctorView ? (
+            <div className="flex gap-1">
+              <button
+                onClick={() => setSidebarTab("chat")}
+                className={`text-sm font-semibold px-2 py-1 rounded-lg ${
+                  sidebarTab === "chat"
+                    ? "bg-gray-100 text-gray-900"
+                    : "text-gray-500 hover:text-gray-900"
+                }`}
+              >
+                Chat
+              </button>
+              <button
+                onClick={() => setSidebarTab("prescription")}
+                className={`text-sm font-semibold px-2 py-1 rounded-lg ${
+                  sidebarTab === "prescription"
+                    ? "bg-gray-100 text-gray-900"
+                    : "text-gray-500 hover:text-gray-900"
+                }`}
+              >
+                Prescription
+              </button>
+            </div>
+          ) : (
+            <span className="font-semibold">Chat</span>
+          )}
           {isDoctorView && status === "in-call" && (
             <button
               onClick={handleEndConsultation}
@@ -209,39 +236,45 @@ export default function ConsultationRoomPage() {
           )}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
-          {messages.length === 0 && (
-            <p className="text-sm text-gray-400">No messages yet.</p>
-          )}
-          {messages.map((m, i) => (
-            <div key={i}>
-              <p className="text-xs text-gray-500">
-                {m.senderName} · {new Date(m.timestamp).toLocaleTimeString()}
-              </p>
-              <p className="text-sm bg-gray-100 text-gray-900 rounded-lg px-3 py-2 mt-1 inline-block">
-                {m.text}
-              </p>
+        {sidebarTab === "chat" ? (
+          <>
+            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+              {messages.length === 0 && (
+                <p className="text-sm text-gray-400">No messages yet.</p>
+              )}
+              {messages.map((m, i) => (
+                <div key={i}>
+                  <p className="text-xs text-gray-500">
+                    {m.senderName} · {new Date(m.timestamp).toLocaleTimeString()}
+                  </p>
+                  <p className="text-sm bg-gray-100 text-gray-900 rounded-lg px-3 py-2 mt-1 inline-block">
+                    {m.text}
+                  </p>
+                </div>
+              ))}
+              <div ref={chatEndRef} />
             </div>
-          ))}
-          <div ref={chatEndRef} />
-        </div>
 
-        <form onSubmit={handleSendMessage} className="border-t p-3 flex gap-2">
-          <input
-            type="text"
-            value={chatInput}
-            onChange={(e) => setChatInput(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 border rounded-lg px-3 py-2 text-sm"
-          />
-          <button
-            type="submit"
-            disabled={sending || !chatInput.trim()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50"
-          >
-            Send
-          </button>
-        </form>
+            <form onSubmit={handleSendMessage} className="border-t p-3 flex gap-2">
+              <input
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Type a message..."
+                className="flex-1 border rounded-lg px-3 py-2 text-sm"
+              />
+              <button
+                type="submit"
+                disabled={sending || !chatInput.trim()}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50"
+              >
+                Send
+              </button>
+            </form>
+          </>
+        ) : (
+          <PrescriptionWriter consultationId={id} />
+        )}
       </div>
     </div>
   );

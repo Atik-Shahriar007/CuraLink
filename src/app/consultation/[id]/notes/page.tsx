@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import PrescriptionWriter from "@/app/components/PrescriptionWriter";
+import PrescriptionView, {
+  type PrescriptionData,
+} from "@/app/components/PrescriptionView";
 
 export default function ConsultationNotesPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +18,8 @@ export default function ConsultationNotesPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [prescription, setPrescription] = useState<PrescriptionData | null>(null);
+  const [doctorName, setDoctorName] = useState("");
 
   const isDoctor = account?.role === "DOCTOR";
 
@@ -34,6 +40,15 @@ export default function ConsultationNotesPage() {
         setNotes(data.notes || "");
       })
       .finally(() => setLoading(false));
+
+    fetch(`/api/consultations/${id}/prescription`)
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        setPrescription(data.prescription);
+        setDoctorName(data.doctorName || "");
+      })
+      .catch(() => {});
   }, [id, account, authLoading, router]);
 
   async function handleSave() {
@@ -105,6 +120,22 @@ export default function ConsultationNotesPage() {
         <div className="border rounded-xl p-5 bg-gray-50 whitespace-pre-wrap text-sm text-gray-800 min-h-[120px]">
           {notes || "No notes have been added yet for this consultation."}
         </div>
+      )}
+
+      <h2 className="text-xl font-bold mt-10 mb-2">Prescription</h2>
+      <p className="text-gray-500 mb-4">
+        {isDoctor
+          ? "Medicines and dosage instructions for this patient. Edits are sent to them straight away."
+          : "Medicines and dosage instructions from your doctor."}
+      </p>
+
+      {isDoctor ? (
+        <PrescriptionWriter consultationId={id} layout="page" />
+      ) : (
+        <PrescriptionView
+          prescription={prescription}
+          doctorName={doctorName}
+        />
       )}
     </div>
   );

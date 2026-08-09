@@ -17,6 +17,10 @@ export async function GET() {
           account: { select: { firstName: true, lastName: true } },
         },
       },
+      // Summary only — the full prescription is fetched on its own page.
+      prescription: {
+        select: { id: true, revision: true, updatedAt: true },
+      },
     },
     orderBy: { date: "desc" },
   });

@@ -19,7 +19,7 @@ export default function AdminProvidersPage() {
     setLoading(true);
     fetch("/api/admin/providers")
       .then((res) => res.json())
-      .then(setProviders)
+      .then((d) => setProviders(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
   }
 
