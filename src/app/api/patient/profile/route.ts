@@ -2,15 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
+import { uploadImage } from "@/lib/cloudinary";
 
 const profileSchema = z.object({
   firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .regex(/^[0-9+\-()\s]{7,20}$/, "Enter a valid phone number")
+    .optional()
+    .or(z.literal("")),
   age: z.number().int().positive().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
-  zipCode: z.string().optional(),
+  zipCode: z
+    .string()
+    .regex(/^[A-Za-z0-9\- ]{3,10}$/, "Enter a valid zip/postal code")
+    .optional()
+    .or(z.literal("")),
   weight: z.number().positive().optional(),
   height: z.number().positive().optional(),
   gender: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
@@ -22,6 +31,7 @@ const profileSchema = z.object({
   currentMedications: z.array(z.string()).optional(),
   emergencyContactName: z.string().optional(),
   emergencyContactPhone: z.string().optional(),
+  photoBase64: z.string().optional(), // data:image/...;base64,... string from frontend
 });
 
 export async function GET() {
@@ -62,6 +72,7 @@ export async function PATCH(req: NextRequest) {
       address,
       city,
       zipCode,
+      photoBase64,
       ...patientFields
     } = parsed.data;
 
@@ -72,9 +83,14 @@ export async function PATCH(req: NextRequest) {
       });
     }
 
+    let photoUrl: string | undefined;
+    if (photoBase64) {
+      photoUrl = await uploadImage(photoBase64, "curalink/patients");
+    }
+
     const updatedPatient = await prisma.patient.update({
       where: { accountId: account.id },
-      data: patientFields,
+      data: { ...patientFields, ...(photoUrl ? { photoUrl } : {}) },
     });
 
     // Mark profile completed once core identifying info is filled in

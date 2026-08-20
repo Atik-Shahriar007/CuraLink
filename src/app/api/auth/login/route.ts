@@ -40,6 +40,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!account.isActive) {
+      return NextResponse.json(
+        { error: "This account has been deactivated. Contact support to reactivate it." },
+        { status: 403 }
+      );
+    }
+
     const token = signToken({ accountId: account.id, role: account.role });
 
     const response = NextResponse.json({

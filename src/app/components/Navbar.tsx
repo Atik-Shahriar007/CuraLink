@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 import {
   Home, Stethoscope, Pill, LogIn, UserPlus, Newspaper, ClipboardList,
-  User, LifeBuoy, Siren, LogOut, CalendarClock, BarChart3,
+  User, LifeBuoy, Siren, LogOut, CalendarClock, BarChart3, FileText,
 } from "lucide-react";
 import Logo from "./Logo";
 import { useState as useStateReact, useEffect as useEffectReact } from "react";
@@ -109,6 +109,9 @@ const isStaffOnSupport =
               </Link>
               <Link href="/ambulance/status" className={linkClass("/ambulance/status")}>
                 <Siren size={16} /> Ambulance
+              </Link>
+              <Link href="/patient/medical-records" className={linkClass("/patient/medical-records")}>
+                <FileText size={16} /> Medical Records
               </Link>
               <Link href="/patient/profile" className={linkClass("/patient/profile")}>
                 <User size={16} /> My Profile

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
 import { pusherServer } from "@/lib/pusher";
+import { notifyAccount, notificationTemplates } from "@/lib/notifications";
 
 const updateSchema = z.object({
   action: z.enum(["ACCEPT", "DISPATCHED", "ARRIVED", "COMPLETED", "CANCELED"]),
@@ -44,6 +45,7 @@ export async function PATCH(
       data: { status: "ACCEPTED", providerId: account.ambulanceProvider.id },
     });
     await pusherServer.trigger(`ambulance-request-${id}`, "status-update", updated);
+    void notifyPatientOfStatus(updated.patientId, "ACCEPTED");
     return NextResponse.json(updated);
   }
 
@@ -65,6 +67,13 @@ export async function PATCH(
   });
 
   await pusherServer.trigger(`ambulance-request-${id}`, "status-update", updated);
+  void notifyPatientOfStatus(updated.patientId, updated.status);
 
   return NextResponse.json(updated);
+}
+
+async function notifyPatientOfStatus(patientId: string, status: string) {
+  const patient = await prisma.patient.findUnique({ where: { id: patientId } });
+  if (!patient) return;
+  await notifyAccount(patient.accountId, notificationTemplates.ambulanceStatusUpdate(status));
 }

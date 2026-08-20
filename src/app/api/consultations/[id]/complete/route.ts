@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
+import { notifyAccount, notificationTemplates } from "@/lib/notifications";
 
 export async function PATCH(
   req: NextRequest,
@@ -37,6 +38,15 @@ export async function PATCH(
     where: { id },
     data: { status: "COMPLETED" },
   });
+
+  const [patient, doctorAccount] = await Promise.all([
+    prisma.patient.findUnique({ where: { id: consultation.patientId } }),
+    prisma.account.findUnique({ where: { id: account.id }, select: { firstName: true, lastName: true } }),
+  ]);
+  const doctorName = `${doctorAccount?.firstName ?? ""} ${doctorAccount?.lastName ?? ""}`.trim();
+  if (patient) {
+    void notifyAccount(patient.accountId, notificationTemplates.consultationCompleted(doctorName));
+  }
 
   return NextResponse.json(updated);
 }
