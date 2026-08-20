@@ -31,3 +31,6 @@ export function verifyToken(token: string): JwtPayload | null {
     return null;
   }
 }
+
+// Shared password rule used by register + change-password flows.
+export const PASSWORD_MIN_LENGTH = 8;

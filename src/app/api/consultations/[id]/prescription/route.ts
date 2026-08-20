@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
 import { pusherServer } from "@/lib/pusher";
 import { isInCatalog } from "@/lib/medicineCatalog";
+import { notifyAccount, notificationTemplates } from "@/lib/notifications";
 
 const itemSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -183,6 +184,13 @@ export async function PUT(
   const doctorName = `Dr. ${consultation.doctor.account.firstName ?? ""} ${
     consultation.doctor.account.lastName ?? ""
   }`.trim();
+
+  if (!isUpdate) {
+    const patient = await prisma.patient.findUnique({ where: { id: consultation.patientId } });
+    if (patient) {
+      void notifyAccount(patient.accountId, notificationTemplates.prescriptionReady(doctorName));
+    }
+  }
 
   const event = {
     consultationId: id,

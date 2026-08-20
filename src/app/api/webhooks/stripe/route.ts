@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import { notifyAccount, notificationTemplates } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
   const body = await req.text(); // raw body, required for signature verification
@@ -79,6 +80,22 @@ export async function POST(req: NextRequest) {
           consultationId: consultation.id,
         },
       });
+
+      // Notify both sides — never let a notification failure affect the webhook response
+      const [doctor, patient] = await Promise.all([
+        prisma.doctor.findUnique({ where: { id: payment.doctorId }, include: { account: true } }),
+        prisma.patient.findUnique({ where: { id: payment.patientId }, include: { account: true } }),
+      ]);
+      const dateStr = consultation.date.toLocaleString();
+      const doctorName = `${doctor?.account.firstName ?? ""} ${doctor?.account.lastName ?? ""}`.trim();
+      const patientName = `${patient?.account.firstName ?? ""} ${patient?.account.lastName ?? ""}`.trim() || "A patient";
+
+      if (patient) {
+        void notifyAccount(patient.accountId, notificationTemplates.consultationBooked(doctorName, dateStr));
+      }
+      if (doctor) {
+        void notifyAccount(doctor.accountId, notificationTemplates.newConsultationForDoctor(patientName, dateStr));
+      }
     } catch (err) {
       console.error("Webhook processing error:", err);
       return NextResponse.json(

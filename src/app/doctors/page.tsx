@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { Search, Star, MapPin } from "lucide-react";
+import { Search, Star, MapPin, BadgeCheck } from "lucide-react";
 
 interface Doctor {
   id: string;
@@ -13,6 +13,7 @@ interface Doctor {
   experienceLevel: string | null;
   avgRating: number | null;
   reviewCount: number;
+  verificationStatus?: string;
   account: { firstName: string | null; lastName: string | null };
 }
 
@@ -130,8 +131,11 @@ export default function DoctorsPage() {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="font-semibold group-hover:text-teal-900 transition-colors truncate">
+                  <h2 className="font-semibold group-hover:text-teal-900 transition-colors truncate flex items-center gap-1.5">
                     Dr. {doc.account.firstName} {doc.account.lastName}
+                    {doc.verificationStatus === "VERIFIED" && (
+                      <BadgeCheck size={15} className="text-teal-700 flex-shrink-0" title="Verified" />
+                    )}
                   </h2>
                   <p className="text-stone-500 text-sm truncate">{doc.specialty || "General Practice"}</p>
                 </div>

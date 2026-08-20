@@ -12,10 +12,12 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const [payments, consultations, accounts, doctors, tickets, ambulanceRequests] =
+  const [payments, consultations, accounts, doctors, tickets, ambulanceRequests, refundedPayments] =
     await Promise.all([
       prisma.payment.findMany({ where: { status: "PAID" }, select: { amount: true, createdAt: true } }),
-      prisma.consultation.findMany({ select: { status: true, createdAt: true, doctorId: true } }),
+      prisma.consultation.findMany({
+        select: { status: true, createdAt: true, doctorId: true, canceledByRole: true },
+      }),
       prisma.account.findMany({ select: { role: true, createdAt: true } }),
       prisma.doctor.findMany({
         include: {
@@ -26,6 +28,10 @@ export async function GET() {
       }),
       prisma.supportTicket.findMany({ select: { status: true, createdAt: true, updatedAt: true } }),
       prisma.ambulanceRequest.findMany({ select: { status: true } }),
+      prisma.payment.findMany({
+        where: { refundAmount: { not: null } },
+        select: { refundAmount: true },
+      }),
     ]);
 
   // Revenue by month
@@ -93,6 +99,23 @@ export async function GET() {
     ambulanceByStatus[r.status] = (ambulanceByStatus[r.status] || 0) + 1;
   }
 
+  // Cancellations & refunds
+  const canceledConsultations = consultations.filter((c) => c.status === "CANCELED");
+  const cancellationsByRole: Record<string, number> = {};
+  for (const c of canceledConsultations) {
+    const role = c.canceledByRole || "UNKNOWN";
+    cancellationsByRole[role] = (cancellationsByRole[role] || 0) + 1;
+  }
+  const cancellationRate =
+    consultations.length > 0 ? canceledConsultations.length / consultations.length : 0;
+  const totalRefunded = refundedPayments.reduce((s, p) => s + (p.refundAmount || 0), 0);
+
+  // Doctor verification
+  const verificationCounts: Record<string, number> = {};
+  for (const d of doctors) {
+    verificationCounts[d.verificationStatus] = (verificationCounts[d.verificationStatus] || 0) + 1;
+  }
+
   // Convert month-keyed objects to sorted arrays for charting
   const allMonths = Array.from(
     new Set([
@@ -124,6 +147,10 @@ export async function GET() {
     ticketsByStatus,
     avgResolutionHours,
     ambulanceByStatus,
+    cancellationsByRole,
+    cancellationRate,
+    totalRefunded,
+    verificationCounts,
     totals: {
       totalRevenue: payments.reduce((s, p) => s + p.amount, 0),
       totalConsultations: consultations.length,

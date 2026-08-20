@@ -12,7 +12,11 @@ const scheduleSchema = z.record(
 const profileSchema = z.object({
   firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .regex(/^[0-9+\-()\s]{7,20}$/, "Enter a valid phone number")
+    .optional()
+    .or(z.literal("")),
   description: z.string().optional(),
   hospital: z.string().optional(),
   specialty: z.string().optional(),

@@ -17,6 +17,8 @@ export async function getCurrentAccount() {
     include: { doctor: true, patient: true, ambulanceProvider: true },
   });
 
+  if (account && !account.isActive) return null;
+
   return account;
 }
 

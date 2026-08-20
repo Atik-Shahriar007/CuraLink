@@ -92,6 +92,25 @@ enum TicketCategory {
   OTHER
 }
 
+// Doctor identity/license verification, separate from admin `approvalStatus`.
+// Approval controls whether a doctor can appear/take bookings at all;
+// verification is the extra "badge" tier confirming their license/ID was
+// manually checked by an admin.
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum DocumentCategory {
+  LAB_REPORT
+  PRESCRIPTION
+  IMAGING
+  VACCINATION
+  OTHER
+}
+
 model Account {
   id                String   @id @default(cuid())
   email             String   @unique
@@ -105,6 +124,10 @@ model Account {
   zipCode           String?
   role              Role
   isProfileCompleted Boolean @default(false)
+  isActive          Boolean  @default(true)
+  deactivatedAt     DateTime?
+  emailNotifications Boolean @default(true)
+  smsNotifications  Boolean  @default(true)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -133,6 +156,13 @@ model Doctor {
   schedule        Json?
   experienceLevel ExperienceLevel?
 
+  // License/ID verification (badge shown to patients once VERIFIED)
+  licenseNumber       String?
+  licenseDocumentUrl  String?
+  verificationStatus  VerificationStatus @default(UNVERIFIED)
+  verifiedAt          DateTime?
+  verificationNote    String? // admin note, e.g. reason for rejection
+
   consultations   Consultation[]
   payments        Payment[]
   blogPosts       BlogPost[]
@@ -148,6 +178,7 @@ model Patient {
   accountId             String   @unique
   account               Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
+  photoUrl              String?
   weight                Float?
   height                Float?
   gender                Gender?
@@ -163,9 +194,30 @@ model Patient {
   ambulanceRequests  AmbulanceRequest[]
   reviews            Review[]
   prescriptions      Prescription[]
+  medicalDocuments   MedicalDocument[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// A patient's personal health record store: uploaded lab reports, imaging,
+// old prescriptions, vaccination cards, etc. Distinct from the structured
+// allergy/condition/medication fields already on Patient, and from the
+// per-consultation Prescription model written by doctors.
+model MedicalDocument {
+  id       String           @id @default(cuid())
+  title    String
+  category DocumentCategory @default(OTHER)
+  fileUrl  String
+  notes    String?
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId])
 }
 
 model Consultation {
@@ -173,6 +225,11 @@ model Consultation {
   date      DateTime
   status    ConsultationStatus  @default(PENDING)
   notes     String?
+
+  // Cancellation
+  canceledAt         DateTime?
+  cancellationReason String?
+  canceledByRole     Role?
 
   doctorId  String
   doctor    Doctor              @relation(fields: [doctorId], references: [id])
@@ -195,6 +252,12 @@ model Payment {
   amount            Float
   currency          String        @default("usd")
   status            PaymentStatus @default(PENDING)
+
+  // Refund tracking (set when a consultation is canceled after payment)
+  stripeRefundId String?
+  refundAmount   Float?
+  refundReason   String?
+  refundedAt     DateTime?
 
   doctorId  String
   doctor    Doctor  @relation(fields: [doctorId], references: [id])
@@ -278,9 +341,12 @@ model AmbulanceProvider {
   accountId        String         @unique
   account          Account        @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
+  photoUrl         String?
   organizationName String?
   vehicleInfo      String?
   serviceArea      String?
+  licenseNumber    String?
+  operatingHours   String?
   approvalStatus   ApprovalStatus @default(PENDING)
 
   requests         AmbulanceRequest[]

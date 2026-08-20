@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
-import { MapPin, Star, GraduationCap, Clock } from "lucide-react";
+import { MapPin, Star, GraduationCap, Clock, BadgeCheck } from "lucide-react";
 
 interface Review {
   id: string;
@@ -26,6 +26,7 @@ interface Doctor {
   avgRating: number | null;
   reviewCount: number;
   reviews: Review[];
+  verificationStatus?: string;
   account: { firstName: string | null; lastName: string | null };
 }
 
@@ -126,8 +127,13 @@ export default function DoctorProfilePage() {
           )}
         </div>
         <div>
-          <h1 className="text-2xl font-display">
+          <h1 className="text-2xl font-display flex items-center gap-2">
             Dr. {doctor.account.firstName} {doctor.account.lastName}
+            {doctor.verificationStatus === "VERIFIED" && (
+              <span className="inline-flex items-center gap-1 text-teal-700 text-xs font-medium bg-teal-50 border border-teal-200 rounded-full px-2 py-1">
+                <BadgeCheck size={13} /> Verified
+              </span>
+            )}
           </h1>
           <p className="text-teal-800 font-medium">{doctor.specialty}</p>
           <div className="flex items-center gap-1.5 text-stone-400 text-sm mt-1">
