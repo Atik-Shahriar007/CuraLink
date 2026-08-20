@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAccount } from "@/lib/session";
 import { pusherServer } from "@/lib/pusher";
+import { notifyAccount, notificationTemplates } from "@/lib/notifications";
 
 const requestSchema = z.object({
   latitude: z.number().optional(),
@@ -37,6 +38,8 @@ export async function POST(req: NextRequest) {
   await pusherServer.trigger("ambulance-requests", "new-request", {
     id: request.id,
   });
+
+  void notifyAccount(account.id, notificationTemplates.ambulanceRequestReceived());
 
   return NextResponse.json(request);
 }

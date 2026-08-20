@@ -15,6 +15,10 @@ interface Analytics {
   ticketsByStatus: Record<string, number>;
   avgResolutionHours: number | null;
   ambulanceByStatus: Record<string, number>;
+  cancellationsByRole: Record<string, number>;
+  cancellationRate: number;
+  totalRefunded: number;
+  verificationCounts: Record<string, number>;
   totals: { totalRevenue: number; totalConsultations: number; totalPatients: number; totalDoctors: number };
 }
 
@@ -45,6 +49,8 @@ export default function AdminAnalyticsPage() {
 
   const ticketPieData = Object.entries(data.ticketsByStatus).map(([name, value]) => ({ name, value }));
   const ambulancePieData = Object.entries(data.ambulanceByStatus).map(([name, value]) => ({ name, value }));
+  const cancellationPieData = Object.entries(data.cancellationsByRole).map(([name, value]) => ({ name, value }));
+  const verificationPieData = Object.entries(data.verificationCounts).map(([name, value]) => ({ name, value }));
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -55,6 +61,13 @@ export default function AdminAnalyticsPage() {
         <StatCard label="Total Consultations" value={data.totals.totalConsultations} />
         <StatCard label="Total Patients" value={data.totals.totalPatients} />
         <StatCard label="Total Doctors" value={data.totals.totalDoctors} />
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <StatCard label="Cancellation Rate" value={`${(data.cancellationRate * 100).toFixed(1)}%`} />
+        <StatCard label="Total Refunded" value={`$${data.totalRefunded.toFixed(2)}`} />
+        <StatCard label="Verified Doctors" value={data.verificationCounts.VERIFIED || 0} />
+        <StatCard label="Pending Verification" value={data.verificationCounts.PENDING || 0} />
       </div>
 
       <div className="border rounded-xl p-5 bg-white mb-8">
@@ -170,6 +183,44 @@ export default function AdminAnalyticsPage() {
               <PieChart>
                 <Pie data={ambulancePieData} dataKey="value" nameKey="name" outerRadius={80} label>
                   {ambulancePieData.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div className="border rounded-xl p-5 bg-white">
+          <h2 className="font-semibold mb-4">Cancellations by Who Canceled</h2>
+          {cancellationPieData.length === 0 ? (
+            <p className="text-sm text-gray-500">No cancellations yet.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie data={cancellationPieData} dataKey="value" nameKey="name" outerRadius={80} label>
+                  {cancellationPieData.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        <div className="border rounded-xl p-5 bg-white">
+          <h2 className="font-semibold mb-4">Doctor Verification Status</h2>
+          {verificationPieData.length === 0 ? (
+            <p className="text-sm text-gray-500">No doctors yet.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie data={verificationPieData} dataKey="value" nameKey="name" outerRadius={80} label>
+                  {verificationPieData.map((_, i) => (
                     <Cell key={i} fill={COLORS[i % COLORS.length]} />
                   ))}
                 </Pie>
