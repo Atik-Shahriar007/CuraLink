@@ -1,0 +1,458 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BlogStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  REJECTED
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  PATIENT
+  AMBULANCE_PROVIDER
+  SUPPORT_AGENT
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ConsultationStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum BloodType {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+enum ExperienceLevel {
+  LESS_THAN_ONE
+  ONE_TO_FIVE
+  FIVE_PLUS
+}
+
+enum AmbulanceRequestStatus {
+  REQUESTED
+  ACCEPTED
+  DISPATCHED
+  ARRIVED
+  COMPLETED
+  CANCELED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketCategory {
+  BILLING_AND_PAYMENTS
+  TECHNICAL_ISSUE
+  APPOINTMENT_PROBLEM
+  AMBULANCE_ISSUE
+  ACCOUNT_VERIFICATION
+  PRESCRIPTION_ISSUE
+  GENERAL_INQUIRY
+  OTHER
+}
+
+// Doctor identity/license verification, separate from admin `approvalStatus`.
+// Approval controls whether a doctor can appear/take bookings at all;
+// verification is the extra "badge" tier confirming their license/ID was
+// manually checked by an admin.
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum DocumentCategory {
+  LAB_REPORT
+  PRESCRIPTION
+  IMAGING
+  VACCINATION
+  OTHER
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  password          String
+  firstName         String?
+  lastName          String?
+  age               Int?
+  phone             String?
+  address           String?
+  city              String?
+  zipCode           String?
+  role              Role
+  isProfileCompleted Boolean @default(false)
+  isActive          Boolean  @default(true)
+  deactivatedAt     DateTime?
+  emailNotifications Boolean @default(true)
+  smsNotifications  Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  doctor  Doctor?
+  patient Patient?
+  ambulanceProvider AmbulanceProvider?
+
+  ticketsCreated    SupportTicket[]  @relation("TicketsCreated")
+  ticketsAssigned   SupportTicket[]  @relation("TicketsAssigned")
+  supportMessages   SupportMessage[]
+}
+
+model Doctor {
+  id              String          @id @default(cuid())
+  accountId       String          @unique
+  account         Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  photoUrl        String?
+  description     String?
+  approvalStatus  ApprovalStatus  @default(PENDING)
+  hospital        String?
+  specialty       String?
+  price           Float?
+  degrees         String[]
+  certifications  String[]
+  schedule        Json?
+  experienceLevel ExperienceLevel?
+
+  // License/ID verification (badge shown to patients once VERIFIED)
+  licenseNumber       String?
+  licenseDocumentUrl  String?
+  verificationStatus  VerificationStatus @default(UNVERIFIED)
+  verifiedAt          DateTime?
+  verificationNote    String? // admin note, e.g. reason for rejection
+
+  consultations   Consultation[]
+  payments        Payment[]
+  blogPosts       BlogPost[]
+  reviews         Review[]
+  prescriptions   Prescription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Patient {
+  id                    String   @id @default(cuid())
+  accountId             String   @unique
+  account               Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  photoUrl              String?
+  weight                Float?
+  height                Float?
+  gender                Gender?
+  bloodType             BloodType?
+  allergies             String[]
+  chronicConditions     String[]
+  currentMedications    String[]
+  emergencyContactName  String?
+  emergencyContactPhone String?
+
+  consultations Consultation[]
+  payments      Payment[]
+  ambulanceRequests  AmbulanceRequest[]
+  reviews            Review[]
+  prescriptions      Prescription[]
+  medicalDocuments   MedicalDocument[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// A patient's personal health record store: uploaded lab reports, imaging,
+// old prescriptions, vaccination cards, etc. Distinct from the structured
+// allergy/condition/medication fields already on Patient, and from the
+// per-consultation Prescription model written by doctors.
+model MedicalDocument {
+  id       String           @id @default(cuid())
+  title    String
+  category DocumentCategory @default(OTHER)
+  fileUrl  String
+  notes    String?
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId])
+}
+
+model Consultation {
+  id        String              @id @default(cuid())
+  date      DateTime
+  status    ConsultationStatus  @default(PENDING)
+  notes     String?
+
+  // Cancellation
+  canceledAt         DateTime?
+  cancellationReason String?
+  canceledByRole     Role?
+
+  doctorId  String
+  doctor    Doctor              @relation(fields: [doctorId], references: [id])
+
+  patientId String
+  patient   Patient             @relation(fields: [patientId], references: [id])
+
+  payment      Payment?
+  review       Review?
+  prescription Prescription?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  checkoutSessionId String        @unique
+  paymentIntentId   String?
+  amount            Float
+  currency          String        @default("usd")
+  status            PaymentStatus @default(PENDING)
+
+  // Refund tracking (set when a consultation is canceled after payment)
+  stripeRefundId String?
+  refundAmount   Float?
+  refundReason   String?
+  refundedAt     DateTime?
+
+  doctorId  String
+  doctor    Doctor  @relation(fields: [doctorId], references: [id])
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id])
+
+  consultationId String?       @unique
+  consultation   Consultation? @relation(fields: [consultationId], references: [id])
+
+  metadata  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id             String   @id @default(cuid())
+  rating         Int
+  comment        String?
+
+  consultationId String   @unique
+  consultation   Consultation @relation(fields: [consultationId], references: [id])
+
+  doctorId       String
+  doctor         Doctor   @relation(fields: [doctorId], references: [id])
+
+  patientId      String
+  patient        Patient  @relation(fields: [patientId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Medicine {
+  id                    String   @id @default(cuid())
+  brandName             String
+  genericName           String
+  form                  String
+  therapeuticCategory   String
+  // Null for catalog rows imported from medicines.sql, which carries no
+  // manufacturer or clinical text. Curated entries still fill these in.
+  manufacturer          String?
+  strength              String
+  unit                  String
+  price                 Float
+  prescriptionRequired  Boolean  @default(false)
+  description           String?
+  dosage                String?
+  sideEffects           String?
+  imageUrl              String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandName])
+  @@index([therapeuticCategory])
+}
+
+model BlogPost {
+  id            String     @id @default(cuid())
+  title         String
+  coverImageUrl String?
+  excerpt       String?
+  content       String
+  category      String
+  readTimeMinutes Int      @default(1)
+  status        BlogStatus @default(DRAFT)
+  rejectionReason String?
+
+  doctorId      String
+  doctor        Doctor     @relation(fields: [doctorId], references: [id])
+
+  publishedAt   DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model AmbulanceProvider {
+  id               String         @id @default(cuid())
+  accountId        String         @unique
+  account          Account        @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  photoUrl         String?
+  organizationName String?
+  vehicleInfo      String?
+  serviceArea      String?
+  licenseNumber    String?
+  operatingHours   String?
+  approvalStatus   ApprovalStatus @default(PENDING)
+
+  requests         AmbulanceRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AmbulanceRequest {
+  id                  String                 @id @default(cuid())
+  status              AmbulanceRequestStatus @default(REQUESTED)
+
+  patientId           String
+  patient             Patient                @relation(fields: [patientId], references: [id])
+
+  providerId          String?
+  provider            AmbulanceProvider?     @relation(fields: [providerId], references: [id])
+
+  latitude            Float?
+  longitude           Float?
+  address             String
+  situationDescription String
+  contactPhone        String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prescription {
+  id             String       @id @default(cuid())
+
+  consultationId String       @unique
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+
+  doctorId  String
+  doctor    Doctor  @relation(fields: [doctorId], references: [id])
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id])
+
+  advice    String?
+  // Bumped on every doctor edit so the patient portal can flag an update.
+  revision  Int     @default(1)
+
+  items     PrescriptionItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SupportTicket {
+  id             String         @id @default(cuid())
+  ticketNumber   Int            @default(autoincrement())
+  subject        String
+  category       TicketCategory
+  status         TicketStatus   @default(OPEN)
+  lastViewedByCreatorAt DateTime?
+  satisfactionRating Int?
+
+  createdById    String
+  createdBy      Account        @relation("TicketsCreated", fields: [createdById], references: [id])
+
+  assignedAgentId String?
+  assignedAgent   Account?      @relation("TicketsAssigned", fields: [assignedAgentId], references: [id])
+
+  messages       SupportMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PrescriptionItem {
+  id             String       @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+
+  name         String
+  genericName  String?
+  strengthForm String?
+  category     String?
+
+  // Free-text instruction the doctor writes per medicine, e.g.
+  // "1 tablet twice daily after meals for 5 days".
+  dosage       String
+
+  // Set when the medicine is not in the bundled catalog, so the patient is told
+  // to source it outside CuraLink.
+  collectFromElsewhere Boolean @default(false)
+
+  sortOrder    Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([prescriptionId])
+}
+
+model SupportMessage {
+  id             String   @id @default(cuid())
+  body           String
+  attachmentUrl  String?
+
+  ticketId       String
+  ticket         SupportTicket @relation(fields: [ticketId], references: [id])
+
+  senderId       String
+  sender         Account  @relation(fields: [senderId], references: [id])
+
+  createdAt DateTime @default(now())
+}
