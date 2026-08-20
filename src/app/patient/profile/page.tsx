@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import {
   User, Mail, Phone, MapPin, Calendar, HeartPulse, Ruler, Weight, Droplet,
-  AlertTriangle, Activity, Pill, ShieldAlert, Pencil,
+  AlertTriangle, Activity, Pill, ShieldAlert, Pencil, Camera,
 } from "lucide-react";
+import AccountSettingsCard from "@/app/components/AccountSettingsCard";
 
 function InfoRow({ icon: Icon, label, value }: { icon: any; label: string; value: string }) {
   return (
@@ -49,6 +50,8 @@ export default function PatientProfilePage() {
   const [editingMedical, setEditingMedical] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     firstName: "", lastName: "", phone: "", age: "", address: "", city: "", zipCode: "",
@@ -63,6 +66,7 @@ export default function PatientProfilePage() {
       .then(({ account, patient }: { account: any; patient: any }) => {
         setAccount(account);
         setPatient(patient);
+        setPhotoPreview(patient.photoUrl || null);
         setForm({
           firstName: account.firstName || "",
           lastName: account.lastName || "",
@@ -85,11 +89,27 @@ export default function PatientProfilePage() {
       .finally(() => setLoading(false));
   }, []);
 
+  function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPhotoFile(file);
+    setPhotoPreview(URL.createObjectURL(file));
+  }
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function handleSave() {
     setSaving(true);
     setMessage("");
     try {
-      const payload = {
+      const payload: any = {
         firstName: form.firstName, lastName: form.lastName, phone: form.phone,
         age: form.age ? parseInt(form.age) : undefined,
         address: form.address, city: form.city, zipCode: form.zipCode,
@@ -102,6 +122,8 @@ export default function PatientProfilePage() {
         emergencyContactName: form.emergencyContactName,
         emergencyContactPhone: form.emergencyContactPhone,
       };
+      if (photoFile) payload.photoBase64 = await fileToBase64(photoFile);
+
       const res = await fetch("/api/patient/profile", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -116,6 +138,8 @@ export default function PatientProfilePage() {
         const refreshed = await fetch("/api/patient/profile").then((r) => r.json());
         setAccount(refreshed.account);
         setPatient(refreshed.patient);
+        setPhotoPreview(refreshed.patient.photoUrl || null);
+        setPhotoFile(null);
       }
     } finally {
       setSaving(false);
@@ -132,6 +156,15 @@ export default function PatientProfilePage() {
       <div className="border border-stone-200 rounded-2xl bg-white p-6 mb-6">
         {!editingBasic ? (
           <>
+            <div className="flex items-center gap-4 pb-4 border-b border-stone-100">
+              <div className="w-16 h-16 rounded-full bg-stone-100 overflow-hidden flex-shrink-0">
+                {photoPreview && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={photoPreview} alt="" className="w-full h-full object-cover" />
+                )}
+              </div>
+              <p className="font-semibold text-lg">{`${account.firstName || ""} ${account.lastName || ""}`.trim() || "Your profile"}</p>
+            </div>
             <InfoRow icon={User} label="Full name" value={`${account.firstName || ""} ${account.lastName || ""}`.trim()} />
             <InfoRow icon={Mail} label="Email" value={account.email} />
             <InfoRow icon={Phone} label="Phone" value={account.phone} />
@@ -146,6 +179,18 @@ export default function PatientProfilePage() {
           </>
         ) : (
           <div className="space-y-3">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-stone-100 overflow-hidden flex-shrink-0">
+                {photoPreview && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={photoPreview} alt="" className="w-full h-full object-cover" />
+                )}
+              </div>
+              <label className="flex items-center gap-2 text-sm border border-stone-300 px-3 py-2 rounded-lg cursor-pointer hover:bg-stone-50">
+                <Camera size={14} /> Change photo
+                <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
+              </label>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <input placeholder="First name" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} className="border rounded-lg px-3 py-2 text-sm" />
               <input placeholder="Last name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} className="border rounded-lg px-3 py-2 text-sm" />
@@ -240,6 +285,8 @@ export default function PatientProfilePage() {
       </div>
 
       {message && <p className="text-sm text-green-700 mt-4">{message}</p>}
+
+      <AccountSettingsCard />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/AuthContext";
 import Navbar from "./components/Navbar";
+import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
 
 
 const geistSans = Geist({
@@ -24,6 +25,12 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "CuraLink",
   description: "Telemedicine consultations, simplified.",
+  manifest: "/manifest.json",
+  icons: { icon: "/icon.svg" },
+};
+
+export const viewport = {
+  themeColor: "#0F3D3E",
 };
 
 export default function RootLayout({
@@ -43,6 +50,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <AuthProvider>
+          <ServiceWorkerRegister />
           <Navbar />
           {children}
         </AuthProvider>

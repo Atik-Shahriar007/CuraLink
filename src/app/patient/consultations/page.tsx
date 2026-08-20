@@ -42,6 +42,8 @@ function PatientConsultationsContent() {
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState<PrescriptionAlert | null>(null);
+  const [cancelingId, setCancelingId] = useState<string | null>(null);
+  const [cancelResult, setCancelResult] = useState<string>("");
 
   const load = useCallback(
     () =>
@@ -54,6 +56,41 @@ function PatientConsultationsContent() {
   useEffect(() => {
     load().finally(() => setLoading(false));
   }, [load]);
+
+  function refundNoteFor(dateStr: string): string {
+    const hours = (new Date(dateStr).getTime() - Date.now()) / (1000 * 60 * 60);
+    if (hours >= 24) return "Canceling now qualifies for a full refund.";
+    if (hours >= 2) return "Canceling now qualifies for a 50% refund (less than 24h notice).";
+    return "Canceling now is not eligible for a refund (less than 2h notice).";
+  }
+
+  async function handleCancel(id: string, dateStr: string) {
+    const note = refundNoteFor(dateStr);
+    if (!confirm(`Cancel this consultation?\n\n${note}`)) return;
+
+    setCancelingId(id);
+    setCancelResult("");
+    try {
+      const res = await fetch(`/api/consultations/${id}/cancel`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reason: "Canceled by patient" }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCancelResult(data.error || "Could not cancel this consultation.");
+      } else {
+        setCancelResult(
+          data.refundAmount > 0
+            ? `Consultation canceled. A refund of $${data.refundAmount.toFixed(2)} has been issued.`
+            : "Consultation canceled. No refund was due based on the cancellation policy."
+        );
+        load();
+      }
+    } finally {
+      setCancelingId(null);
+    }
+  }
 
   // Live notice when the doctor writes or edits a prescription.
   useEffect(() => {
@@ -80,6 +117,12 @@ function PatientConsultationsContent() {
       {justPaid && (
         <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 mb-6">
           Payment successful! Your consultation has been booked.
+        </div>
+      )}
+
+      {cancelResult && (
+        <div className="bg-teal-50 border border-teal-200 text-teal-900 rounded-lg px-4 py-3 mb-6">
+          {cancelResult}
         </div>
       )}
 
@@ -150,6 +193,15 @@ function PatientConsultationsContent() {
                   >
                     Join
                   </Link>
+                )}
+                {c.status === "PENDING" && (
+                  <button
+                    onClick={() => handleCancel(c.id, c.date)}
+                    disabled={cancelingId === c.id}
+                    className="border border-red-300 text-red-700 text-sm px-4 py-2 rounded-lg hover:bg-red-50 disabled:opacity-50"
+                  >
+                    {cancelingId === c.id ? "Canceling..." : "Cancel"}
+                  </button>
                 )}
                 {c.status === "COMPLETED" && (
                   <>

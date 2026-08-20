@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 interface Consultation {
@@ -23,17 +23,58 @@ const statusStyles: Record<string, string> = {
 export default function DoctorConsultationsPage() {
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [cancelingId, setCancelingId] = useState<string | null>(null);
+  const [cancelResult, setCancelResult] = useState("");
+
+  const load = useCallback(
+    () =>
+      fetch("/api/doctor/consultations")
+        .then((res) => res.json())
+        .then((d) => setConsultations(Array.isArray(d) ? d : [])),
+    []
+  );
 
   useEffect(() => {
-    fetch("/api/doctor/consultations")
-      .then((res) => res.json())
-      .then((d) => setConsultations(Array.isArray(d) ? d : []))
-      .finally(() => setLoading(false));
-  }, []);
+    load().finally(() => setLoading(false));
+  }, [load]);
+
+  async function handleCancel(id: string) {
+    if (
+      !confirm(
+        "Cancel this consultation? Since you're canceling (not the patient), the patient will receive a full refund."
+      )
+    )
+      return;
+
+    setCancelingId(id);
+    setCancelResult("");
+    try {
+      const res = await fetch(`/api/consultations/${id}/cancel`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reason: "Canceled by doctor" }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCancelResult(data.error || "Could not cancel this consultation.");
+      } else {
+        setCancelResult("Consultation canceled and the patient has been refunded in full.");
+        load();
+      }
+    } finally {
+      setCancelingId(null);
+    }
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">My Consultations</h1>
+
+      {cancelResult && (
+        <div className="bg-teal-50 border border-teal-200 text-teal-900 rounded-lg px-4 py-3 mb-6">
+          {cancelResult}
+        </div>
+      )}
 
       {loading ? (
         <p className="text-gray-500">Loading...</p>
@@ -60,6 +101,23 @@ export default function DoctorConsultationsPage() {
                 >
                   {c.status.replace("_", " ")}
                 </span>
+                {(c.status === "IN_PROGRESS" || c.status === "COMPLETED") && (
+                  <Link
+                    href={`/doctor/patients/${c.patient.id}/records`}
+                    className="border border-stone-300 text-stone-700 text-sm px-4 py-2 rounded-lg hover:bg-stone-50"
+                  >
+                    Patient Records
+                  </Link>
+                )}
+                {c.status === "PENDING" && (
+                  <button
+                    onClick={() => handleCancel(c.id)}
+                    disabled={cancelingId === c.id}
+                    className="border border-red-300 text-red-700 text-sm px-4 py-2 rounded-lg hover:bg-red-50 disabled:opacity-50"
+                  >
+                    {cancelingId === c.id ? "Canceling..." : "Cancel"}
+                  </button>
+                )}
                 {c.status === "IN_PROGRESS" && (
                   <Link
                     href={`/consultation/${c.id}`}
