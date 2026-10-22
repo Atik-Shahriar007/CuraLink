@@ -86,15 +86,15 @@ export async function POST(req: NextRequest) {
         prisma.doctor.findUnique({ where: { id: payment.doctorId }, include: { account: true } }),
         prisma.patient.findUnique({ where: { id: payment.patientId }, include: { account: true } }),
       ]);
-      const dateStr = consultation.date.toLocaleString();
+      const displayDate = consultation.date.toLocaleString();
       const doctorName = `${doctor?.account.firstName ?? ""} ${doctor?.account.lastName ?? ""}`.trim();
       const patientName = `${patient?.account.firstName ?? ""} ${patient?.account.lastName ?? ""}`.trim() || "A patient";
 
       if (patient) {
-        void notifyAccount(patient.accountId, notificationTemplates.consultationBooked(doctorName, dateStr));
+        void notifyAccount(patient.accountId, notificationTemplates.consultationBooked(doctorName, displayDate));
       }
       if (doctor) {
-        void notifyAccount(doctor.accountId, notificationTemplates.newConsultationForDoctor(patientName, dateStr));
+        void notifyAccount(doctor.accountId, notificationTemplates.newConsultationForDoctor(patientName, displayDate));
       }
     } catch (err) {
       console.error("Webhook processing error:", err);
