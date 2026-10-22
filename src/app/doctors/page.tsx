@@ -134,7 +134,9 @@ export default function DoctorsPage() {
                   <h2 className="font-semibold group-hover:text-teal-900 transition-colors truncate flex items-center gap-1.5">
                     Dr. {doc.account.firstName} {doc.account.lastName}
                     {doc.verificationStatus === "VERIFIED" && (
-                      <BadgeCheck size={15} className="text-teal-700 flex-shrink-0" title="Verified" />
+                      <span title="Verified" className="inline-flex">
+                        <BadgeCheck size={15} className="text-teal-700 flex-shrink-0" aria-label="Verified" />
+                      </span>
                     )}
                   </h2>
                   <p className="text-stone-500 text-sm truncate">{doc.specialty || "General Practice"}</p>
