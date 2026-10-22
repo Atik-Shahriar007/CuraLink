@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 import { MapPin, Star, GraduationCap, Clock, BadgeCheck } from "lucide-react";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 interface Review {
   id: string;
@@ -256,6 +257,15 @@ export default function DoctorProfilePage() {
             >
               {booking ? "Redirecting..." : "Book Consultation"}
             </button>
+
+            <div className="mt-3 pt-3 border-t border-stone-100">
+              <ReportProblemButton
+                contextEntity="Doctor"
+                contextEntityId={doctor.id}
+                defaultCategory="WRONG_INFORMATION"
+                defaultTitle={`Incorrect details for Dr. ${doctor.account.firstName} ${doctor.account.lastName}`}
+              />
+            </div>
           </div>
         </div>
       </div>
