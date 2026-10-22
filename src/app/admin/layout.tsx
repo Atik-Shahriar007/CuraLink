@@ -3,10 +3,14 @@
 import DashboardSidebar from "@/app/components/DashboardSidebar";
 import {
   LayoutDashboard, Stethoscope, Users, Pill, Newspaper, Truck, BarChart3, LifeBuoy,
+  Activity, Wrench, AlertOctagon,
 } from "lucide-react";
 
 const adminNavItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/health", label: "System Health", icon: Activity },
+  { href: "/admin/incidents", label: "Incidents", icon: Wrench },
+  { href: "/admin/reports", label: "Problem Reports", icon: AlertOctagon },
   { href: "/admin/doctors", label: "Doctors", icon: Stethoscope },
   { href: "/admin/patients", label: "Patients", icon: Users },
   { href: "/admin/medicines", label: "Medicines", icon: Pill },
