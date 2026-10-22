@@ -7,6 +7,7 @@ import PrescriptionWriter from "@/app/components/PrescriptionWriter";
 import PrescriptionView, {
   type PrescriptionData,
 } from "@/app/components/PrescriptionView";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 export default function ConsultationNotesPage() {
   const { id } = useParams<{ id: string }>();
@@ -132,10 +133,29 @@ export default function ConsultationNotesPage() {
       {isDoctor ? (
         <PrescriptionWriter consultationId={id} layout="page" />
       ) : (
-        <PrescriptionView
-          prescription={prescription}
-          doctorName={doctorName}
-        />
+        <>
+          <PrescriptionView
+            prescription={prescription}
+            doctorName={doctorName}
+          />
+          {prescription && (
+            <div className="mt-4 border border-stone-200 rounded-xl px-4 py-3">
+              <p className="text-sm font-medium text-stone-800">
+                Something wrong with this prescription?
+              </p>
+              <p className="text-xs text-stone-500 mt-1 mb-2">
+                A wrong medicine, an unclear dose, or something your doctor didn&apos;t intend —
+                report it and mention your doctor so we can follow it up.
+              </p>
+              <ReportProblemButton
+                contextEntity="Prescription"
+                contextEntityId={prescription.id}
+                defaultCategory="MEDICINE_CATALOG_PROBLEM"
+                defaultTitle="Problem with my prescription"
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
