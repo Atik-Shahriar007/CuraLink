@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext";
 import { getPusherClient } from "@/lib/pusherClient";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 interface Consultation {
   id: string;
@@ -229,6 +230,12 @@ function PatientConsultationsContent() {
                       : "Prescription"}
                   </Link>
                 )}
+                <ReportProblemButton
+                  contextEntity="Consultation"
+                  contextEntityId={c.id}
+                  defaultCategory="CONSULTATION_PROBLEM"
+                  defaultTitle={`Problem with my consultation on ${new Date(c.date).toLocaleDateString()}`}
+                />
               </div>
             </div>
           ))}
