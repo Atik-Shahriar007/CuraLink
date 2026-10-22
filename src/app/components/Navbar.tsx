@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/AuthContext";
 import {
   Home, Stethoscope, Pill, LogIn, UserPlus, Newspaper, ClipboardList,
   User, LifeBuoy, Siren, LogOut, CalendarClock, BarChart3, FileText,
+  Activity, AlertOctagon, Wrench, AlertTriangle,
 } from "lucide-react";
 import Logo from "./Logo";
 import { useState as useStateReact, useEffect as useEffectReact } from "react";
@@ -16,6 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [unreadCount, setUnreadCount] = useState(0);
+  const [reportCount, setReportCount] = useState(0);
 
   useEffect(() => {
     if (!account) return;
@@ -31,6 +33,23 @@ export default function Navbar() {
     const interval = setInterval(fetchCount, 15000); // poll every 15s
     return () => clearInterval(interval);
   }, [account]);
+
+  // Staff-only badge for untriaged problem reports, polled the same way as the
+  // support count above so the two never behave differently.
+  useEffect(() => {
+    if (account?.role !== "ADMIN" && account?.role !== "SUPPORT_AGENT") return;
+
+    function fetchReports() {
+      fetch("/api/admin/reports/unread-count")
+        .then((res) => res.json())
+        .then((data) => setReportCount(data.count || 0))
+        .catch(() => {});
+    }
+
+    fetchReports();
+    const interval = setInterval(fetchReports, 15000);
+    return () => clearInterval(interval);
+  }, [account?.role]);
 
   async function handleLogout() {
     await logout();
@@ -113,6 +132,9 @@ const isStaffOnSupport =
               <Link href="/patient/medical-records" className={linkClass("/patient/medical-records")}>
                 <FileText size={16} /> Medical Records
               </Link>
+              <Link href="/patient/report" className={linkClass("/patient/report")}>
+                <AlertTriangle size={16} /> Report a Problem
+              </Link>
               <Link href="/patient/profile" className={linkClass("/patient/profile")}>
                 <User size={16} /> My Profile
               </Link>
@@ -182,6 +204,16 @@ const isStaffOnSupport =
               </Link>
               <Link href="/admin/analytics" className={linkClass("/admin/analytics")}>
                 Analytics
+              </Link>
+              <Link href="/health" className={linkClass("/health")}>
+                <Activity size={16} /> Health
+              </Link>
+              <Link href="/admin/reports" className={linkClass("/admin/reports")}>
+                <AlertOctagon size={16} /> Reports
+                {reportCount > 0 && ` (${reportCount})`}
+              </Link>
+              <Link href="/admin/incidents" className={linkClass("/admin/incidents")}>
+                <Wrench size={16} /> Incidents
               </Link>
 
               <button
