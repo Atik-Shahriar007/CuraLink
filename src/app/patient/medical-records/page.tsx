@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FileText, Upload, Trash2, X } from "lucide-react";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 interface MedicalDocument {
   id: string;
@@ -192,6 +193,14 @@ export default function PatientMedicalRecordsPage() {
               >
                 <Trash2 size={16} />
               </button>
+              {/* A record that is not mine, or is labelled wrongly, is exactly the
+                  kind of thing only the patient can spot. */}
+              <ReportProblemButton
+                contextEntity="MedicalDocument"
+                contextEntityId={doc.id}
+                defaultCategory="MEDICAL_RECORD_PROBLEM"
+                defaultTitle={`Problem with my record "${doc.title}"`}
+              />
             </div>
           ))}
         </div>
