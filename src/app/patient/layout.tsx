@@ -1,7 +1,7 @@
 "use client";
 
 import DashboardSidebar from "@/app/components/DashboardSidebar";
-import { LayoutDashboard, Stethoscope, ClipboardList, Pill, Newspaper, Siren, LifeBuoy, User } from "lucide-react";
+import { LayoutDashboard, Stethoscope, ClipboardList, Pill, Newspaper, Siren, LifeBuoy, User, AlertTriangle } from "lucide-react";
 
 const patientNavItems = [
   { href: "/patient/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -10,6 +10,7 @@ const patientNavItems = [
   { href: "/medicines", label: "Medicines", icon: Pill },
   { href: "/blog", label: "Blog", icon: Newspaper },
   { href: "/ambulance/status", label: "Ambulance", icon: Siren },
+  { href: "/patient/report", label: "Report a Problem", icon: AlertTriangle },
   { href: "/support/tickets", label: "Support", icon: LifeBuoy },
   { href: "/patient/profile", label: "Profile", icon: User },
 ];
