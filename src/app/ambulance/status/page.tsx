@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { getPusherClient } from "@/lib/pusherClient";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 const LocationMap = dynamic(() => import("@/app/components/LocationMap"), { ssr: false });
 
@@ -112,6 +113,15 @@ export default function AmbulanceStatusPage() {
               <LocationMap latitude={r.latitude} longitude={r.longitude} label="Your reported location" />
             </div>
           )}
+
+          <div className="mt-3 pt-3 border-t border-red-200">
+            <ReportProblemButton
+              contextEntity="AmbulanceRequest"
+              contextEntityId={r.id}
+              defaultCategory="AMBULANCE_PROBLEM"
+              defaultTitle="Problem with my ambulance request"
+            />
+          </div>
         </div>
       ))}
 

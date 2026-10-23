@@ -7,6 +7,14 @@
     {
       "path": "/api/jobs/cleanup-consultations",
       "schedule": "30 0 * * *"
+    },
+    {
+      "path": "/api/jobs/maintenance-scan",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/jobs/anomaly-watch",
+      "schedule": "0 * * * *"
     }
   ]
 }

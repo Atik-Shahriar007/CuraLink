@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import ReportProblemButton from "@/app/components/ReportProblemButton";
 
 interface Medicine {
   id: string;
@@ -103,6 +104,25 @@ export default function MedicineDetailPage() {
 
       <div className="mt-8 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">
         This information is for reference only and does not replace professional medical advice. Consult a doctor before taking any medication, especially if it requires a prescription.
+      </div>
+
+      {/* Medicine information is a safety surface: a wrong dosage or side-effect
+          list is worth flagging immediately, so this prompt is explicit about
+          what to report rather than a generic "something wrong?". */}
+      <div className="mt-4 border border-stone-200 rounded-xl px-4 py-3 bg-white">
+        <p className="text-sm font-medium text-stone-800">
+          Is something wrong with this information?
+        </p>
+        <p className="text-xs text-stone-500 mt-1 mb-2">
+          Wrong dosage, an incorrect side effect, or a medicine that isn&apos;t what it says —
+          please tell us. This goes straight to the team that maintains the catalogue.
+        </p>
+        <ReportProblemButton
+          contextEntity="Medicine"
+          contextEntityId={medicine.id}
+          defaultCategory="MEDICINE_CATALOG_PROBLEM"
+          defaultTitle={`Wrong information for ${medicine.brandName}`}
+        />
       </div>
     </div>
   );

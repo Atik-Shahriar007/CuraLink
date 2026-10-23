@@ -111,6 +111,60 @@ enum DocumentCategory {
   OTHER
 }
 
+// ---------------------------------------------------------------------------
+// Operations / maintenance enums
+// ---------------------------------------------------------------------------
+
+// What a user says is wrong. Deliberately worded from the reporter's point of
+// view ("wrong information") rather than the engineer's ("data integrity bug"),
+// because the reporter is a patient or a doctor, not a developer.
+enum ReportCategory {
+  BUG_GLITCH
+  WRONG_INFORMATION
+  PAYMENT_PROBLEM
+  CONSULTATION_PROBLEM
+  AMBULANCE_PROBLEM
+  MEDICINE_CATALOG_PROBLEM
+  MEDICAL_RECORD_PROBLEM
+  OTHER
+}
+
+// Shared by issue reports and maintenance rules so a single severity scale and
+// colour helper covers both consoles.
+enum ReportSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ReportStatus {
+  NEW
+  ACKNOWLEDGED
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
+}
+
+// Which portal the report came from. SYSTEM is reserved for reports the
+// platform files about itself once auto-fix fails.
+enum IssueSource {
+  PATIENT
+  DOCTOR
+  PROVIDER
+  SYSTEM
+}
+
+// The lifecycle of a maintenance work order, opened when a rule breaches and
+// closed only once someone has verified the fix with their own eyes.
+enum IncidentStatus {
+  OPEN
+  INVESTIGATING
+  FIXED
+  VERIFIED
+  CLOSED
+}
+
 model Account {
   id                String   @id @default(cuid())
   email             String   @unique
@@ -138,6 +192,12 @@ model Account {
   ticketsCreated    SupportTicket[]  @relation("TicketsCreated")
   ticketsAssigned   SupportTicket[]  @relation("TicketsAssigned")
   supportMessages   SupportMessage[]
+
+  reportsFiled      IssueReport[]    @relation("ReportsFiled")
+  reportsAssigned   IssueReport[]    @relation("ReportsAssigned")
+  reportEvents      IssueReportEvent[]
+  incidentsAssigned MaintenanceIncident[] @relation("IncidentsAssigned")
+  incidentsVerified MaintenanceIncident[] @relation("IncidentsVerified")
 }
 
 model Doctor {
@@ -456,3 +516,174 @@ model SupportMessage {
 
   createdAt DateTime @default(now())
 }
+
+// ---------------------------------------------------------------------------
+// Operations: user-filed problem reports
+// ---------------------------------------------------------------------------
+
+// A user telling us something is wrong, anchored to the exact record they were
+// looking at. The support ticket flow asks "how can we help you?"; this asks
+// "what is broken and where", so the ops team gets a reproduction path instead
+// of a conversation.
+model IssueReport {
+  id          String         @id @default(cuid())
+  // Human-quotable number ("Your report #42"), shown to the reporter so they
+  // can reference it without copying a cuid.
+  reference   Int            @default(autoincrement())
+  title       String
+  description String
+  category    ReportCategory
+  severity    ReportSeverity @default(MEDIUM)
+  status      ReportStatus   @default(NEW)
+  source      IssueSource    @default(PATIENT)
+
+  // Where the reporter was standing when they hit "Report a problem".
+  // contextPath is the raw route and the entity pair is the structured anchor,
+  // kept separate so we can both deep-link back and cluster repeats.
+  contextPath     String?
+  contextEntity   String?
+  contextEntityId String?
+  browserInfo     String?
+
+  attachmentUrl   String?
+
+  reporterId String
+  reporter   Account @relation("ReportsFiled", fields: [reporterId], references: [id])
+
+  assignedToId String?
+  assignedTo   Account? @relation("ReportsAssigned", fields: [assignedToId], references: [id])
+
+  resolutionNote String?
+  resolvedAt     DateTime?
+
+  events    IssueReportEvent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+  @@index([contextEntity, contextEntityId])
+}
+
+// Append-only audit trail on a report: comments from either side plus the
+// system's own status/assignment changes. Nothing is ever edited in place, so
+// the reporter sees an honest history of what happened to their complaint.
+model IssueReportEvent {
+  id       String      @id @default(cuid())
+  reportId String
+  report   IssueReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   Account     @relation(fields: [authorId], references: [id])
+
+  // "COMMENT" | "STATUS_CHANGE" | "ASSIGNMENT" | "SEVERITY_CHANGE"
+  kind     String
+  body     String
+  // Set only for STATUS_CHANGE, so the timeline can render from -> to.
+  fromValue String?
+  toValue   String?
+
+  createdAt DateTime @default(now())
+
+  @@index([reportId])
+}
+
+// ---------------------------------------------------------------------------
+// Operations: maintenance rules ("checks") and their work orders
+// ---------------------------------------------------------------------------
+
+// A standing question we ask about platform health, e.g. "are any consultations
+// stuck past their start time?". The definition lives in the rule registry
+// (src/lib/maintenance.ts); this row stores the operator-tunable parts
+// (threshold, enabled) plus a denormalised cache of the last run so the console
+// renders without replaying history.
+model MaintenanceRule {
+  id          String @id @default(cuid())
+  key         String @unique
+  title       String
+  description String
+  area        String
+  severity    ReportSeverity
+  threshold   Int
+  isEnabled   Boolean @default(true)
+
+  lastRunAt      DateTime?
+  lastValue      Int?
+  // "OK" | "WARNING" | "BREACHED" | "ERROR"
+  lastStatus     String?
+  lastRunMessage String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  checks    MaintenanceCheck[]
+  incidents MaintenanceIncident[]
+
+  @@index([area])
+}
+
+// One sampled measurement of a rule. Kept as a series so the console can draw a
+// trend and an operator can tell "this has been creeping up for a week" from
+// "this spiked five minutes ago".
+model MaintenanceCheck {
+  id     String          @id @default(cuid())
+  ruleId String
+  rule   MaintenanceRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  value   Int
+  status  String
+  message String?
+  // A few offending record ids, so the UI can offer "jump to the broken thing"
+  // rather than only a count.
+  sampleIds String[]
+  durationMs Int
+
+  createdAt DateTime @default(now())
+
+  @@index([ruleId, createdAt])
+}
+
+// A work order. Opened when a rule first breaches, owned by a person, and
+// closed only after the fix has been independently verified - which is what
+// makes MTTR a number worth showing.
+model MaintenanceIncident {
+  id     String          @id @default(cuid())
+  ruleId String
+  rule   MaintenanceRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  status   IncidentStatus @default(OPEN)
+  severity ReportSeverity
+  title    String
+  // Snapshot of the measurement that opened this incident, so the incident
+  // stays readable even after the rule's live values change.
+  openedValue Int
+  peakValue   Int        @default(0)
+
+  assigneeId String?
+  assignee   Account? @relation("IncidentsAssigned", fields: [assigneeId], references: [id])
+
+  rootCause      String?
+  actionTaken    String?
+  // Set when an auto-fix ran, naming the rule whose fixer was used.
+  autoFixApplied Boolean @default(false)
+
+  openedAt       DateTime  @default(now())
+  acknowledgedAt DateTime?
+  fixedAt        DateTime?
+  resolvedAt     DateTime?
+  closedAt       DateTime?
+
+  verifiedById     String?
+  verifiedBy       Account? @relation("IncidentsVerified", fields: [verifiedById], references: [id])
+  verificationNote String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([ruleId, openedAt])
+  @@index([openedAt])
+}
+

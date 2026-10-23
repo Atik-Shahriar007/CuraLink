@@ -233,4 +233,55 @@ export const notificationTemplates = {
       emailBodyHtml: `<p>We couldn't verify your license from the information provided.${note ? ` Note from our team: <em>${note}</em>` : ""} Please update your license details and resubmit from your profile.</p>`,
     };
   },
+
+  // --- Operations / maintenance -------------------------------------------
+
+  maintenanceBreach(ruleTitle: string, detail: string) {
+    return {
+      subject: `Platform alert: ${ruleTitle}`,
+      emailBodyHtml: `<p>A maintenance check has breached its threshold.</p><p><strong>${ruleTitle}</strong></p><p>${detail}</p><p>Open the System Health console to review and assign it.</p>`,
+    };
+  },
+
+  // --- User problem reports -----------------------------------------------
+
+  issueReportReceived(reference: number) {
+    return {
+      subject: `We received your report (#${reference})`,
+      emailBodyHtml: `<p>Thanks for flagging this — it genuinely helps. Your report is reference <strong>#${reference}</strong>.</p><p>Our team reviews every report, and we'll email you as soon as there's an update. You can follow the thread from your reports page.</p>`,
+    };
+  },
+
+  issueReportStatusChanged(reference: number, status: string, note?: string) {
+    const readable: Record<string, string> = {
+      NEW: "reopened",
+      ACKNOWLEDGED: "acknowledged",
+      INVESTIGATING: "being investigated",
+      RESOLVED: "resolved",
+      DISMISSED: "closed",
+    };
+    const text = readable[status] ?? status.toLowerCase();
+    return {
+      subject: `Update on your report #${reference}`,
+      emailBodyHtml: `<p>Your report <strong>#${reference}</strong> is now <strong>${text}</strong>.</p>${note ? `<p>Note from our team: <em>${note}</em></p>` : ""}`,
+      smsBody: `CuraLink: Your report #${reference} is now ${text}.`,
+    };
+  },
+
+  issueReportNeedsInfo(reference: number) {
+    return {
+      subject: `We need a little more detail on report #${reference}`,
+      emailBodyHtml: `<p>Our team has picked up your report <strong>#${reference}</strong> and needs a bit more information to reproduce it. Please reply on the report thread with anything you can add — what you clicked, and what you expected to happen.</p>`,
+    };
+  },
+
+  issueReportComment(reference: number, fromStaff: boolean) {
+    return {
+      subject: `New reply on report #${reference}`,
+      emailBodyHtml: fromStaff
+        ? `<p>Our team replied to your report <strong>#${reference}</strong>. Open the thread to read it and reply.</p>`
+        : `<p>The reporter added a comment to report <strong>#${reference}</strong>.</p>`,
+    };
+  },
 };
+
