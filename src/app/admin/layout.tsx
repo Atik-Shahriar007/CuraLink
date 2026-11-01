@@ -2,7 +2,18 @@
 
 import DashboardSidebar from "@/app/components/DashboardSidebar";
 import {
-  LayoutDashboard, Stethoscope, Users, Pill, Newspaper, Truck, BarChart3, LifeBuoy,
+  LayoutDashboard,
+  Stethoscope,
+  Users,
+  Pill,
+  Newspaper,
+  Truck,
+  BarChart3,
+  LifeBuoy,
+  Megaphone,
+  ClipboardList,
+  DollarSign,
+  Settings,
 } from "lucide-react";
 
 const adminNavItems = [
@@ -12,7 +23,12 @@ const adminNavItems = [
   { href: "/admin/medicines", label: "Medicines", icon: Pill },
   { href: "/admin/blog", label: "Articles", icon: Newspaper },
   { href: "/admin/providers", label: "Providers", icon: Truck },
+  { href: "/admin/ambulance-oversight", label: "Amb. Oversight", icon: Truck },
+  { href: "/admin/revenue", label: "Revenue", icon: DollarSign },
+  { href: "/admin/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/admin/audit-log", label: "Audit Log", icon: ClipboardList },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
   { href: "/support/tickets", label: "Support", icon: LifeBuoy },
 ];
 

@@ -1,10 +1,24 @@
 "use client";
 
 import DashboardSidebar from "@/app/components/DashboardSidebar";
-import { User, Siren, LifeBuoy } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  Siren, 
+  History, 
+  Truck, 
+  MapPin, 
+  BarChart2, 
+  LifeBuoy, 
+  User 
+} from "lucide-react";
 
 const providerNavItems = [
-  { href: "/provider/requests", label: "Requests", icon: Siren },
+  { href: "/provider/dashboard", label: "Fleet Dashboard", icon: LayoutDashboard },
+  { href: "/provider/requests", label: "Live Requests", icon: Siren },
+  { href: "/provider/history", label: "Request History", icon: History },
+  { href: "/provider/fleet", label: "Vehicle Fleet", icon: Truck },
+  { href: "/provider/service-zone", label: "Service Zone", icon: MapPin },
+  { href: "/provider/performance", label: "Performance", icon: BarChart2 },
   { href: "/support/tickets", label: "Support", icon: LifeBuoy },
   { href: "/provider/profile", label: "Profile", icon: User },
 ];
