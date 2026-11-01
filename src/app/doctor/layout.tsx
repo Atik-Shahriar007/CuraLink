@@ -2,13 +2,28 @@
 
 import DashboardSidebar from "@/app/components/DashboardSidebar";
 import {
-  LayoutDashboard, ClipboardList, User, CalendarClock, BarChart3, Newspaper, Pill, LifeBuoy,
+  LayoutDashboard,
+  ClipboardList,
+  User,
+  CalendarClock,
+  BarChart3,
+  Newspaper,
+  Pill,
+  LifeBuoy,
+  DollarSign,
+  Star,
+  FileText,
+  CalendarDays,
 } from "lucide-react";
 
 const doctorNavItems = [
   { href: "/doctor/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/doctor/consultations", label: "Consultations", icon: ClipboardList },
+  { href: "/doctor/calendar", label: "Calendar", icon: CalendarDays },
+  { href: "/doctor/patient-notes", label: "Patient Notes", icon: FileText },
   { href: "/doctor/schedule", label: "Schedule", icon: CalendarClock },
+  { href: "/doctor/earnings", label: "Earnings", icon: DollarSign },
+  { href: "/doctor/reviews", label: "Reviews", icon: Star },
   { href: "/doctor/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/doctor/blog", label: "My Articles", icon: Newspaper },
   { href: "/medicines", label: "Medicines", icon: Pill },
